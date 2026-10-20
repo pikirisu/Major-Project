@@ -1,0 +1,15 @@
+# Tested with Python 3.14.3 on Windows 11, CPU only (no GPU needed).
+# The notebooks run in VS Code or Jupyter through ipykernel.
+# For JupyterLab in the browser, also run: pip install jupyterlab
+
+numpy==2.5.2
+pandas==3.0.5
+scipy==1.18.1
+scikit-learn==1.9.0
+matplotlib==3.11.1
+torch==2.14.0          # the CPU build is enough; for CUDA see https://pytorch.org
+mne==1.12.1            # reads the EEGLAB .set recordings (build_cache.ipynb)
+joblib==1.6.0
+tqdm==4.70.0
+ipykernel==7.3.0
+openneuro-py==2026.7.1 # downloads the dataset (see README)

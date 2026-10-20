@@ -1,0 +1,32 @@
+# Whitelist: ignore everything in the root, then let through only what the
+# repo needs. Anything new stays local until it is added below on purpose,
+# so the 5.4 GB dataset and the 247 MB feature cache can never be pushed by accident.
+/*
+
+!/.gitignore
+!/README.md
+!/LICENSE
+!/requirements.txt
+!/leak_check.py
+!/docs/
+
+# notebooks, in the order they are run
+!/build_cache.ipynb
+!/GAT_ds004504.ipynb
+!/GCN_ds004504.ipynb
+!/RF_ds004504.ipynb
+!/GAT_window_ds004504.ipynb
+!/GAT_multiclass_ds004504.ipynb
+
+# saved results (small: JSON, CSV, PNG, out-of-fold probabilities)
+!/results_gat/
+!/results_gcn/
+!/results_rf/
+!/results_gat_window/
+!/results_gat_multiclass/
+
+# never inside the folders above either
+.ipynb_checkpoints/
+__pycache__/
+*.pt
+*.pth
