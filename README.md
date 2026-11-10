@@ -12,7 +12,10 @@ graph attention (**MFE-FCGAT**). We then:
 1. match the paper's result under its own protocol (94.9 % accuracy, 98.8 % AUC),
 2. show that this protocol lets the model recognise *people* rather than disease,
 3. report what the model achieves on patients it has never seen (84.0 % accuracy, 0.909 AUC), and
-4. test whether engineered EEG features can separate AD from frontotemporal dementia (FTD).
+4. test whether engineered EEG features, and a pre-registered test of a published
+   aperiodic (1/f) marker, can separate AD from frontotemporal dementia (FTD).
+
+**[Conclusion](#conclusion)**: what holds up, and what does not.
 
 ---
 
@@ -142,6 +145,72 @@ The clearest single difference is higher frontal and temporal theta power in AD
 correction for testing 210 features. Accuracies near 90 % reported for AD vs FTD
 on this dataset come from window-level splits [6], the same leak as Case A.
 
+**Experiment 8: a pre-registered test of one published lead.** Wang et al. [7]
+reported, on this same cohort, that the aperiodic (1/f) exponent and offset of
+the EEG spectrum are higher in AD than in FTD. Their classifier applied SMOTE
+before splitting, so it was never tested honestly. We tested their claims once:
+- with their own spectral settings;
+- with the direction written down before any EEG was read;
+- with nothing fitted;
+- with Holm correction over the three claims.
+
+| AUC = P(AD scores higher than FTD) | [95 % CI] | Holm p |
+|---|---|---|
+| aperiodic exponent | 0.632 [0.481, 0.779] | 0.088 |
+| aperiodic offset | 0.640 [0.482, 0.785] | 0.088 |
+| theta/alpha ratio | 0.644 [0.498, 0.785] | 0.088 |
+| all three in one classifier (20 × 5-fold CV by patient) | 0.616 [0.469, 0.759] | 0.076 vs chance |
+
+**The result is not significant.**
+- **Direction.** All three point the way Wang et al. predicted, and each passes on its own
+  (one-sided p 0.03–0.05), but none survives correction. With 23 FTD patients,
+  this had about a 50 % chance of detecting an AUC of 0.65.
+- **Severity.** Once MMSE, age and sex are known, the exponent and offset add nothing,
+  because the AD patients here are more advanced (MMSE 17.8 vs 22.2).
+- **Artefacts.** Muscle artefact does not explain it.
+- **What it amounts to.** It reproduces the published direction on the same people. It is
+  not an independent replication, and it is not a usable marker. Details:
+  [`experiments_ad_vs_ftd/`](experiments_ad_vs_ftd/).
+
+---
+
+## Conclusion
+
+In order of confidence:
+
+1. **The base paper's 95 % can be reproduced, but it is not a diagnosis result.**
+   - MFE-FCGAT matches MFE-FCGCN under the paper's window split (94.9 % accuracy,
+     0.988 AUC).
+   - Under that split, copying the label of the most similar training window
+     scores 99.1 % with no learning at all. The split rewards recognising people.
+2. **On patients it has never seen, MFE-FCGAT detects Alzheimer's with 84.0 %
+   accuracy, 85.0 % recall and 0.909 AUC.**
+   - These figures cover 65 patients, averaged over 5 repeats.
+   - This matches the best published patient-independent result (84.6 % / 0.883).
+   - It is the best model tested here. Its lead over band power (+0.037 AUC) and
+     over the paper's GCN (+0.050) is not statistically significant with 65 patients.
+3. **Three classes (AD / FTD / healthy): 60 % macro recall,** in line with the
+   strict literature (61 %).
+   - Detecting dementia works (AUC 0.87–0.89).
+   - Naming which dementia does not: FTD recall is 0.22–0.38.
+4. **AD vs FTD: no EEG measure tested here separates the two above chance at
+   n = 59.**
+   - 417 engineered features score AUC 0.41–0.54.
+   - A pre-registered test of a published marker scores AUC 0.62–0.64. It points
+     the right way, but is not significant after correction and is largely tied
+     to disease severity.
+   - This is a power limit, not proof that EEG carries no difference.
+   - Published ~90 % results on this dataset come from window-level splits.
+
+**What would change these conclusions:**
+- more FTD patients: about 47 for 80 % power at AUC 0.65;
+- an independent cohort, such as BrainLat (163 bvFTD);
+- for the subtype question, a second modality, as in clinical practice: plasma
+  p-tau217 separates AD from FTLD with AUC ≈ 0.93 [8].
+
+The defensible design is a two-stage pipeline. EEG screens for dementia, and a
+biomarker names the type.
+
 ---
 
 ## Method
@@ -210,7 +279,7 @@ is the only cell you normally edit**, and every notebook is self-contained.
 | 6 | `GAT_window_ds004504.ipynb` (Case A) | `results_gat_window/` | ~36 min |
 | 7 | `GAT_multiclass_ds004504.ipynb` (3-class) | `results_gat_multiclass/` | ~25 min |
 | 8 | `python leak_check.py` (needs 1, 5 and 6) | prints the checks above | ~1 min |
-| 9 | `experiments_ad_vs_ftd/features_ad_ftd.ipynb`, then `ADvsFTD_ds004504.ipynb` | `experiments_ad_vs_ftd/features/`, `results/` | ~30 s, ~5 min |
+| 9 | `experiments_ad_vs_ftd/features_ad_ftd.ipynb`, then `ADvsFTD_ds004504.ipynb`, then `ADvsFTD_aperiodic.ipynb` | `experiments_ad_vs_ftd/features/`, `results/`, `results/aperiodic/` | ~30 s, ~5 min, ~2.5 min |
 
 The GAT goes after the other Case B models because its statistics cell compares
 it with every result folder already present on the same folds.
@@ -243,5 +312,7 @@ docs/PROJECT_NOTES.md           full lab notebook: every run, ablation and revie
 4. EEG-based classification of AD and FTD using functional connectivity. *Scientific Reports* (2026). <https://pmc.ncbi.nlm.nih.gov/articles/PMC12873302/>
 5. Veličković et al. (2018). Graph Attention Networks. *ICLR*.
 6. Lal, Chikkankod & Longo (2024). A comparative study on feature extraction techniques for the discrimination of frontotemporal dementia and Alzheimer's disease with electroencephalography in resting-state adults. *Brain Sciences* 14(4):335. [doi:10.3390/brainsci14040335](https://doi.org/10.3390/brainsci14040335)
+7. Wang et al. (2023). The effect of aperiodic components in distinguishing Alzheimer's disease from frontotemporal dementia. *GeroScience* 46:751–768. [doi:10.1007/s11357-023-01041-8](https://doi.org/10.1007/s11357-023-01041-8)
+8. Thijssen et al. (2021). Plasma phosphorylated tau 217 and phosphorylated tau 181 as biomarkers in Alzheimer's disease and frontotemporal lobar degeneration: a retrospective diagnostic performance study. *Lancet Neurology* 20(9):739–752. [doi:10.1016/S1474-4422(21)00214-3](https://doi.org/10.1016/S1474-4422(21)00214-3)
 
 Code: MIT license. Dataset: CC0, by its authors [2].

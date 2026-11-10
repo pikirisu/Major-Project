@@ -12,13 +12,17 @@
 | AD vs HC, **paper's window split** (Case A) | GAT 0.9489 / 0.9884 (paper 0.9509 / 0.9836); a 1-NN lookup scores 0.991 | `results_gat_window/`, `leak_check.py` |
 | AD / FTD / HC (3 repeats) | soft vote **0.600 macro recall** [0.517, 0.686]; FTD recall 0.33 | `results_gat_multiclass/statistics.json` |
 | AD vs FTD, engineered features (§ R5) | **no feature set above chance** (AUC 0.41–0.54); the same features reach 0.66–0.84 on AD vs HC | `experiments_ad_vs_ftd/results/` |
+| AD vs FTD, pre-registered aperiodic test (§ R5, Experiment 8) | **not supported**: exponent / offset / theta-alpha AUC 0.632 / 0.640 / 0.644, all Holm p 0.088; classifier 0.616 (p 0.076 vs chance) | `experiments_ad_vs_ftd/results/aperiodic/` |
 
 **No model difference is statistically significant after Holm correction**, in
 any task (§ R6). Defensible claims:
 - the subject-level AD vs HC performance;
 - the leak audit;
 - the 3-class result matching the strict literature;
-- the AD vs FTD negative result together with its controls.
+- the AD vs FTD negative result together with its controls, and the
+  pre-registered aperiodic test (right direction, not significant).
+
+The README's **Conclusion** section is the final summary of the project.
 
 Not defensible: "GAT beats band power", "the graphs help", "the soft vote is
 better".
@@ -273,6 +277,37 @@ features averaged over minutes 7–8.6, which no AD feature covered.
 - **Descriptive:** frontal and temporal theta is higher in AD (single-feature AUC ≈ 0.30). No feature survives FDR over 210. The band-power model scores 0.73 within women but 0.33 within men.
 - **Conclusion:** no evidence that resting-state EEG features separate AD from FTD at n = 59. The CIs still allow an AUC up to ≈ 0.67, so this does not prove that no difference exists. Lal et al. 2024 report 91 % using a window-level split.
 
+**Literature check (2026-11-10).**
+- The consistent finding is more slowing in AD than FTD, at the group level only. Caso 2012
+  found 49 % sensitivity for single patients, and a 2018 review found no individual-level marker.
+- The photic companion dataset ds006036 (same 88 people) is already analysed in a
+  medRxiv preprint (Velez-Pardo 2026). Its 10 Hz driving deficit is shared by AD and FTD.
+- Power: with 23 FTD patients, a true AUC of 0.65 is detected 49 % of the time. 80 % power
+  needs about 47 FTD + 74 AD.
+
+**Experiment 8 (`ADvsFTD_aperiodic.ipynb`, 2026-11-10): pre-registered test of
+Wang et al. 2023** (GeroScience; same cohort; SMOTE applied before their split).
+- **Protocol.** H1 exponent, H2 offset and H3 log theta/alpha, each higher in AD. The
+  protocol is written to `protocol.json` before any EEG is read. Wang's settings come from
+  their code: CAR, Welch Hamming 250 / 125 / nfft 1024, FOOOF fixed 2–40 Hz, peak threshold 1,
+  R² ≥ 0.95. Each score is used raw, with a one-sided permutation p, Holm over 3.
+- **Result.** AUC 0.632 / 0.640 / 0.644. One-sided p 0.048 / 0.036 / 0.029; Holm 0.088 for all
+  three. **Not supported.**
+- **S1, severity.** With MMSE + age + sex in the model, the exponent and offset add nothing
+  (p 0.44 / 0.205). Theta/alpha adds p 0.046.
+- **S2, classifier.** LR on all three, 20 × 5-fold CV: AUC 0.616 [0.469, 0.759], balanced
+  accuracy 0.641, p 0.076 against 500 label shuffles. Band power on the same folds scored 0.540.
+- **S3, positive controls.** Exponent AD > HC 0.664 (p 0.012); FTD vs HC 0.498. Theta/alpha
+  AD > HC 0.868, FTD > HC 0.798.
+- **S5, 2 s windows.** Exponent 0.615, offset 0.633.
+- **S6, post hoc.** Muscle artefact is ruled out: failed fits AUC 0.455, 30–40 Hz power 0.522.
+  Failed fits (23 %) are flat frontal and temporal spectra.
+- **Method finding.** Wang's 0.5 s window overestimates steep exponents (1.5 → 1.74, 2.0 → 2.46),
+  because power below 2 Hz leaks into the fit range. This is in the Cell 2 self-test, and the
+  protocol was amended before any EEG was read.
+- **Reading.** This reproduces Wang's direction and nearly their effect size on the same subjects.
+  It is not an independent replication, and not a marker.
+
 ### R6 · Statistics (Cell 11), and a bug fixed on 2026-11-10
 Every notebook's Cell 11 reports:
 - the repeat-averaged metric, with a 95 % CI from a subject bootstrap (each class resampled separately);
@@ -294,4 +329,5 @@ saved predictions, and the ensemble files reproduced byte for byte.
 - Give every number a CI, and test exactly the quantity the table reports.
 - Holm-correct every family of comparisons.
 - Give each subject the same amount of data whenever window counts or recording lengths differ between groups.
+- Write a hypothesis and its direction down (a `protocol.json` saved before any data is read) before testing a published claim, and report the result whatever it is. Label any check added later as post hoc.
 - Tune the learning rate per architecture, because the best rate does not transfer from one model to another.
