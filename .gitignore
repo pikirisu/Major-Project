@@ -15,6 +15,7 @@
 !/GAT_ds004504.ipynb
 !/GCN_ds004504.ipynb
 !/RF_ds004504.ipynb
+!/GAT_nograph_ds004504.ipynb
 !/GAT_window_ds004504.ipynb
 !/GAT_multiclass_ds004504.ipynb
 
@@ -22,8 +23,12 @@
 !/results_gat/
 !/results_gcn/
 !/results_rf/
+!/results_gat_nograph/
 !/results_gat_window/
 !/results_gat_multiclass/
+
+# AD vs FTD feature study: its notebooks, the 88-row feature table, its results
+!/experiments_ad_vs_ftd/
 
 # never inside the folders above either
 .ipynb_checkpoints/
