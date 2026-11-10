@@ -1,0 +1,21 @@
+family,a,b,d_auc,ci95_auc,p,d_bal_acc,ci95_bal_acc,p_holm
+primary: does a feature group beat the existing band power?,2 spectral,1 band power (existing),-0.0914,"[-0.203, +0.026]",0.1279,-0.0532,"[-0.138, +0.032]",0.6397
+primary: does a feature group beat the existing band power?,3 nonlinear,1 band power (existing),-0.1292,"[-0.266, +0.005]",0.0610,-0.0722,"[-0.164, +0.026]",0.3658
+primary: does a feature group beat the existing band power?,4 connectivity,1 band power (existing),-0.0529,"[-0.188, +0.082]",0.4498,-0.0184,"[-0.126, +0.095]",0.7396
+primary: does a feature group beat the existing band power?,5 spectral + nonlinear,1 band power (existing),-0.0591,"[-0.185, +0.064]",0.3698,-0.0275,"[-0.116, +0.059]",0.7396
+primary: does a feature group beat the existing band power?,6 spectral + connectivity,1 band power (existing),-0.0839,"[-0.191, +0.035]",0.1489,-0.0565,"[-0.139, +0.034]",0.6397
+primary: does a feature group beat the existing band power?,7 all three,1 band power (existing),-0.0902,"[-0.211, +0.041]",0.1389,-0.0552,"[-0.136, +0.032]",0.6397
+secondary: does the EEG beat knowing the patient's sex?,1 band power (existing),0a sex,-0.0363,"[-0.244, +0.158]",0.7086,-0.1235,"[-0.290, +0.035]",0.8606
+secondary: does the EEG beat knowing the patient's sex?,2 spectral,0a sex,-0.1277,"[-0.311, +0.051]",0.1309,-0.1767,"[-0.334, -0.017]",0.7856
+secondary: does the EEG beat knowing the patient's sex?,3 nonlinear,0a sex,-0.1655,"[-0.342, -0.002]",0.0470,-0.1956,"[-0.343, -0.051]",0.3288
+secondary: does the EEG beat knowing the patient's sex?,4 connectivity,0a sex,-0.0892,"[-0.274, +0.086]",0.3358,-0.1418,"[-0.309, +0.023]",0.8606
+secondary: does the EEG beat knowing the patient's sex?,5 spectral + nonlinear,0a sex,-0.0954,"[-0.288, +0.081]",0.2869,-0.1510,"[-0.310, +0.000]",0.8606
+secondary: does the EEG beat knowing the patient's sex?,6 spectral + connectivity,0a sex,-0.1202,"[-0.307, +0.049]",0.1719,-0.1799,"[-0.338, -0.040]",0.8146
+secondary: does the EEG beat knowing the patient's sex?,7 all three,0a sex,-0.1264,"[-0.317, +0.044]",0.1629,-0.1787,"[-0.342, -0.030]",0.8146
+supplementary: does EEG add to sex?,S sex + 1 band power (existing),0a sex,-0.0155,"[-0.189, +0.151]",0.8356,-0.1068,"[-0.252, +0.030]",1.0000
+supplementary: does EEG add to sex?,S sex + 2 spectral,0a sex,-0.0915,"[-0.230, +0.039]",0.1699,-0.1804,"[-0.298, -0.066]",1.0000
+supplementary: does EEG add to sex?,S sex + 3 nonlinear,0a sex,-0.0942,"[-0.208, +0.011]",0.0670,-0.1372,"[-0.226, -0.058]",0.4688
+supplementary: does EEG add to sex?,S sex + 4 connectivity,0a sex,-0.0540,"[-0.198, +0.082]",0.4328,-0.1266,"[-0.243, -0.010]",1.0000
+supplementary: does EEG add to sex?,S sex + 5 spectral + nonlinear,0a sex,-0.0724,"[-0.229, +0.069]",0.3358,-0.1267,"[-0.262, +0.003]",1.0000
+supplementary: does EEG add to sex?,S sex + 6 spectral + connectivity,0a sex,-0.1006,"[-0.259, +0.050]",0.1869,-0.1570,"[-0.283, -0.042]",1.0000
+supplementary: does EEG add to sex?,S sex + 7 all three,0a sex,-0.1056,"[-0.267, +0.044]",0.1809,-0.1517,"[-0.281, -0.033]",1.0000

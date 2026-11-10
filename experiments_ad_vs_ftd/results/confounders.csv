@@ -1,0 +1,9 @@
+quantity,AD (median / %),FTD (median / %),AUC FTD vs AD,p
+age (years),67.0,64.0,0.4257,0.3424
+male,33%,61%,0.6377,0.0594
+"MMSE (clinical, never a model input)",20.0,22.0,0.8062,0.0001
+recording length (min),13.7,11.7,0.3309,0.0302
+ASR joins in the recording,2.5,3.0,0.4281,0.3552
+"signal amplitude, median RMS (µV)",32.2,31.8,0.4469,0.4990
+"largest swings, 99th pct peak-to-peak (µV)",241.1,229.9,0.4263,0.3471
+windows in subject_cache (not used here),80,100,1.0000,0.0000

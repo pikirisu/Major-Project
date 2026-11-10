@@ -1,0 +1,8 @@
+experiment,auc_all,auc_women,auc_men
+1 band power (existing),0.5397,0.7250,0.3268
+2 spectral,0.4482,0.5340,0.3241
+3 nonlinear,0.4104,0.3586,0.4432
+4 connectivity,0.4868,0.5590,0.3735
+5 spectral + nonlinear,0.4806,0.5185,0.4298
+6 spectral + connectivity,0.4558,0.5502,0.3336
+7 all three,0.4495,0.5104,0.3539

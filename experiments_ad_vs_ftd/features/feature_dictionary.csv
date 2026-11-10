@@ -1,0 +1,418 @@
+column,group,unit,definition,aggregation
+bp_delta_Fp1,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_Fp2,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_F3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_F4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_C3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_C4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_P3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_P4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_O1,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_O2,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_F7,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_F8,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_T3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_T4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_T5,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_T6,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_Fz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_Cz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_delta_Pz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_Fp1,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_Fp2,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_F3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_F4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_C3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_C4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_P3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_P4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_O1,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_O2,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_F7,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_F8,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_T3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_T4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_T5,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_T6,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_Fz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_Cz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_theta_Pz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_Fp1,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_Fp2,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_F3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_F4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_C3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_C4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_P3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_P4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_O1,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_O2,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_F7,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_F8,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_T3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_T4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_T5,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_T6,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_Fz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_Cz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_alpha_Pz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_Fp1,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_Fp2,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_F3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_F4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_C3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_C4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_P3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_P4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_O1,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_O2,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_F7,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_F8,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_T3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_T4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_T5,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_T6,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_Fz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_Cz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_beta_Pz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_Fp1,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_Fp2,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_F3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_F4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_C3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_C4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_P3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_P4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_O1,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_O2,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_F7,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_F8,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_T3,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_T4,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_T5,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_T6,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_Fz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_Cz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+bp_gamma_Pz,existing band power,log10 V²/Hz,"existing band power (Experiment 1): mean log10 PSD over the band's 0.2 Hz bins, the subject_cache definition",mean over 15 windows of 20 s
+spec_abspow_delta_frontal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_delta_frontal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_delta_central,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_delta_central_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_delta_temporal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_delta_temporal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_delta_parietal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_delta_parietal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_delta_occipital,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_delta_occipital_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_delta_frontal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_delta_frontal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_delta_central,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_delta_central_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_delta_temporal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_delta_temporal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_delta_parietal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_delta_parietal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_delta_occipital,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_delta_occipital_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_theta_frontal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_theta_frontal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_theta_central,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_theta_central_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_theta_temporal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_theta_temporal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_theta_parietal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_theta_parietal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_theta_occipital,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_theta_occipital_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_theta_frontal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_theta_frontal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_theta_central,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_theta_central_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_theta_temporal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_theta_temporal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_theta_parietal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_theta_parietal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_theta_occipital,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_theta_occipital_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_alpha_frontal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_alpha_frontal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_alpha_central,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_alpha_central_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_alpha_temporal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_alpha_temporal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_alpha_parietal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_alpha_parietal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_alpha_occipital,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_alpha_occipital_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_alpha_frontal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_alpha_frontal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_alpha_central,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_alpha_central_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_alpha_temporal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_alpha_temporal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_alpha_parietal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_alpha_parietal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_alpha_occipital,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_alpha_occipital_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_beta_frontal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_beta_frontal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_beta_central,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_beta_central_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_beta_temporal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_beta_temporal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_beta_parietal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_beta_parietal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_beta_occipital,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_beta_occipital_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_beta_frontal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_beta_frontal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_beta_central,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_beta_central_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_beta_temporal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_beta_temporal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_beta_parietal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_beta_parietal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_beta_occipital,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_beta_occipital_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_gamma_frontal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_gamma_frontal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_gamma_central,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_gamma_central_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_gamma_temporal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_gamma_temporal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_gamma_parietal,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_gamma_parietal_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_abspow_gamma_occipital,spectral,log10 µV²,absolute band power,"median over 75 epochs, mean over the region's channels"
+spec_abspow_gamma_occipital_iqr,spectral,log10 µV²,absolute band power,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_gamma_frontal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_gamma_frontal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_gamma_central,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_gamma_central_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_gamma_temporal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_gamma_temporal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_gamma_parietal,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_gamma_parietal_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_relpow_gamma_occipital,spectral,fraction,band power / power in 0.5-45 Hz,"median over 75 epochs, mean over the region's channels"
+spec_relpow_gamma_occipital_iqr,spectral,fraction,band power / power in 0.5-45 Hz,"IQR over 75 epochs, mean over the region's channels"
+spec_ratio_theta_alpha_frontal,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_theta_alpha_central,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_theta_alpha_temporal,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_theta_alpha_parietal,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_theta_alpha_occipital,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_theta_alpha_global,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_delta_alpha_frontal,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_delta_alpha_central,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_delta_alpha_temporal,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_delta_alpha_parietal,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_delta_alpha_occipital,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_delta_alpha_global,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_theta_beta_frontal,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_theta_beta_central,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_theta_beta_temporal,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_theta_beta_parietal,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_theta_beta_occipital,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_theta_beta_global,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_alpha_beta_frontal,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_alpha_beta_central,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_alpha_beta_temporal,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_alpha_beta_parietal,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_alpha_beta_occipital,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_ratio_alpha_beta_global,spectral,log10 ratio,power ratio of the two named bands,"median over 75 epochs, mean over the region's channels"
+spec_postfront_delta,spectral,log10 ratio,power over P3 P4 Pz O1 O2 / power over the frontal channels,median over epochs
+spec_asym_delta_frontal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_delta_central,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_delta_temporal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_delta_parietal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_delta_occipital,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_absasym_delta,spectral,log10 ratio,mean |right / left| over all 8 homologous pairs: asymmetry on either side,median over epochs
+spec_postfront_theta,spectral,log10 ratio,power over P3 P4 Pz O1 O2 / power over the frontal channels,median over epochs
+spec_asym_theta_frontal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_theta_central,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_theta_temporal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_theta_parietal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_theta_occipital,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_absasym_theta,spectral,log10 ratio,mean |right / left| over all 8 homologous pairs: asymmetry on either side,median over epochs
+spec_postfront_alpha,spectral,log10 ratio,power over P3 P4 Pz O1 O2 / power over the frontal channels,median over epochs
+spec_asym_alpha_frontal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_alpha_central,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_alpha_temporal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_alpha_parietal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_alpha_occipital,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_absasym_alpha,spectral,log10 ratio,mean |right / left| over all 8 homologous pairs: asymmetry on either side,median over epochs
+spec_postfront_beta,spectral,log10 ratio,power over P3 P4 Pz O1 O2 / power over the frontal channels,median over epochs
+spec_asym_beta_frontal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_beta_central,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_beta_temporal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_beta_parietal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_beta_occipital,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_absasym_beta,spectral,log10 ratio,mean |right / left| over all 8 homologous pairs: asymmetry on either side,median over epochs
+spec_postfront_gamma,spectral,log10 ratio,power over P3 P4 Pz O1 O2 / power over the frontal channels,median over epochs
+spec_asym_gamma_frontal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_gamma_central,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_gamma_temporal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_gamma_parietal,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_asym_gamma_occipital,spectral,log10 ratio,right / left power over the region's homologous pairs (> 0: right larger),median over epochs
+spec_absasym_gamma,spectral,log10 ratio,mean |right / left| over all 8 homologous pairs: asymmetry on either side,median over epochs
+spec_sentropy_frontal,spectral,0-1,normalised Shannon entropy of the 0.5-45 Hz spectrum (1 = flat),"median over 75 epochs, mean over the region's channels"
+spec_sentropy_frontal_iqr,spectral,0-1,normalised Shannon entropy of the 0.5-45 Hz spectrum (1 = flat),"IQR over 75 epochs, mean over the region's channels"
+spec_sentropy_central,spectral,0-1,normalised Shannon entropy of the 0.5-45 Hz spectrum (1 = flat),"median over 75 epochs, mean over the region's channels"
+spec_sentropy_central_iqr,spectral,0-1,normalised Shannon entropy of the 0.5-45 Hz spectrum (1 = flat),"IQR over 75 epochs, mean over the region's channels"
+spec_sentropy_temporal,spectral,0-1,normalised Shannon entropy of the 0.5-45 Hz spectrum (1 = flat),"median over 75 epochs, mean over the region's channels"
+spec_sentropy_temporal_iqr,spectral,0-1,normalised Shannon entropy of the 0.5-45 Hz spectrum (1 = flat),"IQR over 75 epochs, mean over the region's channels"
+spec_sentropy_parietal,spectral,0-1,normalised Shannon entropy of the 0.5-45 Hz spectrum (1 = flat),"median over 75 epochs, mean over the region's channels"
+spec_sentropy_parietal_iqr,spectral,0-1,normalised Shannon entropy of the 0.5-45 Hz spectrum (1 = flat),"IQR over 75 epochs, mean over the region's channels"
+spec_sentropy_occipital,spectral,0-1,normalised Shannon entropy of the 0.5-45 Hz spectrum (1 = flat),"median over 75 epochs, mean over the region's channels"
+spec_sentropy_occipital_iqr,spectral,0-1,normalised Shannon entropy of the 0.5-45 Hz spectrum (1 = flat),"IQR over 75 epochs, mean over the region's channels"
+spec_sentropy_global,spectral,0-1,normalised Shannon entropy of the 0.5-45 Hz spectrum (1 = flat),"median over 75 epochs, mean over the region's channels"
+spec_iaf_cog,spectral,Hz,centre of gravity of the posterior spectrum in 6-13 Hz,median spectrum over epochs
+spec_paf,spectral,Hz,frequency of the highest posterior peak above the 1/f background in 6-13 Hz; empty when there is none,median spectrum over epochs
+nl_hjorth_activity_frontal,nonlinear,log10 µV²,Hjorth activity: variance of the signal,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_activity_frontal_iqr,nonlinear,log10 µV²,Hjorth activity: variance of the signal,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_activity_central,nonlinear,log10 µV²,Hjorth activity: variance of the signal,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_activity_central_iqr,nonlinear,log10 µV²,Hjorth activity: variance of the signal,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_activity_temporal,nonlinear,log10 µV²,Hjorth activity: variance of the signal,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_activity_temporal_iqr,nonlinear,log10 µV²,Hjorth activity: variance of the signal,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_activity_parietal,nonlinear,log10 µV²,Hjorth activity: variance of the signal,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_activity_parietal_iqr,nonlinear,log10 µV²,Hjorth activity: variance of the signal,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_activity_occipital,nonlinear,log10 µV²,Hjorth activity: variance of the signal,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_activity_occipital_iqr,nonlinear,log10 µV²,Hjorth activity: variance of the signal,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_mobility_frontal,nonlinear,Hz,Hjorth mobility sqrt(var x' / var x) in Hz: the mean frequency,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_mobility_frontal_iqr,nonlinear,Hz,Hjorth mobility sqrt(var x' / var x) in Hz: the mean frequency,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_mobility_central,nonlinear,Hz,Hjorth mobility sqrt(var x' / var x) in Hz: the mean frequency,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_mobility_central_iqr,nonlinear,Hz,Hjorth mobility sqrt(var x' / var x) in Hz: the mean frequency,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_mobility_temporal,nonlinear,Hz,Hjorth mobility sqrt(var x' / var x) in Hz: the mean frequency,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_mobility_temporal_iqr,nonlinear,Hz,Hjorth mobility sqrt(var x' / var x) in Hz: the mean frequency,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_mobility_parietal,nonlinear,Hz,Hjorth mobility sqrt(var x' / var x) in Hz: the mean frequency,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_mobility_parietal_iqr,nonlinear,Hz,Hjorth mobility sqrt(var x' / var x) in Hz: the mean frequency,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_mobility_occipital,nonlinear,Hz,Hjorth mobility sqrt(var x' / var x) in Hz: the mean frequency,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_mobility_occipital_iqr,nonlinear,Hz,Hjorth mobility sqrt(var x' / var x) in Hz: the mean frequency,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_complexity_frontal,nonlinear,ratio,Hjorth complexity mobility(x') / mobility(x); 1 = pure sine,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_complexity_frontal_iqr,nonlinear,ratio,Hjorth complexity mobility(x') / mobility(x); 1 = pure sine,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_complexity_central,nonlinear,ratio,Hjorth complexity mobility(x') / mobility(x); 1 = pure sine,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_complexity_central_iqr,nonlinear,ratio,Hjorth complexity mobility(x') / mobility(x); 1 = pure sine,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_complexity_temporal,nonlinear,ratio,Hjorth complexity mobility(x') / mobility(x); 1 = pure sine,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_complexity_temporal_iqr,nonlinear,ratio,Hjorth complexity mobility(x') / mobility(x); 1 = pure sine,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_complexity_parietal,nonlinear,ratio,Hjorth complexity mobility(x') / mobility(x); 1 = pure sine,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_complexity_parietal_iqr,nonlinear,ratio,Hjorth complexity mobility(x') / mobility(x); 1 = pure sine,"IQR over 75 epochs, mean over the region's channels"
+nl_hjorth_complexity_occipital,nonlinear,ratio,Hjorth complexity mobility(x') / mobility(x); 1 = pure sine,"median over 75 epochs, mean over the region's channels"
+nl_hjorth_complexity_occipital_iqr,nonlinear,ratio,Hjorth complexity mobility(x') / mobility(x); 1 = pure sine,"IQR over 75 epochs, mean over the region's channels"
+nl_perm_entropy_frontal,nonlinear,0-1,"permutation entropy, order 4, 8 ms lag","median over 75 epochs, mean over the region's channels"
+nl_perm_entropy_frontal_iqr,nonlinear,0-1,"permutation entropy, order 4, 8 ms lag","IQR over 75 epochs, mean over the region's channels"
+nl_perm_entropy_central,nonlinear,0-1,"permutation entropy, order 4, 8 ms lag","median over 75 epochs, mean over the region's channels"
+nl_perm_entropy_central_iqr,nonlinear,0-1,"permutation entropy, order 4, 8 ms lag","IQR over 75 epochs, mean over the region's channels"
+nl_perm_entropy_temporal,nonlinear,0-1,"permutation entropy, order 4, 8 ms lag","median over 75 epochs, mean over the region's channels"
+nl_perm_entropy_temporal_iqr,nonlinear,0-1,"permutation entropy, order 4, 8 ms lag","IQR over 75 epochs, mean over the region's channels"
+nl_perm_entropy_parietal,nonlinear,0-1,"permutation entropy, order 4, 8 ms lag","median over 75 epochs, mean over the region's channels"
+nl_perm_entropy_parietal_iqr,nonlinear,0-1,"permutation entropy, order 4, 8 ms lag","IQR over 75 epochs, mean over the region's channels"
+nl_perm_entropy_occipital,nonlinear,0-1,"permutation entropy, order 4, 8 ms lag","median over 75 epochs, mean over the region's channels"
+nl_perm_entropy_occipital_iqr,nonlinear,0-1,"permutation entropy, order 4, 8 ms lag","IQR over 75 epochs, mean over the region's channels"
+nl_svd_entropy_frontal,nonlinear,0-1,"SVD entropy, 10-sample (80 ms) embedding","median over 75 epochs, mean over the region's channels"
+nl_svd_entropy_frontal_iqr,nonlinear,0-1,"SVD entropy, 10-sample (80 ms) embedding","IQR over 75 epochs, mean over the region's channels"
+nl_svd_entropy_central,nonlinear,0-1,"SVD entropy, 10-sample (80 ms) embedding","median over 75 epochs, mean over the region's channels"
+nl_svd_entropy_central_iqr,nonlinear,0-1,"SVD entropy, 10-sample (80 ms) embedding","IQR over 75 epochs, mean over the region's channels"
+nl_svd_entropy_temporal,nonlinear,0-1,"SVD entropy, 10-sample (80 ms) embedding","median over 75 epochs, mean over the region's channels"
+nl_svd_entropy_temporal_iqr,nonlinear,0-1,"SVD entropy, 10-sample (80 ms) embedding","IQR over 75 epochs, mean over the region's channels"
+nl_svd_entropy_parietal,nonlinear,0-1,"SVD entropy, 10-sample (80 ms) embedding","median over 75 epochs, mean over the region's channels"
+nl_svd_entropy_parietal_iqr,nonlinear,0-1,"SVD entropy, 10-sample (80 ms) embedding","IQR over 75 epochs, mean over the region's channels"
+nl_svd_entropy_occipital,nonlinear,0-1,"SVD entropy, 10-sample (80 ms) embedding","median over 75 epochs, mean over the region's channels"
+nl_svd_entropy_occipital_iqr,nonlinear,0-1,"SVD entropy, 10-sample (80 ms) embedding","IQR over 75 epochs, mean over the region's channels"
+nl_higuchi_fd_frontal,nonlinear,1-2,"Higuchi fractal dimension, k = 1-10 (8-80 ms)","median over 75 epochs, mean over the region's channels"
+nl_higuchi_fd_frontal_iqr,nonlinear,1-2,"Higuchi fractal dimension, k = 1-10 (8-80 ms)","IQR over 75 epochs, mean over the region's channels"
+nl_higuchi_fd_central,nonlinear,1-2,"Higuchi fractal dimension, k = 1-10 (8-80 ms)","median over 75 epochs, mean over the region's channels"
+nl_higuchi_fd_central_iqr,nonlinear,1-2,"Higuchi fractal dimension, k = 1-10 (8-80 ms)","IQR over 75 epochs, mean over the region's channels"
+nl_higuchi_fd_temporal,nonlinear,1-2,"Higuchi fractal dimension, k = 1-10 (8-80 ms)","median over 75 epochs, mean over the region's channels"
+nl_higuchi_fd_temporal_iqr,nonlinear,1-2,"Higuchi fractal dimension, k = 1-10 (8-80 ms)","IQR over 75 epochs, mean over the region's channels"
+nl_higuchi_fd_parietal,nonlinear,1-2,"Higuchi fractal dimension, k = 1-10 (8-80 ms)","median over 75 epochs, mean over the region's channels"
+nl_higuchi_fd_parietal_iqr,nonlinear,1-2,"Higuchi fractal dimension, k = 1-10 (8-80 ms)","IQR over 75 epochs, mean over the region's channels"
+nl_higuchi_fd_occipital,nonlinear,1-2,"Higuchi fractal dimension, k = 1-10 (8-80 ms)","median over 75 epochs, mean over the region's channels"
+nl_higuchi_fd_occipital_iqr,nonlinear,1-2,"Higuchi fractal dimension, k = 1-10 (8-80 ms)","IQR over 75 epochs, mean over the region's channels"
+nl_zero_crossings_frontal,nonlinear,1/s,zero crossings per second,"median over 75 epochs, mean over the region's channels"
+nl_zero_crossings_frontal_iqr,nonlinear,1/s,zero crossings per second,"IQR over 75 epochs, mean over the region's channels"
+nl_zero_crossings_central,nonlinear,1/s,zero crossings per second,"median over 75 epochs, mean over the region's channels"
+nl_zero_crossings_central_iqr,nonlinear,1/s,zero crossings per second,"IQR over 75 epochs, mean over the region's channels"
+nl_zero_crossings_temporal,nonlinear,1/s,zero crossings per second,"median over 75 epochs, mean over the region's channels"
+nl_zero_crossings_temporal_iqr,nonlinear,1/s,zero crossings per second,"IQR over 75 epochs, mean over the region's channels"
+nl_zero_crossings_parietal,nonlinear,1/s,zero crossings per second,"median over 75 epochs, mean over the region's channels"
+nl_zero_crossings_parietal_iqr,nonlinear,1/s,zero crossings per second,"IQR over 75 epochs, mean over the region's channels"
+nl_zero_crossings_occipital,nonlinear,1/s,zero crossings per second,"median over 75 epochs, mean over the region's channels"
+nl_zero_crossings_occipital_iqr,nonlinear,1/s,zero crossings per second,"IQR over 75 epochs, mean over the region's channels"
+nl_dfa_theta_frontal,nonlinear,exponent,DFA exponent of the band's amplitude envelope over 1-20 s,the whole 300 s
+nl_dfa_theta_central,nonlinear,exponent,DFA exponent of the band's amplitude envelope over 1-20 s,the whole 300 s
+nl_dfa_theta_temporal,nonlinear,exponent,DFA exponent of the band's amplitude envelope over 1-20 s,the whole 300 s
+nl_dfa_theta_parietal,nonlinear,exponent,DFA exponent of the band's amplitude envelope over 1-20 s,the whole 300 s
+nl_dfa_theta_occipital,nonlinear,exponent,DFA exponent of the band's amplitude envelope over 1-20 s,the whole 300 s
+nl_dfa_alpha_frontal,nonlinear,exponent,DFA exponent of the band's amplitude envelope over 1-20 s,the whole 300 s
+nl_dfa_alpha_central,nonlinear,exponent,DFA exponent of the band's amplitude envelope over 1-20 s,the whole 300 s
+nl_dfa_alpha_temporal,nonlinear,exponent,DFA exponent of the band's amplitude envelope over 1-20 s,the whole 300 s
+nl_dfa_alpha_parietal,nonlinear,exponent,DFA exponent of the band's amplitude envelope over 1-20 s,the whole 300 s
+nl_dfa_alpha_occipital,nonlinear,exponent,DFA exponent of the band's amplitude envelope over 1-20 s,the whole 300 s
+conn_wpli_mean_delta,connectivity,0-1,mean wPLI over the 171 electrode pairs,75 epochs
+conn_wpli_strength_delta_frontal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_delta_central,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_delta_temporal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_delta_parietal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_delta_occipital,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_icoh_mean_delta,connectivity,0-1,mean |imaginary coherency| over the 171 electrode pairs,75 epochs
+conn_icoh_strength_delta_frontal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_delta_central,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_delta_temporal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_delta_parietal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_delta_occipital,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_wpli_efficiency_delta,connectivity,0-1,weighted global efficiency of the wPLI graph,75 epochs
+conn_wpli_clustering_delta,connectivity,0-1,weighted clustering coefficient of the wPLI graph,75 epochs
+conn_wpli_mean_theta,connectivity,0-1,mean wPLI over the 171 electrode pairs,75 epochs
+conn_wpli_strength_theta_frontal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_theta_central,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_theta_temporal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_theta_parietal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_theta_occipital,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_icoh_mean_theta,connectivity,0-1,mean |imaginary coherency| over the 171 electrode pairs,75 epochs
+conn_icoh_strength_theta_frontal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_theta_central,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_theta_temporal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_theta_parietal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_theta_occipital,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_wpli_efficiency_theta,connectivity,0-1,weighted global efficiency of the wPLI graph,75 epochs
+conn_wpli_clustering_theta,connectivity,0-1,weighted clustering coefficient of the wPLI graph,75 epochs
+conn_wpli_mean_alpha,connectivity,0-1,mean wPLI over the 171 electrode pairs,75 epochs
+conn_wpli_strength_alpha_frontal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_alpha_central,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_alpha_temporal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_alpha_parietal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_alpha_occipital,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_icoh_mean_alpha,connectivity,0-1,mean |imaginary coherency| over the 171 electrode pairs,75 epochs
+conn_icoh_strength_alpha_frontal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_alpha_central,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_alpha_temporal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_alpha_parietal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_alpha_occipital,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_wpli_efficiency_alpha,connectivity,0-1,weighted global efficiency of the wPLI graph,75 epochs
+conn_wpli_clustering_alpha,connectivity,0-1,weighted clustering coefficient of the wPLI graph,75 epochs
+conn_wpli_mean_beta,connectivity,0-1,mean wPLI over the 171 electrode pairs,75 epochs
+conn_wpli_strength_beta_frontal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_beta_central,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_beta_temporal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_beta_parietal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_beta_occipital,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_icoh_mean_beta,connectivity,0-1,mean |imaginary coherency| over the 171 electrode pairs,75 epochs
+conn_icoh_strength_beta_frontal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_beta_central,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_beta_temporal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_beta_parietal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_beta_occipital,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_wpli_efficiency_beta,connectivity,0-1,weighted global efficiency of the wPLI graph,75 epochs
+conn_wpli_clustering_beta,connectivity,0-1,weighted clustering coefficient of the wPLI graph,75 epochs
+conn_wpli_mean_gamma,connectivity,0-1,mean wPLI over the 171 electrode pairs,75 epochs
+conn_wpli_strength_gamma_frontal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_gamma_central,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_gamma_temporal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_gamma_parietal,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_wpli_strength_gamma_occipital,connectivity,0-1,"each electrode's mean wPLI to the 18 others, averaged over the region",75 epochs
+conn_icoh_mean_gamma,connectivity,0-1,mean |imaginary coherency| over the 171 electrode pairs,75 epochs
+conn_icoh_strength_gamma_frontal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_gamma_central,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_gamma_temporal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_gamma_parietal,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_icoh_strength_gamma_occipital,connectivity,0-1,"each electrode's mean |imaginary coherency|, averaged over the region",75 epochs
+conn_wpli_efficiency_gamma,connectivity,0-1,weighted global efficiency of the wPLI graph,75 epochs
+conn_wpli_clustering_gamma,connectivity,0-1,weighted clustering coefficient of the wPLI graph,75 epochs

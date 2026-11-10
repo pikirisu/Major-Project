@@ -1,0 +1,8 @@
+experiment,auc_AD_vs_HC,ci_low,ci_high,auc_AD_vs_FTD
+1 band power (existing),0.8294,0.7274,0.9156,0.5397
+2 spectral,0.8406,0.7362,0.9275,0.4482
+3 nonlinear,0.7881,0.6784,0.8888,0.4104
+4 connectivity,0.6598,0.5392,0.7776,0.4868
+5 spectral + nonlinear,0.8252,0.7228,0.9160,0.4806
+6 spectral + connectivity,0.7879,0.6817,0.8829,0.4558
+7 all three,0.7733,0.6626,0.8742,0.4495

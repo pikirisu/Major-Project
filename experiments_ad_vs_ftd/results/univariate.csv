@@ -1,0 +1,211 @@
+feature,group,auc,p,median_AD,median_FTD,q_fdr,higher_in
+bp_theta_Fz,band power,0.3019,0.01105,-11.08,-11.15,1,AD
+bp_theta_F3,band power,0.3188,0.02015,-11.09,-11.14,1,AD
+bp_theta_F4,band power,0.3261,0.02573,-11.08,-11.14,1,AD
+bp_theta_F7,band power,0.3406,0.04098,-11.04,-11.07,1,AD
+bp_gamma_T3,band power,0.6558,0.04581,-12.52,-12.36,1,FTD
+bp_theta_P3,band power,0.3454,0.04753,-11.1,-11.13,1,AD
+bp_theta_F8,band power,0.3514,0.05693,-11.04,-11.1,1,AD
+bp_theta_T3,band power,0.3539,0.0611,-11.06,-11.1,1,AD
+bp_delta_F8,band power,0.3551,0.06328,-10.07,-10.11,1,AD
+bp_delta_F4,band power,0.3575,0.06782,-10.09,-10.1,1,AD
+spec_relpow_theta_frontal,spectral,0.3611,0.07515,0.05277,0.04983,1,AD
+spec_relpow_theta_occipital,spectral,0.3635,0.08039,0.05409,0.04927,1,AD
+spec_relpow_theta_temporal,spectral,0.3635,0.08039,0.05589,0.05032,1,AD
+bp_delta_T4,band power,0.3659,0.08591,-10.09,-10.11,1,AD
+bp_delta_F7,band power,0.3665,0.08734,-10.06,-10.09,1,AD
+bp_theta_C3,band power,0.369,0.09324,-11.13,-11.17,1,AD
+bp_beta_T3,band power,0.6304,0.09477,-12.17,-12.12,1,FTD
+bp_theta_O1,band power,0.3708,0.09788,-11.06,-11.1,1,AD
+bp_theta_P4,band power,0.3774,0.1165,-11.09,-11.12,1,AD
+bp_delta_T3,band power,0.3786,0.1201,-10.08,-10.11,1,AD
+bp_theta_Fp2,band power,0.3804,0.1258,-11.06,-11.11,1,AD
+bp_theta_T6,band power,0.3841,0.1377,-11.04,-11.07,1,AD
+bp_theta_Pz,band power,0.3841,0.1377,-11.11,-11.14,1,AD
+bp_theta_T5,band power,0.3847,0.1398,-11.05,-11.08,1,AD
+conn_wpli_strength_theta_temporal,connectivity,0.3865,0.1462,0.1564,0.1486,1,AD
+bp_delta_P3,band power,0.3865,0.1462,-10.09,-10.11,1,AD
+bp_delta_F3,band power,0.3871,0.1483,-10.08,-10.11,1,AD
+conn_wpli_strength_theta_frontal,connectivity,0.3877,0.1505,0.1523,0.1484,1,AD
+spec_absasym_theta,spectral,0.3913,0.1642,0.01485,0.01335,1,AD
+bp_delta_Pz,band power,0.3913,0.1642,-10.09,-10.11,1,AD
+bp_delta_P4,band power,0.3913,0.1642,-10.09,-10.11,1,AD
+nl_higuchi_fd_temporal,nonlinear,0.6075,0.169,1.423,1.437,1,FTD
+spec_postfront_alpha,spectral,0.6075,0.169,0.06963,0.1134,1,FTD
+conn_wpli_clustering_theta,connectivity,0.6051,0.1788,0.5624,0.6155,1,FTD
+bp_delta_C3,band power,0.3967,0.1865,-10.1,-10.12,1,AD
+bp_theta_T4,band power,0.3973,0.1891,-11.06,-11.1,1,AD
+bp_delta_C4,band power,0.3979,0.1917,-10.1,-10.12,1,AD
+spec_ratio_theta_alpha_global,spectral,0.3986,0.1944,0.4599,0.3814,1,AD
+conn_wpli_clustering_delta,connectivity,0.6002,0.1998,0.5649,0.5952,1,FTD
+spec_relpow_gamma_temporal,spectral,0.599,0.2053,0.005783,0.006771,1,FTD
+bp_theta_Cz,band power,0.401,0.2053,-11.12,-11.15,1,AD
+bp_theta_O2,band power,0.4022,0.2109,-11.06,-11.07,1,AD
+spec_ratio_theta_beta_global,spectral,0.407,0.2345,0.5519,0.509,1,AD
+nl_hjorth_mobility_temporal,nonlinear,0.593,0.2345,3.835,4.015,1,FTD
+bp_delta_T6,band power,0.4076,0.2375,-10.09,-10.09,1,AD
+bp_alpha_F4,band power,0.4082,0.2406,-11.63,-11.65,1,AD
+bp_theta_C4,band power,0.4082,0.2406,-11.14,-11.15,1,AD
+bp_delta_O2,band power,0.4088,0.2438,-10.09,-10.1,1,AD
+nl_svd_entropy_temporal,nonlinear,0.587,0.2665,0.589,0.5984,1,FTD
+bp_delta_Cz,band power,0.413,0.2665,-10.1,-10.12,1,AD
+bp_delta_Fz,band power,0.4149,0.2766,-10.09,-10.09,1,AD
+conn_wpli_strength_gamma_central,connectivity,0.5845,0.2801,0.1439,0.1483,1,FTD
+spec_relpow_theta_parietal,spectral,0.4167,0.2871,0.05237,0.04905,1,AD
+bp_delta_O1,band power,0.4173,0.2906,-10.08,-10.08,1,AD
+conn_wpli_strength_gamma_parietal,connectivity,0.5809,0.3014,0.144,0.1486,1,FTD
+conn_wpli_mean_theta,connectivity,0.4203,0.3087,0.1515,0.1504,1,AD
+nl_dfa_theta_central,nonlinear,0.5797,0.3087,0.598,0.6055,1,FTD
+conn_wpli_clustering_beta,connectivity,0.5797,0.3087,0.6726,0.7029,1,FTD
+spec_iaf_cog,spectral,0.5785,0.3161,8.482,8.606,1,FTD
+bp_alpha_F3,band power,0.4239,0.3314,-11.63,-11.65,1,AD
+bp_theta_Fp1,band power,0.4257,0.3431,-11.08,-11.1,1,AD
+spec_relpow_beta_temporal,spectral,0.5737,0.3471,0.01677,0.0194,1,FTD
+bp_delta_T5,band power,0.43,0.3715,-10.09,-10.09,1,AD
+nl_hjorth_complexity_temporal,nonlinear,0.43,0.3715,5.638,5.532,1,AD
+conn_wpli_strength_alpha_central,connectivity,0.57,0.3715,0.1481,0.1526,1,FTD
+bp_delta_Fp2,band power,0.4324,0.3884,-10.08,-10.09,1,AD
+spec_absasym_alpha,spectral,0.5676,0.3884,0.03754,0.04529,1,FTD
+spec_relpow_delta_frontal,spectral,0.5652,0.4057,0.8979,0.8996,1,FTD
+bp_gamma_O1,band power,0.436,0.4145,-12.68,-12.74,1,AD
+nl_higuchi_fd_central,nonlinear,0.5628,0.4235,1.362,1.37,1,FTD
+nl_hjorth_mobility_central,nonlinear,0.5628,0.4235,3.13,3.221,1,FTD
+conn_wpli_strength_gamma_occipital,connectivity,0.5616,0.4325,0.1497,0.1493,1,FTD
+bp_alpha_Fz,band power,0.4408,0.451,-11.64,-11.66,1,AD
+bp_gamma_O2,band power,0.4414,0.4557,-12.68,-12.74,1,AD
+nl_svd_entropy_central,nonlinear,0.558,0.4604,0.5442,0.5514,1,FTD
+bp_alpha_T6,band power,0.558,0.4604,-11.48,-11.4,1,FTD
+nl_perm_entropy_temporal,nonlinear,0.558,0.4604,0.8441,0.8524,1,FTD
+spec_postfront_delta,spectral,0.442,0.4604,-0.001542,-0.004732,1,AD
+nl_hjorth_complexity_central,nonlinear,0.442,0.4604,6.602,6.35,1,AD
+spec_relpow_alpha_parietal,spectral,0.5556,0.4795,0.01909,0.02202,1,FTD
+bp_alpha_T5,band power,0.5556,0.4795,-11.52,-11.44,1,FTD
+conn_wpli_strength_delta_central,connectivity,0.5543,0.4892,0.1359,0.139,1,FTD
+bp_alpha_P4,band power,0.5531,0.499,-11.61,-11.56,1,FTD
+nl_svd_entropy_parietal,nonlinear,0.5531,0.499,0.5507,0.5593,1,FTD
+spec_relpow_gamma_occipital,spectral,0.4469,0.499,0.004079,0.003554,1,AD
+spec_relpow_theta_central,spectral,0.4469,0.499,0.04991,0.04862,1,AD
+spec_sentropy_central,spectral,0.5519,0.5089,0.4175,0.4237,1,FTD
+spec_relpow_alpha_temporal,spectral,0.5519,0.5089,0.0226,0.02908,1,FTD
+bp_beta_O1,band power,0.4481,0.5089,-12.23,-12.26,1,AD
+spec_sentropy_temporal,spectral,0.5507,0.5189,0.447,0.4512,1,FTD
+nl_hjorth_mobility_parietal,nonlinear,0.5507,0.5189,3.251,3.325,1,FTD
+conn_wpli_strength_gamma_frontal,connectivity,0.5495,0.5291,0.15,0.1583,1,FTD
+nl_perm_entropy_central,nonlinear,0.5483,0.5393,0.8145,0.8174,1,FTD
+nl_dfa_theta_temporal,nonlinear,0.4517,0.5393,0.6058,0.6018,1,AD
+conn_wpli_strength_alpha_parietal,connectivity,0.5483,0.5393,0.1673,0.1743,1,FTD
+spec_relpow_gamma_central,spectral,0.5483,0.5393,0.003019,0.003041,1,FTD
+nl_perm_entropy_frontal,nonlinear,0.5471,0.5496,0.8485,0.8499,1,FTD
+bp_beta_C3,band power,0.5459,0.56,-12.39,-12.37,1,FTD
+conn_wpli_mean_gamma,connectivity,0.5459,0.56,0.1485,0.1514,1,FTD
+conn_wpli_strength_beta_parietal,connectivity,0.4565,0.5811,0.145,0.1429,1,AD
+conn_wpli_strength_alpha_frontal,connectivity,0.5435,0.5811,0.1599,0.1656,1,FTD
+conn_wpli_strength_alpha_occipital,connectivity,0.5435,0.5811,0.1662,0.1882,1,FTD
+nl_dfa_alpha_frontal,nonlinear,0.4577,0.5918,0.6053,0.6006,1,AD
+nl_hjorth_complexity_parietal,nonlinear,0.4577,0.5918,6.166,6.087,1,AD
+spec_absasym_delta,spectral,0.4577,0.5918,0.008628,0.006509,1,AD
+spec_sentropy_parietal,spectral,0.5423,0.5918,0.4253,0.4295,1,FTD
+nl_hjorth_complexity_frontal,nonlinear,0.5423,0.5918,5.849,5.941,1,FTD
+bp_alpha_Fp1,band power,0.5423,0.5918,-11.6,-11.6,1,FTD
+conn_wpli_strength_gamma_temporal,connectivity,0.5423,0.5918,0.1561,0.1524,1,FTD
+bp_alpha_F7,band power,0.4601,0.6135,-11.57,-11.57,1,AD
+bp_beta_F8,band power,0.4601,0.6135,-12.18,-12.2,1,AD
+spec_relpow_alpha_central,spectral,0.5393,0.6189,0.01541,0.01575,1,FTD
+bp_beta_T5,band power,0.5386,0.6244,-12.23,-12.21,1,FTD
+conn_wpli_mean_alpha,connectivity,0.5386,0.6244,0.1587,0.1682,1,FTD
+bp_alpha_T4,band power,0.538,0.6299,-11.6,-11.57,1,FTD
+bp_beta_P3,band power,0.5374,0.6355,-12.33,-12.33,1,FTD
+conn_wpli_clustering_gamma,connectivity,0.5374,0.6355,0.6336,0.6332,1,FTD
+spec_relpow_beta_parietal,spectral,0.5362,0.6466,0.01319,0.01349,1,FTD
+bp_alpha_T3,band power,0.5362,0.6466,-11.56,-11.53,1,FTD
+spec_relpow_beta_occipital,spectral,0.4638,0.6466,0.01603,0.01575,1,AD
+spec_relpow_delta_occipital,spectral,0.535,0.6578,0.8878,0.8912,1,FTD
+bp_gamma_Fp2,band power,0.465,0.6578,-12.49,-12.61,1,AD
+spec_absasym_beta,spectral,0.5338,0.6691,0.04394,0.05916,1,FTD
+spec_relpow_alpha_occipital,spectral,0.5338,0.6691,0.02514,0.03015,1,FTD
+nl_perm_entropy_parietal,nonlinear,0.5338,0.6691,0.8091,0.8126,1,FTD
+bp_delta_Fp1,band power,0.4662,0.6691,-10.09,-10.08,1,AD
+conn_wpli_strength_theta_parietal,connectivity,0.4674,0.6804,0.1503,0.1469,1,AD
+bp_alpha_O2,band power,0.5314,0.6919,-11.43,-11.4,1,FTD
+spec_relpow_beta_central,spectral,0.5314,0.6919,0.01236,0.01285,1,FTD
+bp_gamma_F4,band power,0.5314,0.6919,-12.62,-12.6,1,FTD
+nl_higuchi_fd_parietal,nonlinear,0.5314,0.6919,1.373,1.372,1,FTD
+conn_wpli_strength_theta_occipital,connectivity,0.4686,0.6919,0.1508,0.1572,1,AD
+bp_beta_O2,band power,0.4686,0.6919,-12.21,-12.26,1,AD
+spec_postfront_gamma,spectral,0.4698,0.7034,-0.2266,-0.1706,1,AD
+nl_perm_entropy_occipital,nonlinear,0.471,0.7149,0.8215,0.8094,1,AD
+conn_wpli_clustering_alpha,connectivity,0.529,0.7149,0.5274,0.5225,1,FTD
+nl_dfa_alpha_temporal,nonlinear,0.4722,0.7266,0.621,0.6429,1,AD
+bp_beta_Fp2,band power,0.4722,0.7266,-12.18,-12.22,1,AD
+bp_alpha_Cz,band power,0.4734,0.7383,-11.71,-11.71,1,AD
+nl_higuchi_fd_occipital,nonlinear,0.4734,0.7383,1.404,1.402,1,AD
+conn_wpli_strength_alpha_temporal,connectivity,0.5266,0.7383,0.1659,0.1739,1,FTD
+bp_gamma_P4,band power,0.4734,0.7383,-12.84,-12.86,1,AD
+bp_beta_Cz,band power,0.526,0.7441,-12.38,-12.37,1,FTD
+bp_beta_F4,band power,0.4746,0.75,-12.17,-12.19,1,AD
+spec_relpow_delta_temporal,spectral,0.4746,0.75,0.8861,0.8853,1,AD
+spec_postfront_theta,spectral,0.5254,0.75,-0.004954,-0.006457,1,FTD
+bp_alpha_C4,band power,0.5248,0.7559,-11.71,-11.7,1,FTD
+nl_dfa_alpha_occipital,nonlinear,0.4758,0.7618,0.6185,0.64,1,AD
+spec_sentropy_frontal,spectral,0.4758,0.7618,0.4382,0.4333,1,AD
+bp_beta_T4,band power,0.4771,0.7737,-12.08,-12.19,1,AD
+bp_gamma_F3,band power,0.5229,0.7737,-12.65,-12.53,1,FTD
+bp_gamma_F8,band power,0.4777,0.7797,-12.47,-12.54,1,AD
+nl_hjorth_mobility_occipital,nonlinear,0.4783,0.7856,3.628,3.674,1,AD
+conn_wpli_mean_beta,connectivity,0.4783,0.7856,0.1456,0.1453,1,AD
+conn_wpli_strength_theta_central,connectivity,0.4783,0.7856,0.1443,0.141,1,AD
+conn_wpli_mean_delta,connectivity,0.5217,0.7856,0.1429,0.1435,1,FTD
+nl_dfa_theta_frontal,nonlinear,0.4783,0.7856,0.5994,0.599,1,AD
+nl_dfa_alpha_parietal,nonlinear,0.5205,0.7976,0.5986,0.62,1,FTD
+spec_relpow_beta_frontal,spectral,0.5205,0.7976,0.0169,0.01726,1,FTD
+nl_dfa_alpha_central,nonlinear,0.4807,0.8096,0.5873,0.5812,1,AD
+nl_svd_entropy_occipital,nonlinear,0.4807,0.8096,0.5783,0.5826,1,AD
+nl_dfa_theta_parietal,nonlinear,0.4807,0.8096,0.6013,0.6028,1,AD
+nl_dfa_theta_occipital,nonlinear,0.4807,0.8096,0.6068,0.6014,1,AD
+bp_gamma_T4,band power,0.4819,0.8217,-12.39,-12.45,1,AD
+spec_postfront_beta,spectral,0.4819,0.8217,-0.07241,-0.05934,1,AD
+spec_relpow_alpha_frontal,spectral,0.4819,0.8217,0.01831,0.01825,1,AD
+nl_svd_entropy_frontal,nonlinear,0.4819,0.8217,0.5951,0.5818,1,AD
+conn_wpli_strength_delta_frontal,connectivity,0.5181,0.8217,0.1424,0.1464,1,FTD
+spec_relpow_gamma_frontal,spectral,0.5181,0.8217,0.005677,0.006,1,FTD
+nl_higuchi_fd_frontal,nonlinear,0.5181,0.8217,1.44,1.427,1,FTD
+spec_ratio_alpha_beta_global,spectral,0.4843,0.846,0.09938,0.1138,1,AD
+bp_beta_Fz,band power,0.4843,0.846,-12.32,-12.32,1,AD
+spec_sentropy_occipital,spectral,0.5157,0.846,0.4447,0.4484,1,FTD
+bp_alpha_F8,band power,0.4855,0.8581,-11.59,-11.58,1,AD
+bp_gamma_P3,band power,0.4855,0.8581,-12.84,-12.85,1,AD
+bp_alpha_C3,band power,0.5133,0.8704,-11.72,-11.71,1,FTD
+conn_wpli_strength_delta_temporal,connectivity,0.5133,0.8704,0.1407,0.1406,1,FTD
+bp_beta_C4,band power,0.5121,0.8826,-12.39,-12.36,1,FTD
+bp_beta_F3,band power,0.5121,0.8826,-12.2,-12.23,1,FTD
+conn_wpli_strength_beta_temporal,connectivity,0.4879,0.8826,0.147,0.1465,1,AD
+bp_beta_Pz,band power,0.5109,0.8949,-12.35,-12.35,1,FTD
+nl_hjorth_complexity_occipital,nonlinear,0.4891,0.8949,5.611,5.69,1,AD
+bp_alpha_O1,band power,0.5097,0.9072,-11.45,-11.44,1,FTD
+bp_beta_T6,band power,0.5097,0.9072,-12.23,-12.2,1,FTD
+bp_gamma_T6,band power,0.4903,0.9072,-12.63,-12.64,1,AD
+spec_absasym_gamma,spectral,0.5085,0.9195,0.0999,0.1047,1,FTD
+nl_hjorth_mobility_frontal,nonlinear,0.4915,0.9195,3.974,3.748,1,AD
+bp_gamma_Fz,band power,0.4915,0.9195,-12.82,-12.82,1,AD
+bp_beta_Fp1,band power,0.5072,0.9319,-12.13,-12.2,1,FTD
+bp_beta_P4,band power,0.5072,0.9319,-12.33,-12.32,1,FTD
+spec_ratio_delta_alpha_global,spectral,0.4928,0.9319,1.655,1.638,1,AD
+conn_wpli_strength_beta_central,connectivity,0.4928,0.9319,0.1417,0.1426,1,AD
+bp_alpha_Fp2,band power,0.4928,0.9319,-11.6,-11.61,1,AD
+bp_gamma_T5,band power,0.506,0.9442,-12.66,-12.69,1,FTD
+bp_gamma_C4,band power,0.494,0.9442,-12.86,-12.89,1,AD
+bp_gamma_Cz,band power,0.506,0.9442,-12.92,-12.92,1,FTD
+bp_alpha_P3,band power,0.5048,0.9566,-11.61,-11.55,1,FTD
+spec_relpow_delta_parietal,spectral,0.5048,0.9566,0.9021,0.9055,1,FTD
+bp_gamma_F7,band power,0.5048,0.9566,-12.44,-12.48,1,FTD
+bp_gamma_Pz,band power,0.5042,0.9628,-12.88,-12.89,1,FTD
+conn_wpli_strength_beta_frontal,connectivity,0.4958,0.9628,0.1481,0.148,1,AD
+bp_beta_F7,band power,0.5036,0.969,-12.12,-12.16,1,FTD
+conn_wpli_strength_beta_occipital,connectivity,0.4964,0.969,0.1436,0.1445,1,AD
+spec_relpow_gamma_parietal,spectral,0.5024,0.9814,0.002936,0.002926,1,FTD
+bp_alpha_Pz,band power,0.5024,0.9814,-11.62,-11.61,1,FTD
+bp_gamma_Fp1,band power,0.5012,0.9938,-12.54,-12.58,1,FTD
+conn_wpli_strength_delta_occipital,connectivity,0.5012,0.9938,0.1477,0.1472,1,FTD
+bp_gamma_C3,band power,0.5006,1,-12.87,-12.89,1,FTD
+conn_wpli_strength_delta_parietal,connectivity,0.5,1,0.1437,0.1396,1,AD
+spec_relpow_delta_central,spectral,0.5,1,0.9154,0.9149,1,AD
