@@ -9,9 +9,10 @@ and test.
 The base paper is **MFE-FCGCN** (Liu et al., 2025 [1]), which reports 95.09 %
 accuracy and 98.36 % AUC. We replace its graph convolution with multi-head
 graph attention (**MFE-FCGAT**). We then:
-1. match the paper's result under its own protocol,
-2. show that this protocol lets the model recognise *people* rather than disease, and
-3. report what the model achieves on patients it has never seen.
+1. match the paper's result under its own protocol (94.9 % accuracy, 98.8 % AUC),
+2. show that this protocol lets the model recognise *people* rather than disease,
+3. report what the model achieves on patients it has never seen (84.0 % accuracy, 0.909 AUC), and
+4. test whether engineered EEG features can separate AD from frontotemporal dementia (FTD).
 
 ---
 
@@ -19,23 +20,40 @@ graph attention (**MFE-FCGAT**). We then:
 
 ### Case B: new patients (patient-independent split, the clinically meaningful number)
 
-5-fold cross-validation grouped by patient: nobody is in both training and test.
-A patient's score is the mean probability over their 20 s windows. Results are
-pooled over all 65 patients (36 AD, 29 healthy controls).
+5-fold cross-validation grouped by patient, repeated 5 times with different
+splits: nobody is in both training and test. A patient's score is the mean
+probability over their 20 s windows. Each number is pooled over all 65 patients
+(36 AD, 29 healthy controls) and averaged over the 5 repeats. Every model below
+is tested on exactly the same patients and folds.
 
-| model | accuracy | recall (AD found) | specificity | AUC |
+| model | accuracy | recall (AD found) | specificity | AUC [95 % CI] |
 |---|---|---|---|---|
-| band-power logistic regression, same folds | 0.754 | 0.806 | 0.690 | 0.881 |
-| random forest on band power | 0.800 | 0.806 | 0.793 | 0.854 |
-| **MFE-FCGAT (ours)** | 0.862 | 0.861 | 0.862 | 0.927 |
-| **MFE-FCGAT + band-power soft vote** | **0.892** | **0.889** | **0.897** | **0.939** |
+| band-power logistic regression | 0.769 | 0.772 | 0.766 | 0.872 [0.787, 0.941] |
+| random forest on band power | 0.785 | 0.778 | 0.793 | 0.849 [0.746, 0.939] |
+| MFE-FCGCN (the paper's model) | 0.785 | 0.806 | 0.759 | 0.860 [0.781, 0.925] |
+| MFE-FCGAT with the graphs removed (control) | 0.775 | 0.800 | 0.745 | 0.881 [0.802, 0.944] |
+| **MFE-FCGAT (ours)** | **0.840** | **0.850** | **0.828** | 0.909 [0.842, 0.965] |
+| **MFE-FCGAT + band-power soft vote** | 0.834 | 0.844 | 0.821 | **0.916** [0.850, 0.967] |
 | *published: leave-one-subject-out on ds004504 [3]* | *0.846* | | | *0.883* |
-
-> ⏳ These are from one repeat of 5-fold CV. A 3-repeat confirmation, and the
-> paper's GCN under the same protocol (`GCN_ds004504.ipynb`), are in progress.
 
 The soft vote is the plain average of the GAT's and the logistic regression's
 probabilities. The weights are equal and nothing is tuned.
+
+**Which differences are real?** With 65 patients, an AUC has a 95 % CI about
+±0.06 wide, wider than most gaps between these models. Each comparison is
+tested on the same bootstrap resamples as its CI, then Holm-corrected over the
+six comparisons. MFE-FCGAT has the best accuracy and leads every baseline, but
+**no lead is statistically significant**:
+
+| MFE-FCGAT vs | ΔAUC [95 % CI] | p (Holm) |
+|---|---|---|
+| MFE-FCGCN (the paper's graph convolution) | +0.050 [+0.011, +0.097] | 0.10 |
+| random forest | +0.060 [−0.021, +0.152] | 0.53 |
+| band-power logistic regression | +0.037 [−0.027, +0.109] | 0.56 |
+| the same model without graphs | +0.028 [−0.007, +0.067] | 0.50 |
+
+The last row matters for interpretation: the electrode graphs add at most a
+few AUC points that this sample cannot confirm.
 
 ### Case A: the paper's protocol (window split)
 
@@ -62,7 +80,7 @@ Windows are shuffled into folds, so every test patient also has windows in train
 - Copying the label of the most similar training window, with no learning at
   all, scores **99.1 %**. That beats the paper and our model.
 - When the split is by patient, the same GAT goes from 0.949 to 0.788 window
-  accuracy, and from 0 to 9 misdiagnosed patients out of 65.
+  accuracy, and from 0 to 9 misdiagnosed patients out of 65 (first repeat of each).
 
 Case A measures how well a model recognises people it has already seen. Case B
 measures how well it diagnoses someone new. We report Case A only to show we
@@ -72,16 +90,57 @@ can reproduce the paper, and always next to Case B.
 
 88 patients (36 AD, 23 FTD, 29 HC), 5-fold CV × 3 repeats, patient level:
 
-| model | macro recall | recall HC | recall AD | recall FTD | macro AUC | dementia vs HC AUC |
-|---|---|---|---|---|---|---|
-| MFE-FCGAT, 3-way head | 0.583 ± 0.025 | 0.782 | 0.750 | 0.217 | 0.748 | 0.871 |
-| band-power logistic regression | 0.578 ± 0.006 | 0.747 | 0.611 | 0.377 | 0.758 | 0.871 |
-| **soft vote** | **0.600 ± 0.026** | 0.782 | 0.685 | 0.333 | **0.783** | **0.889** |
-| *published strict benchmark [3]* | *0.611* | *0.86* | *0.69* | *0.28* | *0.786* | |
+| model | macro recall [95 % CI] | recall HC | recall AD | recall FTD | macro AUC | dementia vs HC AUC | AD vs FTD AUC |
+|---|---|---|---|---|---|---|---|
+| MFE-FCGAT, 3-way head | 0.583 [0.512, 0.655] | 0.782 | 0.750 | 0.217 | 0.748 | 0.871 | 0.595 |
+| band-power logistic regression | 0.578 [0.495, 0.664] | 0.747 | 0.611 | 0.377 | 0.758 | 0.871 | 0.584 |
+| **soft vote** | **0.600** [0.517, 0.686] | 0.782 | 0.685 | 0.333 | **0.783** | **0.889** | 0.601 |
+| *published strict benchmark [3]* | *0.611* | *0.86* | *0.69* | *0.28* | *0.786* | | |
 
-In resting-state band power, AD and FTD look alike: the AD vs FTD AUC is about
-0.60 for every model. Under a strict patient-independent protocol, published
-methods also land near 60 % ± 7.
+Telling dementia from health works (AUC 0.87–0.89). Telling the two dementias
+apart does not: every AD vs FTD AUC is about 0.60, and its 95 % CI includes 0.5
+(chance). The soft vote's lead over band power is not significant (+0.022 macro
+recall, p (Holm) 0.81). Under a strict patient-independent protocol, published
+methods also land near 60 %. The next section asks whether better features can
+fix the AD vs FTD part.
+
+### AD vs FTD: can feature engineering separate the two dementias?
+
+[`experiments_ad_vs_ftd/`](experiments_ad_vs_ftd/) builds 417 features per
+patient from the cleaned time-domain EEG:
+- **spectral:** relative and regional power, band ratios, front-to-back and
+  left-right asymmetry, alpha frequency, spectral entropy;
+- **nonlinear:** Hjorth parameters, permutation and SVD entropy, Higuchi fractal
+  dimension, DFA;
+- **phase-lag connectivity:** wPLI, imaginary coherency, graph measures.
+
+Every patient contributes the same 300 s. With equal data per patient, recording
+length cannot leak: in the original windows, the number of windows alone
+separated AD from FTD perfectly. The experiment compares 7 feature sets on 59
+patients, using one pre-specified logistic regression and 20 × 5-fold
+cross-validation by patient.
+
+| AUC, FTD vs AD | |
+|---|---|
+| existing band power | 0.540 [0.403, 0.667] |
+| engineered: spectral / nonlinear / connectivity | 0.448 / 0.410 / 0.487 |
+| combinations of the three | 0.450 – 0.481 |
+| patient's sex alone (not EEG) | 0.576 |
+| chance: AUCs with shuffled diagnoses, 95 % range | 0.30 – 0.68 |
+| **the same features on AD vs healthy** | **0.66 – 0.84** |
+
+![The same features and classifier on two questions](experiments_ad_vs_ftd/results/two_questions.png)
+
+**No feature group separates AD from FTD above chance.** None beats the existing
+band power, and none beats knowing the patient's sex. The same features and
+classifier do separate AD from healthy controls, so the pipeline works and the
+features carry dementia information. What they lack is a difference between
+the two dementias.
+
+The clearest single difference is higher frontal and temporal theta power in AD
+(the stronger EEG slowing usually reported in AD), but it does not survive
+correction for testing 210 features. Accuracies near 90 % reported for AD vs FTD
+on this dataset come from window-level splits [6], the same leak as Case A.
 
 ---
 
@@ -118,6 +177,9 @@ has 22,566 parameters, against 16,686 for the GCN version.
 - Report numbers pooled over all patients, never single folds. Each fold tests only 13 people.
 - Choose the epoch on validation patients, never on test. No decision thresholds are tuned.
 - Compute baselines on the same folds.
+- Give every number a 95 % CI from a patient bootstrap (each class resampled
+  separately). Test each difference on the same resamples, and Holm-correct
+  every family of comparisons.
 
 ---
 
@@ -141,12 +203,17 @@ is the only cell you normally edit**, and every notebook is self-contained.
 | order | run | writes | time (CPU) |
 |---|---|---|---|
 | 1 | `build_cache.ipynb` | `subject_cache/`: 88 `.npz` files, 247 MB | ~35 min |
-| 2 | `GAT_ds004504.ipynb` (Case B) | `results_gat/` | ~15 min per repeat |
-| 3 | `GCN_ds004504.ipynb` (paper's GCN, Case B) | `results_gcn/` | ~15 min per repeat |
+| 2 | `GCN_ds004504.ipynb` (paper's GCN, Case B) | `results_gcn/` | ~35 min (5 repeats) |
+| 3 | `GAT_nograph_ds004504.ipynb` (control: graphs removed) | `results_gat_nograph/` | ~35–60 min |
 | 4 | `RF_ds004504.ipynb` (random forest baseline) | `results_rf/` | < 1 min |
-| 5 | `GAT_window_ds004504.ipynb` (Case A) | `results_gat_window/` | ~36 min |
-| 6 | `GAT_multiclass_ds004504.ipynb` (3-class) | `results_gat_multiclass/` | ~25 min |
-| 7 | `python leak_check.py` (needs 1, 2 and 5) | prints the checks above | ~1 min |
+| 5 | `GAT_ds004504.ipynb` (Case B) | `results_gat/` | ~30 min (5 repeats) |
+| 6 | `GAT_window_ds004504.ipynb` (Case A) | `results_gat_window/` | ~36 min |
+| 7 | `GAT_multiclass_ds004504.ipynb` (3-class) | `results_gat_multiclass/` | ~25 min |
+| 8 | `python leak_check.py` (needs 1, 5 and 6) | prints the checks above | ~1 min |
+| 9 | `experiments_ad_vs_ftd/features_ad_ftd.ipynb`, then `ADvsFTD_ds004504.ipynb` | `experiments_ad_vs_ftd/features/`, `results/` | ~30 s, ~5 min |
+
+The GAT goes after the other Case B models because its statistics cell compares
+it with every result folder already present on the same folds.
 
 Seeds are fixed (`SEED = 42`). Small floating-point differences between
 machines and library versions can still move individual windows across the
@@ -158,11 +225,13 @@ machines and library versions can still move individual windows across the
 build_cache.ipynb               EEG -> features and graphs (subject_cache/)
 GAT_ds004504.ipynb              MFE-FCGAT, Case B (binary, patient split)
 GCN_ds004504.ipynb              paper's MFE-FCGCN, same code apart from the graph layer
+GAT_nograph_ds004504.ipynb      control: MFE-FCGAT with every graph replaced by a uniform one
 RF_ds004504.ipynb               random forest on band power
 GAT_window_ds004504.ipynb       MFE-FCGAT, Case A (paper's window split)
 GAT_multiclass_ds004504.ipynb   MFE-FCGAT, AD / FTD / HC
 leak_check.py                   why Case A scores ~95 %
-results_*/                      saved summaries, per-fold CSVs, figures, out-of-fold probabilities
+results_*/                      saved summaries, per-fold CSVs, figures, out-of-fold probabilities, statistics
+experiments_ad_vs_ftd/          AD vs FTD feature-engineering study (own README)
 docs/PROJECT_NOTES.md           full lab notebook: every run, ablation and review decision
 ```
 
@@ -173,5 +242,6 @@ docs/PROJECT_NOTES.md           full lab notebook: every run, ablation and revie
 3. eeg-dementia-graph-transformer: a patient-independent benchmark on ds004504. <https://github.com/happyc0der/eeg-dementia-graph-transformer>
 4. EEG-based classification of AD and FTD using functional connectivity. *Scientific Reports* (2026). <https://pmc.ncbi.nlm.nih.gov/articles/PMC12873302/>
 5. Veličković et al. (2018). Graph Attention Networks. *ICLR*.
+6. Lal, Chikkankod & Longo (2024). A comparative study on feature extraction techniques for the discrimination of frontotemporal dementia and Alzheimer's disease with electroencephalography in resting-state adults. *Brain Sciences* 14(4):335. [doi:10.3390/brainsci14040335](https://doi.org/10.3390/brainsci14040335)
 
 Code: MIT license. Dataset: CC0, by its authors [2].

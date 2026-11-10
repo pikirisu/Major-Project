@@ -2,7 +2,26 @@
 
 # AD vs HC detection on ds004504: project map
 
-*Last reviewed 2026-10-19. Start here before opening any notebook.*
+*Last reviewed 2026-11-10. Start here before opening any notebook.*
+
+## 0. Status on 2026-11-10: the numbers to quote
+
+| question | result | where |
+|---|---|---|
+| AD vs HC, **new patients** (Case B, 5 repeats) | GAT **0.840 acc / 0.909 AUC** [0.842, 0.965]; soft vote 0.834 / 0.916 | `results_gat/statistics.json` |
+| AD vs HC, **paper's window split** (Case A) | GAT 0.9489 / 0.9884 (paper 0.9509 / 0.9836); a 1-NN lookup scores 0.991 | `results_gat_window/`, `leak_check.py` |
+| AD / FTD / HC (3 repeats) | soft vote **0.600 macro recall** [0.517, 0.686]; FTD recall 0.33 | `results_gat_multiclass/statistics.json` |
+| AD vs FTD, engineered features (§ R5) | **no feature set above chance** (AUC 0.41–0.54); the same features reach 0.66–0.84 on AD vs HC | `experiments_ad_vs_ftd/results/` |
+
+**No model difference is statistically significant after Holm correction**, in
+any task (§ R6). Defensible claims:
+- the subject-level AD vs HC performance;
+- the leak audit;
+- the 3-class result matching the strict literature;
+- the AD vs FTD negative result together with its controls.
+
+Not defensible: "GAT beats band power", "the graphs help", "the soft vote is
+better".
 
 **What the project is.** We take resting-state, eyes-closed EEG (OpenNeuro
 ds004504, 19 electrodes). For each of 5 frequency bands (δ θ α β γ) we build one
@@ -30,10 +49,10 @@ Subject-independent 5-fold CV, pooled over all 65 subjects (subject = mean of it
 | window | 0.7883 | 0.8027 | 0.7741 | 0.8553 |
 
 **Caveats to know before reusing these numbers**
-- **One repeat only.** At `N_REPEATS = 1`, AUC differences under ~0.03 are noise. Run 3+ repeats before the final report.
+- **One repeat only.** At `N_REPEATS = 1`, AUC differences under ~0.03 are noise. Run 3+ repeats before the final report. ✅ **Resolved 2026-11-10:** at 5 repeats the GAT scores 0.840 / 0.909 (§ 0). The presented run is repeat 1 of those five and reproduces exactly (AUC 0.927), so it was the luckiest of the five (range 0.880–0.927).
 - **The "linear floor" printed by the notebook used different folds** (seed 42) from the network (seed 1042). On the network's own folds, band-power logistic regression scores **0.7538 acc / 0.8812 AUC**, so GAT leads it by +0.046 AUC. The 2026-09-16 run (and `GAT_ds004504.html`) printed 0.8769 / 0.8908. **Fixed 2026-10-20** in both twins: the splits moved up to Cell 4, and Cell 5 now fits the floor on the network's own folds and repeats (it prints 0.7538 / 0.8812 at 1 repeat). Cell 10 reuses those predictions, and the model cell is now Cell 6.
 - **The floor learned from more subjects than the GAT.** Logistic regression is fitted on train + validation subjects (52), while the GAT trains on ~42 and uses the validation subjects only to pick the epoch. The GAT beat the floor despite that handicap, so the comparison understates it rather than flatters it. The multi-class notebook removes this asymmetry (see R1).
-- **The GCN twin was never fully run** (`results_gcn/` does not exist), so "GAT beats GCN" has not been measured under the same protocol yet. The only saved GCN number under this protocol is 0.8000 / 0.8343 at the paper's learning rate (`results_mfagat/B_gcn_subject`).
+- **The GCN twin was never fully run** (`results_gcn/` does not exist), so "GAT beats GCN" has not been measured under the same protocol yet. The only saved GCN number under this protocol is 0.8000 / 0.8343 at the paper's learning rate (`results_mfagat/B_gcn_subject`). ✅ **Resolved 2026-11-10:** GCN 0.785 / 0.860 at 5 repeats, on the same folds. GAT − GCN = +0.050 AUC [+0.011, +0.097], p (Holm) 0.10.
 - **The paper's 95% is a window-split number.** It comes from splitting *windows* rather than *subjects*, so overlapping windows of the same person end up in both train and test. Under that split, plain logistic regression also reaches 0.92. Quote such a number only as **Case A** (below), with its label, and always next to Case B.
 
 ## 1b. Two evaluation cases (from 2026-10-19)
@@ -55,6 +74,36 @@ Subject-independent 5-fold CV, pooled over all 65 subjects (subject = mean of it
 
 **Case B status (2026-10-19).** Binary, subject level: GAT 0.862 acc / 0.861 recall / 0.927 AUC; **soft vote 0.892 / 0.889 / 0.939** (1 repeat). Published leave-one-subject-out results on this dataset reach 84.6% / AUC 0.883. 3-class: see R1.
 
+**Case B status (2026-11-10, 5 repeats, all models on the same folds).** Subject level, 65 subjects; AUC with 95 % CI from a subject bootstrap:
+
+| model | acc | recall | spec | AUC [95 % CI] |
+|---|---|---|---|---|
+| band-power LR | 0.769 | 0.772 | 0.766 | 0.872 [0.787, 0.941] |
+| random forest | 0.785 | 0.778 | 0.793 | 0.849 [0.746, 0.939] |
+| MFE-FCGCN | 0.785 | 0.806 | 0.759 | 0.860 [0.781, 0.925] |
+| no-graph GAT (control) | 0.775 | 0.800 | 0.745 | 0.881 [0.802, 0.944] |
+| **MFE-FCGAT** | **0.840** | **0.850** | **0.828** | 0.909 [0.842, 0.965] |
+| soft vote GAT + band power | 0.834 | 0.844 | 0.821 | **0.916** [0.850, 0.967] |
+
+These are paired comparisons, Holm-corrected over six. **None is significant:**
+
+| comparison | ΔAUC | p | p (Holm) |
+|---|---|---|---|
+| GAT − band-power LR | +0.037 | 0.28 | 0.56 |
+| soft vote − band-power LR | +0.044 | 0.029 | 0.15 |
+| GAT − GCN | +0.050 | 0.016 | 0.10 |
+| GAT − no-graph | +0.028 | 0.13 | 0.50 |
+| GAT − RF | +0.060 | 0.18 | 0.53 |
+
+**The no-graph control** (`GAT_nograph_ds004504.ipynb`) replaces E1 and E2 with
+a uniform 1/19 graph. The weights stay the same (22,566), and the `log E` prior
+becomes a constant that softmax ignores. Its small, non-significant gap is why
+"the graphs help" cannot be claimed.
+
+**Learning rate:** 17 of 25 GAT folds picked epoch 15, the earliest allowed
+(`MIN_EPOCHS`). The model peaks early, which suggests lr 3e-3 is on the high
+side for the GAT.
+
 ---
 
 ## 2. Files: what to focus on
@@ -62,9 +111,15 @@ Subject-independent 5-fold CV, pooled over all 65 subjects (subject = mean of it
 ### Active (open these)
 | file | role |
 |---|---|
-| `GAT_ds004504.ipynb` | **Case B, binary, subject level**: the presented model (MFE-FCGAT). Cell 10 adds the GAT + band-power soft vote. Writes `results_gat/` |
+| `GAT_ds004504.ipynb` | **Case B, binary, subject level**: the presented model (MFE-FCGAT). Cell 10 adds the GAT + band-power soft vote. Cell 11 runs the statistics against every other result folder on the same folds. Writes `results_gat/` |
 | `GAT_window_ds004504.ipynb` | **Case A, binary, window level**: same model under the base paper's window split, reported in the paper's Table 3 format next to the paper's numbers. Writes `results_gat_window/` |
-| `GCN_ds004504.ipynb` | paper's GCN as a baseline. Same code except the graph layer. Writes `results_gcn/` (not run yet) |
+| `GCN_ds004504.ipynb` | paper's GCN as a baseline. Same code except the graph layer. Writes `results_gcn/` |
+| `GAT_nograph_ds004504.ipynb` | control: the GAT with every graph replaced by a uniform one. Writes `results_gat_nograph/` |
+| `experiments_ad_vs_ftd/` | **AD vs FTD feature-engineering study (R5)**: `features_ad_ftd.ipynb` (time-domain features, one row per subject) then `ADvsFTD_ds004504.ipynb` (experiments, statistics, figures). Has its own README |
+
+The GAT, GCN and no-graph notebooks are **twins**. They share every cell except
+the intro, the model configuration and the model, so cells 3–5 and 11–15 must
+stay byte-identical across all three. Edit all three together.
 | `RF_ds004504.ipynb` | random-forest baseline on band power. Writes `results_rf/` |
 | `GAT_multiclass_ds004504.ipynb` | **Case B, 3-class, subject level (R1 + R3)**: the same GAT with a 3-way head (HC / AD / FTD). Fixed 30 epochs on all non-test subjects, 3 repeats; macro + per-class recall, pairwise AUCs, dementia-vs-HC; floor on the same subjects; Cell 10 soft vote. Writes `results_gat_multiclass/` |
 | `build_cache.ipynb` | **data pipeline**: builds `subject_cache/` for all 88 subjects. Its feature cells are copied verbatim from `mfe-fcgcn.ipynb`, and it rebuilds sub-001 bit-identical to the old cache |
@@ -75,9 +130,10 @@ Subject-independent 5-fold CV, pooled over all 65 subjects (subject = mean of it
 ### Results kept in the root
 | folder | status | why |
 |---|---|---|
-| `results_gat/` | ✅ **presented** | GAT, subject split, pooled OOF. Executed record: `GAT_ds004504.html`. `ensemble_*` files = soft vote (Cell 10) |
-| `results_gat_multiclass/` | ✅ usable | 3-class GAT, 3 repeats, fixed 30 epochs (2026-10-19). `ensemble_*` files = soft vote (Cell 10) |
-| `results_rf/` | ✅ usable | RF baseline. Also holds the matched-fold logistic floor |
+| `results_gat/` | ✅ **quote these** | GAT, subject split, **5 repeats** (2026-11-10), pooled OOF. `ensemble_*` = soft vote (Cell 10); `statistics.json` = CIs and Holm-corrected comparisons with every model below. `GAT_ds004504.html` is the old 1-repeat run |
+| `results_gcn/`, `results_gat_nograph/` | ✅ usable | MFE-FCGCN and the no-graph control, 5 repeats, same folds as `results_gat/` |
+| `results_gat_multiclass/` | ✅ usable | 3-class GAT, 3 repeats, fixed 30 epochs (2026-10-19). `ensemble_*` files = soft vote (Cell 10); `statistics.json` added 2026-11-10 |
+| `results_rf/` | ✅ usable | RF baseline, 5 repeats. Also holds the matched-fold logistic floor |
 | `results_mfagat/` | ✅ usable as an ablation record | GATv1 vs **GATv2**, fusion/CNN/prior ablations, plus the window-split reproduction of the paper's 95% (`A_paper_gcn_window`, which shows the leak). 1 repeat, lr 1.2e-4 |
 
 ### `_archive/`: superseded, nothing in the presentation depends on it
@@ -158,6 +214,10 @@ No new dataset is needed. ds004504 already has 23 FTD subjects (sub-066…088), 
 
    **This is not a failure; it is the honest ceiling of this dataset.** An independent study with a strict subject-independent protocol (10 × 5-fold, nested selection, 1,348 hand-crafted features, foundation models, deep nets) finds every method at about 60% balanced accuracy, ±7 points, with FTD recall around 28–40%. AD and FTD look alike in resting-state band power, for us and for everyone.
 5. **Next options for 3-class** (subject level), from that literature: average reference instead of the A1–A2 reference (+2–5 points reported), relative band power and slowing ratios (θ/α, (δ+θ)/(α+β)), and connectivity from time signals per band (delta cross-correlation is the best single published AD-vs-FTD feature, AUC 0.71). All three need a cache rebuild.
+   ✅ **Tested 2026-11-10 (R5):**
+   - Relative band power, slowing ratios and time-domain phase-lag connectivity (wPLI) do not separate AD from FTD.
+   - Feeding them into a subject-level 3-class model gives macro recall 0.48–0.54, below the window-level models (0.58–0.60), with FTD recall 0.29–0.39. That check was run in a session scratchpad and is not in the repo.
+   - Not tried: the average reference, and delta cross-correlation itself.
 
 ### R2 · More datasets
 | dataset | what | access | catch |
@@ -172,5 +232,66 @@ No new dataset is needed. ds004504 already has 23 FTD subjects (sub-066…088), 
 - **What our graphs are today.** E1 and E2 are already computed per window, but they measure **similarity of PSD across frequency bins**, not synchrony of the signals over time, and they are frozen inputs. "Dynamic" can mean (a) **time-resolved connectivity**: Pearson and MI on band-filtered time signals over short sub-windows, which gives a sequence of graphs per window and needs a cache rebuild; or (b) **adaptive adjacency**: the model learns a per-sample correction to the Pearson and MI priors.
 - **Decided (2026-10-19): (b), learned adaptive adjacency.** The cached Pearson and MI graphs stay as priors. GATv2 attention plus a learned edge gate `g_ij = σ(MLP[x_i, x_j, E_ij])` reshape them for each sample. No new preprocessing is needed. To attribute any gain, compare three runs: GAT → GATv2 → GATv2 + adaptive gate.
 
+### R5 · AD vs FTD: feature engineering (2026-11-09 to 11-10)
+**Question:** can engineered spectral, nonlinear and connectivity features
+separate AD (36) from FTD (23) subject-independently? Everything is in
+`experiments_ad_vs_ftd/`.
+
+**Confounders found first** (`subjects.csv`, Cell 3 of the experiment). Each of
+these quantities, on its own, separates FTD from AD:
+
+| quantity | AUC | note |
+|---|---|---|
+| windows per subject in `subject_cache/` | **1.000** | caps 80 AD / 100 FTD, and nearly everyone hits the cap |
+| recording length | 0.669 | AD 13.5 min, FTD 12.0 min |
+| sex | 0.638 | FTD 61 % male, AD 33 % |
+| MMSE | 0.806 | clinical; never a model input |
+
+No existing model takes window count as input. But in the old cache, FTD
+features averaged over minutes 7–8.6, which no AD feature covered.
+
+**Design, fixed before any AD-vs-FTD result was seen:**
+- **Equal data per subject:** the first 75 four-second epochs per subject (300 s) that contain no ASR `boundary` join. There are 512 joins in the derivatives; the shortest recording has exactly 75 clean epochs.
+- **Features:** 417 per subject, as medians over epochs, then means over 5 regions. 27 known-answer self-tests guard them (they caught two alpha-peak bugs).
+- **Feature sets:**
+  - band power: the cache's own definition, reproduced to 4.6e-7;
+  - spectral: 45;
+  - nonlinear: 35;
+  - wPLI connectivity: 35.
+- **Excluded by theory:** zero-crossing rate (= 2 × Hjorth mobility, r 0.987), global efficiency (= mean wPLI, r 0.90–1.00), and Hjorth activity and absolute power (amplitude, which partly encodes sex).
+- **Model:** one logistic regression (C = 0.1, balanced class weights), 20 × 5-fold CV over subjects.
+- **Statistics:** subject bootstrap CIs; Holm over the 6 comparisons against band power.
+
+**Result:**
+- **AD vs FTD:**
+  - band power 0.540 [0.403, 0.667];
+  - spectral 0.448, nonlinear 0.410, connectivity 0.487, combinations 0.45–0.48;
+  - sex alone 0.576, recording length 0.650;
+  - 3-class GAT comparator 0.595.
+- **Chance:** with shuffled labels, the AUC centres near 0.49 with a 95 % range of ≈ 0.30–0.68. The permutation p is 0.32–0.79 for every set.
+- **Positive control:** the same pipeline on AD vs HC reaches 0.83 (band power) and 0.84 (spectral).
+- **Descriptive:** frontal and temporal theta is higher in AD (single-feature AUC ≈ 0.30). No feature survives FDR over 210. The band-power model scores 0.73 within women but 0.33 within men.
+- **Conclusion:** no evidence that resting-state EEG features separate AD from FTD at n = 59. The CIs still allow an AUC up to ≈ 0.67, so this does not prove that no difference exists. Lal et al. 2024 report 91 % using a window-level split.
+
+### R6 · Statistics (Cell 11), and a bug fixed on 2026-11-10
+Every notebook's Cell 11 reports:
+- the repeat-averaged metric, with a 95 % CI from a subject bootstrap (each class resampled separately);
+- for each comparison, a paired p from the same resamples, Holm-corrected.
+
+The first version (2026-11-09) tested **probabilities averaged over repeats**
+(DeLong, McNemar). That is effectively a 5-run ensemble, a different and
+stronger model than the one the tables report. At 1 repeat the two coincide;
+at 5 repeats they diverged. For GCN, the mean per-repeat AUC is 0.860, while the
+AUC of its averaged probabilities is 0.904. The fix: p is a two-sided percentile
+bootstrap on the reported quantity, so p < 0.05 exactly when the CI excludes 0.
+It is applied to all four notebooks; their statistics cells were re-run on the
+saved predictions, and the ensemble files reproduced byte for byte.
+
 ### Rules that apply to all of the above
-Split by subject, never by window. Quote pooled 65-subject (or 88-subject) numbers, never single folds. Use 3+ repeats before reporting. Tune the learning rate per architecture, because the best rate does not transfer from one model to another.
+- Split by subject, never by window.
+- Quote pooled 65-subject (or 88-subject) numbers, never single folds.
+- Use 5 repeats for binary results; every notebook compared in one table needs the same `N_REPEATS`.
+- Give every number a CI, and test exactly the quantity the table reports.
+- Holm-correct every family of comparisons.
+- Give each subject the same amount of data whenever window counts or recording lengths differ between groups.
+- Tune the learning rate per architecture, because the best rate does not transfer from one model to another.
