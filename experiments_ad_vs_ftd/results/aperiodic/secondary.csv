@@ -1,0 +1,19 @@
+hypothesis,coef_per_sd,lr_stat,p_lr,rho_mmse_AD,rho_mmse_FTD,analysis,variant,auc,ci_low,ci_high,bal_acc,null_mean,null_low,null_high,p_one_sided,comparison,n_hi,n_other,n_left_out,auc_needed
+H1 exponent,0.294015,0.594186,0.440805,-0.139847,-0.290886,"S1 adjusted for MMSE, age, sex",,,,,,,,,,,,,,
+H2 offset,0.441045,1.606477,0.204988,-0.054757,-0.118472,"S1 adjusted for MMSE, age, sex",,,,,,,,,,,,,,
+H3 theta/alpha ratio,0.758111,3.973030,0.046234,-0.118575,0.113934,"S1 adjusted for MMSE, age, sex",,,,,,,,,,,,,,
+H1-H3 together,,,,,,S2 classifier,"L2 logistic regression, 20 x 5-fold CV",0.616123,0.468773,0.758910,0.641425,0.483625,0.307902,0.659452,0.075848,,,,,
+H1 exponent,,,,,,S3 positive control,,0.663793,0.533477,0.783549,,,,,0.011899,AD > HC,36.000000,29.000000,0.000000,0.622605
+H1 exponent,,,,,,S3 positive control,,0.497751,0.332796,0.655172,,,,,0.513649,FTD > HC,23.000000,29.000000,0.000000,0.637181
+H2 offset,,,,,,S3 positive control,,0.670498,0.530627,0.801748,,,,,0.010399,AD > HC,36.000000,29.000000,0.000000,0.619732
+H2 offset,,,,,,S3 positive control,,0.479760,0.314843,0.649250,,,,,0.596340,FTD > HC,23.000000,29.000000,0.000000,0.635682
+H3 theta/alpha ratio,,,,,,S3 positive control,,0.867816,0.772007,0.946360,,,,,0.000100,AD > HC,36.000000,29.000000,0.000000,0.618774
+H3 theta/alpha ratio,,,,,,S3 positive control,,0.797601,0.664168,0.911544,,,,,0.000100,FTD > HC,23.000000,29.000000,0.000000,0.637181
+H1 exponent,,,,,,S4-S5 robustness,no R² filter,0.636473,0.483031,0.785054,,,,,0.043796,,36.000000,23.000000,0.000000,0.629227
+H1 exponent,,,,,,S4-S5 robustness,2 s windows,0.614734,0.455314,0.760960,,,,,0.072593,,36.000000,23.000000,0.000000,0.628019
+H2 offset,,,,,,S4-S5 robustness,no R² filter,0.641304,0.487923,0.789855,,,,,0.034297,,36.000000,23.000000,0.000000,0.626812
+H2 offset,,,,,,S4-S5 robustness,2 s windows,0.632850,0.479378,0.778986,,,,,0.044996,,36.000000,23.000000,0.000000,0.628019
+H1 exponent,,,,,,S6 muscle (post hoc),subjects with >= 10 good fits,0.629881,0.455008,0.792912,,,,,0.064494,,31.000000,19.000000,0.000000,0.640068
+H1 exponent,0.502512,1.502985,0.220213,,,S6 muscle (post hoc),adjusted for 30-40 Hz power,,,,,,,,,,,,,
+H2 offset,,,,,,S6 muscle (post hoc),subjects with >= 10 good fits,0.657046,0.490662,0.808149,,,,,0.033097,,31.000000,19.000000,0.000000,0.641766
+H2 offset,0.434683,1.519521,0.217692,,,S6 muscle (post hoc),adjusted for 30-40 Hz power,,,,,,,,,,,,,

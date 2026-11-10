@@ -1,0 +1,39 @@
+{
+ "written": "2026-11-10, before any aperiodic value of any subject was computed",
+ "hypotheses_from": "Wang Z et al. (2023) GeroScience 46:751-768, doi:10.1007/s11357-023-01041-8 (same ds004504 cohort)",
+ "subjects": "36 AD vs 23 FTD; healthy controls only in the positive controls (S3)",
+ "data": "first 75 join-free 4 s epochs per subject (300 s), common average reference",
+ "spectrum": "Welch per epoch (Hamming 250 samples, overlap 125, nfft 1024), mean over the epochs",
+ "fooof": {
+  "peak_width_limits": [
+   1,
+   12
+  ],
+  "max_n_peaks": "inf",
+  "min_peak_height": 0.0,
+  "peak_threshold": 1.0,
+  "aperiodic_mode": "fixed",
+  "verbose": false,
+  "freq_range": [
+   2,
+   40
+  ],
+  "package": "fooof 1.1.1"
+ },
+ "fit_filter": "a channel's exponent and offset enter the subject's mean only if R^2 >= 0.95; a subject with no such channel is left out of H1/H2 and reported",
+ "primary": {
+  "H1": "mean aperiodic exponent over channels is higher in AD than in FTD",
+  "H2": "mean aperiodic offset over channels is higher in AD than in FTD",
+  "H3": "mean over the 19 channels of log10(theta 4-8 Hz / alpha 8-12 Hz absolute power) is higher in AD than in FTD. Not blind: theta and alpha band power were already compared by diagnosis in results/univariate.csv"
+ },
+ "test": "AUC = P(AD score > FTD score), the score used as is (nothing fitted); one-sided permutation p from 10000 shuffles of the 59 diagnoses; Holm over H1-H3; supported if Holm p < 0.05; 95 % CI from 2000 stratified subject bootstraps",
+ "secondary": [
+  "S1: likelihood-ratio test for each score added to an unpenalised logistic model of MMSE + age + sex",
+  "S2: L2 logistic regression (C = 0.1, balanced) on H1-H3 together, 20 x 5-fold CV over subjects, with the folds of ADvsFTD_ds004504.ipynb, against 500 label shuffles",
+  "S3: positive controls AD vs HC (expected higher in AD) and FTD vs HC (Wang et al.: no difference)",
+  "S4: sensitivity without the R^2 filter, and each channel separately (descriptive)",
+  "S5: H1-H2 again with 2 s Hann windows (50 % overlap), which recover a known exponent exactly"
+ ],
+ "amendment": "2026-11-10, still before any subject's EEG was read: the Cell 2 self-test showed that Wang et al.'s 0.5 s window overestimates steep exponents (1/f^1.5 -> 1.73, 1/f^2 -> 2.48), because power below 2 Hz leaks into the fit range; S5 was added. H1-H3 keep Wang et al.'s settings, since they are the claim under test",
+ "decision": "the result is reported whatever it is"
+}

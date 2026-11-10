@@ -1,0 +1,4 @@
+hypothesis,median_AD,median_FTD,n_hi,n_other,n_left_out,auc,ci_low,ci_high,p_one_sided,auc_needed,p_holm,supported
+H1 exponent,1.424822,1.206535,36,23,0,0.631643,0.480676,0.779016,0.047895,0.629227,0.087891,False
+H2 offset,0.978336,0.703472,36,23,0,0.640097,0.481884,0.785024,0.035996,0.628019,0.087891,False
+H3 theta/alpha ratio,0.218628,-0.015846,36,23,0,0.643720,0.497554,0.785054,0.029297,0.624396,0.087891,False
