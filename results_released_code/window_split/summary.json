@@ -1,0 +1,11 @@
+{
+  "window_split_released": {
+    "folds": 5,
+    "w_acc": 0.8307657911124116,
+    "w_auc": 0.9083894498743661,
+    "test_w_acc_last_epoch": 0.830073300471914,
+    "test_w_acc_max_over_epochs": 0.8337110145775657,
+    "window_acc_min": 0.8086580086580086,
+    "window_acc_max": 0.8561525129982669
+  }
+}

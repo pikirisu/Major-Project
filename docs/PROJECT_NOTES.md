@@ -10,6 +10,7 @@
 |---|---|---|
 | AD vs HC, **new patients** (Case B, 5 repeats) | GAT **0.840 acc / 0.909 AUC** [0.842, 0.965]; soft vote 0.834 / 0.916 | `results_gat/statistics.json` |
 | AD vs HC, **window split** (Case A; reproduces the paper's numbers) | GAT 0.9489 / 0.9884 (paper 0.9509 / 0.9836); a 1-NN lookup scores 0.991 | `results_gat_window/`, `leak_check.py` |
+| the paper's **released code**, re-run on our 25 patient splits | **0.668 window acc** (0.560–0.759), patient AUC 0.839; no epoch of any run above 0.791; window split 0.831 | `results_released_code/` |
 | AD / FTD / HC (3 repeats) | soft vote **0.600 macro recall** [0.517, 0.686]; FTD recall 0.33 | `results_gat_multiclass/statistics.json` |
 | AD vs FTD, engineered features (§ R5) | **no feature set above chance** (AUC 0.41–0.54); the same features reach 0.66–0.84 on AD vs HC | `experiments_ad_vs_ftd/results/` |
 | AD vs FTD, pre-registered aperiodic test (§ R5, Experiment 8) | **not supported**: exponent / offset / theta-alpha AUC 0.632 / 0.640 / 0.644, all Holm p 0.088; classifier 0.616 (p 0.076 vs chance) | `experiments_ad_vs_ftd/results/aperiodic/` |
@@ -83,6 +84,14 @@ Subject-independent 5-fold CV, pooled over all 65 subjects (subject = mean of it
 - Under the subject split (Case B) the same GAT gets 9/65 people wrong. Under the window split it gets 0/65 wrong (worst person: 76 % of windows right). At 5 repeats: 8-13 wrong (mean 10.4), window accuracy 0.764.
 
 **Correction (2026-11-15): the paper's own split.** Earlier notes called the window split "the paper's protocol". The paper's text is ambiguous ("signal segments from the same sample" kept on one side of an 8:2 split), and its released code (brief-city/MFE-FCGCN-model, `model_and_train.py`) splits the 65 *patients* 80/20 (13 test patients), evaluates them every epoch and steps `ReduceLROnPlateau` on the test loss. The AHEPA review (Cognitive Neurodynamics 20(1):95, 2026) also grades it Validity 2 (subject-level single split). What stays defensible: a window split reproduces the paper's numbers, and under it a 1-NN lookup scores 0.991. On our 25 patient-split folds of 13 patients, our MFE-FCGCN scored 0.483-0.888 window accuracy (mean 0.717): never 95 %. Deck and README now say "the split that reproduces the paper's 95 %", not "the paper's protocol".
+
+**The released code, re-run (2026-11-15).** `experiments_released_code/prep.py` ports `raw_data_processing.py` + `generate_graph_data.py` (Welch n_fft 2500 / overlap 500, window = mean of 4 consecutive 5 s segments with a 1-segment step, per-channel z-score, row-max-normalised MI graph, row-normalised |Pearson| graph; caps 80 AD / 100 HC windows; 5,773 windows). `run.py` ports `model_and_train.py` (shared GCN, MI then Pearson, dense GCNConv checked against PyG to 2.4e-7; Adam 1.2e-4, ReduceLROnPlateau(0.1, 5), 200 epochs, best-val-AUC checkpoint on 1 of 15 inner folds; theirs re-initialises per inner fold and keeps the last one's checkpoint) on our 25 test sets. Results (`results_released_code/summary.json`):
+- as released (scheduler on the **test** loss): window acc 0.668 (0.560–0.759), AUC 0.724; patient pooled 0.794 acc / 0.839 AUC. The LR first drops at a median epoch of 40 and is 1.2e-9 by the end of every run; best epoch median 43.
+- scheduler on validation loss: 0.681 (0.442–0.780), patient 0.794 / 0.849. So the test-loss scheduler moves accuracy by about one point; it is not what produces 95 %.
+- best test epoch of any of the 50 runs (an oracle): 0.791. No run near 95 %.
+- control, `SPLIT=window` (5-fold StratifiedKFold over windows, seed 42): 0.831 (0.809–0.856), AUC 0.908. A 1-NN lookup on the same released features scores 0.998, nearest neighbour = same person 99.7 %: the features leak under a window split, but this training (lr 1.2e-4, dropout 0.8, LR collapse) does not exploit it.
+- Our MFE-FCGCN (paper equations, our features) is not worse than theirs on new patients: 0.717 / 0.860 vs 0.668 / 0.839.
+How the reported 95.09 % was produced is unknown: one unseeded 80/20 patient draw, MI with random_state None, and test accuracy printed at all 15 × 200 epochs. Say "their released code scores 67 % per window on new patients", never "the paper cheated".
 
 **Case B status (2026-10-19).** Binary, subject level: GAT 0.862 acc / 0.861 recall / 0.927 AUC; **soft vote 0.892 / 0.889 / 0.939** (1 repeat). Published leave-one-subject-out results on this dataset reach 84.6% / AUC 0.883. 3-class: see R1.
 

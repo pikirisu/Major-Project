@@ -1,0 +1,38 @@
+{
+  "released": {
+    "folds": 25,
+    "window_acc_mean": 0.6682374836412331,
+    "window_acc_min": 0.5603448275862069,
+    "window_acc_max": 0.7594827586206897,
+    "window_auc_mean": 0.7243457323403294,
+    "window_acc_last_epoch_mean": 0.6684805064369845,
+    "window_acc_max_over_epochs_mean": 0.6810889916912681,
+    "window_acc_max_over_epochs_max": 0.7913793103448276,
+    "folds_reaching_95_window_acc": 0,
+    "patient_pooled": {
+      "acc": 0.7938461538461539,
+      "sens": 0.85,
+      "spec": 0.7241379310344829,
+      "f1": 0.8204423572815787,
+      "auc": 0.8388888888888888
+    }
+  },
+  "clean": {
+    "folds": 25,
+    "window_acc_mean": 0.6809573302492617,
+    "window_acc_min": 0.442188879082083,
+    "window_acc_max": 0.7801724137931034,
+    "window_auc_mean": 0.7420811930151207,
+    "window_acc_last_epoch_mean": 0.6795968895516938,
+    "window_acc_max_over_epochs_mean": 0.696880299479563,
+    "window_acc_max_over_epochs_max": 0.7913793103448276,
+    "folds_reaching_95_window_acc": 0,
+    "patient_pooled": {
+      "acc": 0.7938461538461539,
+      "sens": 0.8111111111111111,
+      "spec": 0.7724137931034483,
+      "f1": 0.8128358988555113,
+      "auc": 0.8490421455938696
+    }
+  }
+}

@@ -142,10 +142,9 @@ signal segments from the same sample" on one side. Its released code
 ([brief-city/MFE-FCGCN-model](https://github.com/brief-city/MFE-FCGCN-model),
 `model_and_train.py`) splits the 65 patients 80/20, so 13 patients are tested.
 It also evaluates them every epoch and steps its learning-rate scheduler on the
-test loss. We could not reach 95 % on new patients. Across our 25 patient-split
-test folds of 13 patients each, our implementation of MFE-FCGCN scored 48–89 %
-window accuracy (mean 72 %). So Case A is *the split that reproduces the paper's
-numbers*, not a claim about the paper's protocol.
+test loss. We re-ran that code on new patients (next section), and it does not
+reach 95 %. So Case A is *the split that reproduces the paper's numbers*, not a
+claim about the paper's protocol.
 
 | window level | accuracy | recall | precision | F1 | AUC |
 |---|---|---|---|---|---|
@@ -155,6 +154,34 @@ numbers*, not a claim about the paper's protocol.
 | **MFE-FCGAT + soft vote** | **0.9602** | **0.9612** | **0.9588** | **0.9600** | **0.9925** |
 | band-power logistic regression | 0.9220 | 0.9237 | 0.9195 | 0.9216 | 0.9771 |
 | ⚠️ **1-nearest-neighbour lookup, no learning** | **0.991** | | | | |
+
+### The paper's own code on new patients
+
+`experiments_released_code/` ports the authors' released preprocessing and training
+loop (same features, graphs, model, optimiser and scheduler; a dense copy of PyG's
+`GCNConv`, max difference 2.4e-7) and runs it on the same 25 test sets of 13
+patients as every notebook here. Window accuracy, as the paper reports it:
+
+| the paper's released code | window accuracy | patient AUC |
+|---|---|---|
+| as released (learning rate stepped on the **test** loss), 25 patient splits | **0.668** (0.560–0.759) | 0.839 |
+| learning rate stepped on the validation loss instead | 0.681 (0.442–0.780) | 0.849 |
+| best epoch of any of the 50 runs, chosen by looking at the test set | 0.791 | |
+| window split (control), 5 folds | 0.831 (0.809–0.856) | |
+| window split, copying the nearest training window, no learning | 0.998 | |
+| *reported in the paper* | *0.9509* | |
+
+- **No run reaches 95 %.** On new patients, our own MFE-FCGCN (0.717 per window,
+  0.860 patient AUC) does slightly better than the released code, so the gap is not
+  our implementation.
+- Stepping the learning rate on the test loss lets the test set steer training,
+  but it does not explain 95 % here: it moved accuracy by about one point.
+- Under a window split the released features leak as ours do (the nearest
+  training window is the same person 99.7 % of the time), but the released training
+  (learning rate 1.2e-4, dropout 0.8) reaches 0.831, not 95 %.
+- How the reported 95.09 % was obtained remains unknown. Their split is one
+  unseeded 80/20 draw, and the code prints test accuracy at all 3,000 epochs
+  (15 inner folds × 200).
 
 ### Why Case A is not a diagnosis result
 
@@ -270,16 +297,16 @@ In order of confidence:
      (94.9 % accuracy, 0.988 AUC).
    - Under that split, copying the label of the most similar training window
      scores 99.1 % with no learning at all. The split rewards recognising people.
-   - The paper's released code splits by patient. On 25 patient-split test sets
-     of 13 patients, our implementation of its GCN never exceeded 89 % window
-     accuracy.
+   - The paper's released code splits by patient. Re-run on our 25 test sets of
+     13 new patients, it scores 67 % window accuracy (56–76 %), and no epoch of
+     any run reaches 80 %.
 2. **On patients it has never seen, MFE-FCGAT detects Alzheimer's with 84.0 %
    accuracy, 85.0 % recall and 0.909 AUC.**
    - These figures cover 65 patients, averaged over 5 repeats.
    - The 13 patient-independent studies on this dataset in a 2026 review average
      82.1 % [11], scored per patient or per segment (our per-window accuracy is
      76.4 %). A public leave-one-subject-out benchmark reports 84.6 % / 0.883 [3].
-   - It is the best model tested here. Its lead over band power (+0.037 AUC) is
+   - It leads every baseline; GATv2 (0.921) is level with it. Its lead over band power (+0.037 AUC) is
      not statistically significant with 65 patients. Its lead over the paper's GCN
      (+0.050) is borderline: p (Holm) 0.10, and 0.006 in an unchanged re-run.
    - Neither GATv2 nor a learned adaptive graph improves it (ΔAUC +0.012 and
@@ -384,6 +411,7 @@ is the only cell you normally edit**, and every notebook is self-contained.
 | 11 | `GATv2gate_ds004504.ipynb` (GATv2 + learned gate) | `results_gatv2gate/` | ~2.5 h |
 | 12 | `build_cache_ds006036.ipynb` (eyes-open features) | `subject_cache_ds006036/`: 88 `.npz` files, 151 MB | ~10 min |
 | 13 | `GAT_ds006036.ipynb` (the GAT on ds006036) | `results_gat_ds006036/` | ~40 min |
+| 14 | `python experiments_released_code/prep.py`, then `run.py`, then `SPLIT=window` `run.py` (the paper's released code) | `cache_released_code/` (local), `results_released_code/` | ~70 min, ~60 min, ~8 min |
 
 The GAT goes after the other Case B models because its statistics cell compares
 it with every result folder already present on the same folds. GATv2 goes after
@@ -414,6 +442,7 @@ leak_check.py                   why Case A scores ~95 %
 lr_check.py                     learning-rate choice for the GATv2 twins, on validation patients
 results_*/                      saved summaries, per-fold CSVs, figures, out-of-fold probabilities, statistics
 experiments_ad_vs_ftd/          AD vs FTD feature-engineering study (own README)
+experiments_released_code/      the paper's released code, ported and re-run on our patient splits
 docs/PROJECT_NOTES.md           full lab notebook: every run, ablation and review decision
 docs/PREREG_2026-11-14.md       plan for the GATv2 and ds006036 runs, written before them
 ```

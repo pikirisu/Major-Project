@@ -38,6 +38,10 @@
 # AD vs FTD feature study: its notebooks, the 88-row feature table, its results
 !/experiments_ad_vs_ftd/
 
+# the base paper's released code, re-run on held-out patients (cache_released_code/ stays local)
+!/experiments_released_code/
+!/results_released_code/
+
 # never inside the folders above either
 .ipynb_checkpoints/
 __pycache__/
