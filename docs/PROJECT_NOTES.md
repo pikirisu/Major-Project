@@ -9,7 +9,7 @@
 | question | result | where |
 |---|---|---|
 | AD vs HC, **new patients** (Case B, 5 repeats) | GAT **0.840 acc / 0.909 AUC** [0.842, 0.965]; soft vote 0.834 / 0.916 | `results_gat/statistics.json` |
-| AD vs HC, **paper's window split** (Case A) | GAT 0.9489 / 0.9884 (paper 0.9509 / 0.9836); a 1-NN lookup scores 0.991 | `results_gat_window/`, `leak_check.py` |
+| AD vs HC, **window split** (Case A; reproduces the paper's numbers) | GAT 0.9489 / 0.9884 (paper 0.9509 / 0.9836); a 1-NN lookup scores 0.991 | `results_gat_window/`, `leak_check.py` |
 | AD / FTD / HC (3 repeats) | soft vote **0.600 macro recall** [0.517, 0.686]; FTD recall 0.33 | `results_gat_multiclass/statistics.json` |
 | AD vs FTD, engineered features (§ R5) | **no feature set above chance** (AUC 0.41–0.54); the same features reach 0.66–0.84 on AD vs HC | `experiments_ad_vs_ftd/results/` |
 | AD vs FTD, pre-registered aperiodic test (§ R5, Experiment 8) | **not supported**: exponent / offset / theta-alpha AUC 0.632 / 0.640 / 0.644, all Holm p 0.088; classifier 0.616 (p 0.076 vs chance) | `experiments_ad_vs_ftd/results/aperiodic/` |
@@ -20,7 +20,7 @@
 any task (§ R6). Defensible claims:
 - the subject-level AD vs HC performance;
 - the leak audit;
-- the 3-class result matching the strict literature;
+- the 3-class result being close to a strict public benchmark (61 %);
 - the AD vs FTD negative result together with its controls, and the
   pre-registered aperiodic test (right direction, not significant);
 - the two pre-registered review answers: GATv2 / adaptive graphs add nothing
@@ -70,7 +70,7 @@ Subject-independent 5-fold CV, pooled over all 65 subjects (subject = mean of it
 | | **Case A: window level** | **Case B: subject level** |
 |---|---|---|
 | notebook | `GAT_window_ds004504.ipynb` | `GAT_ds004504.ipynb` (binary), `GAT_multiclass_ds004504.ipynb` (3-class) |
-| split | 20 s windows, shuffled (paper's protocol) | subjects; nobody is in train and test |
+| split | 20 s windows, shuffled (reproduces the paper's numbers) | subjects; nobody is in train and test |
 | question | recognise AD in more recordings of known people | diagnose a person never seen |
 | compare with | Liu et al. 2025 Table 3 (95.09 / 98.36) | subject-independent literature (~82–88% binary, ~60% 3-class) |
 
@@ -80,7 +80,9 @@ Subject-independent 5-fold CV, pooled over all 65 subjects (subject = mean of it
 - Windows are 20 s long with a 5 s step (75 % overlap). 95.4 % of test windows have a neighbour sharing 15 s of the same signal in training; 100 % share some raw signal with a training window.
 - Logistic regression on the 95 band-power numbers names the **person** (1 of 65) for 99.8 % of test windows.
 - **A 1-nearest-neighbour lookup with no learning scores 0.991 window accuracy**, above the paper and above our GAT. Its nearest training window is from the same person 97.6 % of the time.
-- Under the subject split (Case B) the same GAT gets 9/65 people wrong. Under the window split it gets 0/65 wrong (worst person: 76 % of windows right).
+- Under the subject split (Case B) the same GAT gets 9/65 people wrong. Under the window split it gets 0/65 wrong (worst person: 76 % of windows right). At 5 repeats: 8-13 wrong (mean 10.4), window accuracy 0.764.
+
+**Correction (2026-11-15): the paper's own split.** Earlier notes called the window split "the paper's protocol". The paper's text is ambiguous ("signal segments from the same sample" kept on one side of an 8:2 split), and its released code (brief-city/MFE-FCGCN-model, `model_and_train.py`) splits the 65 *patients* 80/20 (13 test patients), evaluates them every epoch and steps `ReduceLROnPlateau` on the test loss. The AHEPA review (Cognitive Neurodynamics 20(1):95, 2026) also grades it Validity 2 (subject-level single split). What stays defensible: a window split reproduces the paper's numbers, and under it a 1-NN lookup scores 0.991. On our 25 patient-split folds of 13 patients, our MFE-FCGCN scored 0.483-0.888 window accuracy (mean 0.717): never 95 %. Deck and README now say "the split that reproduces the paper's 95 %", not "the paper's protocol".
 
 **Case B status (2026-10-19).** Binary, subject level: GAT 0.862 acc / 0.861 recall / 0.927 AUC; **soft vote 0.892 / 0.889 / 0.939** (1 repeat). Published leave-one-subject-out results on this dataset reach 84.6% / AUC 0.883. 3-class: see R1.
 
@@ -122,7 +124,7 @@ side for the GAT.
 | file | role |
 |---|---|
 | `GAT_ds004504.ipynb` | **Case B, binary, subject level**: the presented model (MFE-FCGAT). Cell 10 adds the GAT + band-power soft vote. Cell 11 runs the statistics against every other result folder on the same folds. Writes `results_gat/` |
-| `GAT_window_ds004504.ipynb` | **Case A, binary, window level**: same model under the base paper's window split, reported in the paper's Table 3 format next to the paper's numbers. Writes `results_gat_window/` |
+| `GAT_window_ds004504.ipynb` | **Case A, binary, window level**: same model under a window split (reproduces the paper's numbers), reported in the paper's Table 3 format next to the paper's numbers. Writes `results_gat_window/` |
 | `GCN_ds004504.ipynb` | paper's GCN as a baseline. Same code except the graph layer. Writes `results_gcn/` |
 | `GAT_nograph_ds004504.ipynb` | control: the GAT with every graph replaced by a uniform one. Writes `results_gat_nograph/` |
 | `GATv2_ds004504.ipynb`, `GATv2gate_ds004504.ipynb` | **R4 twins** (2026-11-15): GATv2 attention; GATv2 + learned per-window edge gate. LR from `lr_check.py` (validation patients only), saved as `lr_check.json` in each results folder. Write `results_gatv2/`, `results_gatv2gate/` |

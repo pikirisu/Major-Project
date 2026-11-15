@@ -2,15 +2,15 @@
 
 This project detects Alzheimer's disease (AD) from 19-channel resting-state EEG
 ([OpenNeuro ds004504](https://openneuro.org/datasets/ds004504)) using a graph
-attention network. We evaluate it two ways: under the window split used by the
-base paper, and under a strict split where no patient appears in both training
-and test.
+attention network. We evaluate it two ways: under a window split, which
+reproduces the base paper's numbers, and under a strict split where no patient
+appears in both training and test.
 
 The base paper is **MFE-FCGCN** (Liu et al., 2025 [1]), which reports 95.09 %
 accuracy and 98.36 % AUC. We replace its graph convolution with multi-head
 graph attention (**MFE-FCGAT**). We then:
-1. match the paper's result under its own protocol (94.9 % accuracy, 98.8 % AUC),
-2. show that this protocol lets the model recognise *people* rather than disease,
+1. reproduce the paper's numbers with a window split (94.9 % accuracy, 98.8 % AUC),
+2. show that a window split lets the model recognise *people* rather than disease,
 3. report what the model achieves on patients it has never seen (84.0 % accuracy, 0.909 AUC), and
 4. test whether engineered EEG features, and a pre-registered test of a published
    aperiodic (1/f) marker, can separate AD from frontotemporal dementia (FTD), and
@@ -36,11 +36,12 @@ is tested on exactly the same patients and folds.
 |---|---|---|---|---|
 | band-power logistic regression | 0.769 | 0.772 | 0.766 | 0.872 [0.787, 0.941] |
 | random forest on band power | 0.785 | 0.778 | 0.793 | 0.849 [0.746, 0.939] |
-| MFE-FCGCN (the paper's model) | 0.785 | 0.806 | 0.759 | 0.860 [0.781, 0.925] |
+| MFE-FCGCN (the paper's model, our implementation) | 0.785 | 0.806 | 0.759 | 0.860 [0.781, 0.925] |
 | MFE-FCGAT with the graphs removed (control) | 0.775 | 0.800 | 0.745 | 0.881 [0.802, 0.944] |
 | **MFE-FCGAT (ours)** | **0.840** | **0.850** | **0.828** | 0.909 [0.842, 0.965] |
 | **MFE-FCGAT + band-power soft vote** | 0.834 | 0.844 | 0.821 | **0.916** [0.850, 0.967] |
-| *published: leave-one-subject-out on ds004504 [3]* | *0.846* | | | *0.883* |
+| *public benchmark (GitHub): leave-one-subject-out on ds004504 [3]* | *0.846* | | | *0.883* |
+| *review: mean of 13 patient-independent studies on this dataset [11]* | *0.821* | | | |
 
 The soft vote is the plain average of the GAT's and the logistic regression's
 probabilities. The weights are equal and nothing is tuned.
@@ -132,9 +133,19 @@ network, 0.17 for the soft vote). The same people were recorded, so this shows
 the result does not depend on one recording; it says nothing about new people
 or other devices.
 
-### Case A: the paper's protocol (window split)
+### Case A: a window split (reproduces the paper's numbers)
 
 Windows are shuffled into folds, so every test patient also has windows in training.
+
+**What the paper itself did.** The paper describes an 8:2 split that keeps "the
+signal segments from the same sample" on one side. Its released code
+([brief-city/MFE-FCGCN-model](https://github.com/brief-city/MFE-FCGCN-model),
+`model_and_train.py`) splits the 65 patients 80/20, so 13 patients are tested.
+It also evaluates them every epoch and steps its learning-rate scheduler on the
+test loss. We could not reach 95 % on new patients. Across our 25 patient-split
+test folds of 13 patients each, our implementation of MFE-FCGCN scored 48–89 %
+window accuracy (mean 72 %). So Case A is *the split that reproduces the paper's
+numbers*, not a claim about the paper's protocol.
 
 | window level | accuracy | recall | precision | F1 | AUC |
 |---|---|---|---|---|---|
@@ -156,8 +167,9 @@ Windows are shuffled into folds, so every test patient also has windows in train
   people** a window came from **99.8 %** of the time (chance: 1.5 %).
 - Copying the label of the most similar training window, with no learning at
   all, scores **99.1 %**. That beats the paper and our model.
-- When the split is by patient, the same GAT goes from 0.949 to 0.788 window
-  accuracy, and from 0 to 9 misdiagnosed patients out of 65 (first repeat of each).
+- When the split is by patient, the same GAT goes from 0.949 to 0.764 window
+  accuracy, and from 0 to 8–13 misdiagnosed patients out of 65 (mean 10.4 over
+  5 repeats).
 
 Case A measures how well a model recognises people it has already seen. Case B
 measures how well it diagnoses someone new. We report Case A only to show we
@@ -172,7 +184,7 @@ can reproduce the paper, and always next to Case B.
 | MFE-FCGAT, 3-way head | 0.583 [0.512, 0.655] | 0.782 | 0.750 | 0.217 | 0.748 | 0.871 | 0.595 |
 | band-power logistic regression | 0.578 [0.495, 0.664] | 0.747 | 0.611 | 0.377 | 0.758 | 0.871 | 0.584 |
 | **soft vote** | **0.600** [0.517, 0.686] | 0.782 | 0.685 | 0.333 | **0.783** | **0.889** | 0.601 |
-| *published strict benchmark [3]* | *0.611* | *0.86* | *0.69* | *0.28* | *0.786* | | |
+| *strict public benchmark (GitHub) [3]* | *0.611* | *0.86* | *0.69* | *0.28* | *0.786* | | |
 
 Telling dementia from health works (AUC 0.87–0.89). Telling the two dementias
 apart does not: every AD vs FTD AUC is about 0.60, and its 95 % CI includes 0.5
@@ -252,15 +264,21 @@ before splitting, so it was never tested honestly. We tested their claims once:
 
 In order of confidence:
 
-1. **The base paper's 95 % can be reproduced, but it is not a diagnosis result.**
-   - MFE-FCGAT matches MFE-FCGCN under the paper's window split (94.9 % accuracy,
-     0.988 AUC).
+1. **The base paper's 95 % can be reproduced only with a window split, and that
+   is not a diagnosis result.**
+   - Under a window split, MFE-FCGAT matches the numbers MFE-FCGCN reports
+     (94.9 % accuracy, 0.988 AUC).
    - Under that split, copying the label of the most similar training window
      scores 99.1 % with no learning at all. The split rewards recognising people.
+   - The paper's released code splits by patient. On 25 patient-split test sets
+     of 13 patients, our implementation of its GCN never exceeded 89 % window
+     accuracy.
 2. **On patients it has never seen, MFE-FCGAT detects Alzheimer's with 84.0 %
    accuracy, 85.0 % recall and 0.909 AUC.**
    - These figures cover 65 patients, averaged over 5 repeats.
-   - This matches the best published patient-independent result (84.6 % / 0.883).
+   - The 13 patient-independent studies on this dataset in a 2026 review average
+     82.1 % [11], scored per patient or per segment (our per-window accuracy is
+     76.4 %). A public leave-one-subject-out benchmark reports 84.6 % / 0.883 [3].
    - It is the best model tested here. Its lead over band power (+0.037 AUC) is
      not statistically significant with 65 patients. Its lead over the paper's GCN
      (+0.050) is borderline: p (Holm) 0.10, and 0.006 in an unchanged re-run.
@@ -268,8 +286,8 @@ In order of confidence:
      −0.014, both non-significant, as pre-registered).
    - Detection replicates on a second recording of the same people, eyes open
      under flashing light: AUC 0.846 [0.760, 0.917], lower as predicted.
-3. **Three classes (AD / FTD / healthy): 60 % macro recall,** in line with the
-   strict literature (61 %).
+3. **Three classes (AD / FTD / healthy): 58 % macro recall, 60 % with a
+   band-power soft vote,** close to a strict public benchmark (61 % [3]).
    - Detecting dementia works (AUC 0.87–0.89).
    - Naming which dementia does not: FTD recall is 0.22–0.38.
 4. **AD vs FTD: no EEG measure tested here separates the two above chance at
@@ -283,7 +301,7 @@ In order of confidence:
 
 **What would change these conclusions:**
 - more FTD patients: about 47 for 80 % power at AUC 0.65;
-- an independent cohort, such as BrainLat (163 bvFTD). ds006036 re-records the
+- an independent cohort, such as BrainLat [12] (163 bvFTD). ds006036 re-records the
   same people, so it does not count as one;
 - for the subtype question, a second modality, as in clinical practice: plasma
   p-tau217 separates AD from FTLD with AUC ≈ 0.93 [8].
@@ -386,7 +404,7 @@ GAT_ds004504.ipynb              MFE-FCGAT, Case B (binary, patient split)
 GCN_ds004504.ipynb              paper's MFE-FCGCN, same code apart from the graph layer
 GAT_nograph_ds004504.ipynb      control: MFE-FCGAT with every graph replaced by a uniform one
 RF_ds004504.ipynb               random forest on band power
-GAT_window_ds004504.ipynb       MFE-FCGAT, Case A (paper's window split)
+GAT_window_ds004504.ipynb       MFE-FCGAT, Case A (window split; reproduces the paper's numbers)
 GAT_multiclass_ds004504.ipynb   MFE-FCGAT, AD / FTD / HC
 GATv2_ds004504.ipynb            twin with GATv2 attention (review remark)
 GATv2gate_ds004504.ipynb        GATv2 plus a learned per-window edge gate (adaptive graph)
@@ -413,5 +431,7 @@ docs/PREREG_2026-11-14.md       plan for the GATv2 and ds006036 runs, written be
 
 9. Brody, Alon & Yahav (2022). How Attentive are Graph Attention Networks? *ICLR*. [arXiv:2105.14491](https://arxiv.org/abs/2105.14491)
 10. Ntetska et al. (2025). A complementary dataset of open-eyes EEG recordings in a photo-stimulation setting from: Alzheimer's disease, frontotemporal dementia and healthy subjects. *Data* 10(5):64. [doi:10.3390/data10050064](https://doi.org/10.3390/data10050064)
+11. Miltiadous et al. (2026). The AHEPA EEG benchmark: setting the standard for machine learning in dementia diagnosis, a scoping review. *Cognitive Neurodynamics* 20(1):95. [doi:10.1007/s11571-026-10464-w](https://doi.org/10.1007/s11571-026-10464-w)
+12. Prado et al. (2023). The BrainLat project, a multimodal neuroimaging dataset of neurodegeneration from underrepresented backgrounds. *Scientific Data*. [doi:10.1038/s41597-023-02806-8](https://doi.org/10.1038/s41597-023-02806-8)
 
 Code: MIT license. Datasets: CC0, by their authors [2, 10].
