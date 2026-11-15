@@ -8,6 +8,7 @@
 !/LICENSE
 !/requirements.txt
 !/leak_check.py
+!/lr_check.py
 !/docs/
 
 # notebooks, in the order they are run
@@ -18,6 +19,10 @@
 !/GAT_nograph_ds004504.ipynb
 !/GAT_window_ds004504.ipynb
 !/GAT_multiclass_ds004504.ipynb
+!/GATv2_ds004504.ipynb
+!/GATv2gate_ds004504.ipynb
+!/build_cache_ds006036.ipynb
+!/GAT_ds006036.ipynb
 
 # saved results (small: JSON, CSV, PNG, out-of-fold probabilities)
 !/results_gat/
@@ -26,6 +31,9 @@
 !/results_gat_nograph/
 !/results_gat_window/
 !/results_gat_multiclass/
+!/results_gatv2/
+!/results_gatv2gate/
+!/results_gat_ds006036/
 
 # AD vs FTD feature study: its notebooks, the 88-row feature table, its results
 !/experiments_ad_vs_ftd/

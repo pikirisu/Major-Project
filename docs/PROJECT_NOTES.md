@@ -2,9 +2,9 @@
 
 # AD vs HC detection on ds004504: project map
 
-*Last reviewed 2026-11-10. Start here before opening any notebook.*
+*Last reviewed 2026-11-15. Start here before opening any notebook.*
 
-## 0. Status on 2026-11-10: the numbers to quote
+## 0. Status on 2026-11-15: the numbers to quote
 
 | question | result | where |
 |---|---|---|
@@ -13,6 +13,8 @@
 | AD / FTD / HC (3 repeats) | soft vote **0.600 macro recall** [0.517, 0.686]; FTD recall 0.33 | `results_gat_multiclass/statistics.json` |
 | AD vs FTD, engineered features (§ R5) | **no feature set above chance** (AUC 0.41–0.54); the same features reach 0.66–0.84 on AD vs HC | `experiments_ad_vs_ftd/results/` |
 | AD vs FTD, pre-registered aperiodic test (§ R5, Experiment 8) | **not supported**: exponent / offset / theta-alpha AUC 0.632 / 0.640 / 0.644, all Holm p 0.088; classifier 0.616 (p 0.076 vs chance) | `experiments_ad_vs_ftd/results/aperiodic/` |
+| GATv2 and GATv2 + learned edge gate (§ R4, pre-registered) | **no significant difference**: 0.840 / 0.921 and 0.815 / 0.907; ΔAUC +0.012 vs GAT (Holm 0.71), −0.014 vs GATv2 (Holm 0.94) | `results_gatv2/`, `results_gatv2gate/` |
+| AD vs HC on ds006036, same people, eyes open + photic (§ R2, pre-registered) | **replicates**: GAT 0.732 acc / 0.846 AUC [0.760, 0.917]; soft vote 0.760 / 0.854; floor 0.729 / 0.811 | `results_gat_ds006036/statistics.json` |
 
 **No model difference is statistically significant after Holm correction**, in
 any task (§ R6). Defensible claims:
@@ -20,12 +22,16 @@ any task (§ R6). Defensible claims:
 - the leak audit;
 - the 3-class result matching the strict literature;
 - the AD vs FTD negative result together with its controls, and the
-  pre-registered aperiodic test (right direction, not significant).
+  pre-registered aperiodic test (right direction, not significant);
+- the two pre-registered review answers: GATv2 / adaptive graphs add nothing
+  measurable, and detection replicates in a second recording of the same people.
 
 The README's **Conclusion** section is the final summary of the project.
 
 Not defensible: "GAT beats band power", "the graphs help", "the soft vote is
-better".
+better", "GATv2 is better" (+0.012, Holm 0.71), "ds006036 is an independent
+validation" (same 88 people). Borderline: "GAT beats GCN" (Holm 0.10 in the
+reported run, 0.006 in an unchanged re-run; § R6).
 
 **What the project is.** We take resting-state, eyes-closed EEG (OpenNeuro
 ds004504, 19 electrodes). For each of 5 frequency bands (δ θ α β γ) we build one
@@ -119,11 +125,17 @@ side for the GAT.
 | `GAT_window_ds004504.ipynb` | **Case A, binary, window level**: same model under the base paper's window split, reported in the paper's Table 3 format next to the paper's numbers. Writes `results_gat_window/` |
 | `GCN_ds004504.ipynb` | paper's GCN as a baseline. Same code except the graph layer. Writes `results_gcn/` |
 | `GAT_nograph_ds004504.ipynb` | control: the GAT with every graph replaced by a uniform one. Writes `results_gat_nograph/` |
+| `GATv2_ds004504.ipynb`, `GATv2gate_ds004504.ipynb` | **R4 twins** (2026-11-15): GATv2 attention; GATv2 + learned per-window edge gate. LR from `lr_check.py` (validation patients only), saved as `lr_check.json` in each results folder. Write `results_gatv2/`, `results_gatv2gate/` |
+| `build_cache_ds006036.ipynb`, `GAT_ds006036.ipynb` | **R2** (2026-11-15): the cache builder and the GAT notebook pointed at ds006036 (`data_ds006036/`, `subject_cache_ds006036/`). Cell 7 of the builder rebuilds ds004504 sub-001 and matches the old cache exactly. Writes `results_gat_ds006036/` |
 | `experiments_ad_vs_ftd/` | **AD vs FTD feature-engineering study (R5)**: `features_ad_ftd.ipynb` (time-domain features, one row per subject) then `ADvsFTD_ds004504.ipynb` (experiments, statistics, figures). Has its own README |
 
-The GAT, GCN and no-graph notebooks are **twins**. They share every cell except
-the intro, the model configuration and the model, so cells 3–5 and 11–15 must
-stay byte-identical across all three. Edit all three together.
+The GAT, GCN, no-graph, GATv2 and GATv2 + gate notebooks are **twins**. They
+share every cell except the intro, the model configuration and the model, so
+cells 3–5 and 11–15 must stay byte-identical across all five (`GAT_ds006036`
+shares them too). Edit them together. Cell 14 compares with every folder in
+`COMPARE_DIRS` that exists **at run time**, so run order sets each Holm family:
+GAT (6 comparisons), then GATv2 (7), then the gate (8). Re-running the GAT after
+the GATv2 folders exist would grow its family to 8.
 | `RF_ds004504.ipynb` | random-forest baseline on band power. Writes `results_rf/` |
 | `GAT_multiclass_ds004504.ipynb` | **Case B, 3-class, subject level (R1 + R3)**: the same GAT with a 3-way head (HC / AD / FTD). Fixed 30 epochs on all non-test subjects, 3 repeats; macro + per-class recall, pairwise AUCs, dementia-vs-HC; floor on the same subjects; Cell 10 soft vote. Writes `results_gat_multiclass/` |
 | `build_cache.ipynb` | **data pipeline**: builds `subject_cache/` for all 88 subjects. Its feature cells are copied verbatim from `mfe-fcgcn.ipynb`, and it rebuilds sub-001 bit-identical to the old cache |
@@ -138,6 +150,8 @@ stay byte-identical across all three. Edit all three together.
 | `results_gcn/`, `results_gat_nograph/` | ✅ usable | MFE-FCGCN and the no-graph control, 5 repeats, same folds as `results_gat/` |
 | `results_gat_multiclass/` | ✅ usable | 3-class GAT, 3 repeats, fixed 30 epochs (2026-10-19). `ensemble_*` files = soft vote (Cell 10); `statistics.json` added 2026-11-10 |
 | `results_rf/` | ✅ usable | RF baseline, 5 repeats. Also holds the matched-fold logistic floor |
+| `results_gatv2/`, `results_gatv2gate/` | ✅ usable | R4 twins, 5 repeats, same folds as `results_gat/` (2026-11-15) |
+| `results_gat_ds006036/` | ✅ usable | the GAT on ds006036, 5 repeats; same fold procedure but other windows, so it is in no Cell 14 family with ds004504 |
 | `results_mfagat/` | ✅ usable as an ablation record | GATv1 vs **GATv2**, fusion/CNN/prior ablations, plus the window-split reproduction of the paper's 95% (`A_paper_gcn_window`, which shows the leak). 1 repeat, lr 1.2e-4 |
 
 ### `_archive/`: superseded, nothing in the presentation depends on it
@@ -224,6 +238,20 @@ No new dataset is needed. ds004504 already has 23 FTD subjects (sub-066…088), 
    - Not tried: the average reference, and delta cross-correlation itself.
 
 ### R2 · More datasets
+✅ **Done 2026-11-15 with ds006036**, as planned in `docs/PREREG_2026-11-14.md`:
+- **Data.** ds006036 v1.1.0 (2.1 GB) in `data_ds006036/`. Same participants, groups and MMSE as ds004504.
+  `build_cache_ds006036.ipynb` = `build_cache.ipynb` with paths and the file pattern changed; Cell 7
+  rebuilds ds004504 sub-001 with max |diff| 0. 88 subjects, 4,906 windows (AD 1,773 / FTD 1,090 / HC 2,043);
+  most stay under the window caps because recordings are shorter (AD ~4.9, FTD ~4.4, HC ~6.4 min).
+- **Run.** `GAT_ds006036.ipynb` = the GAT notebook with only the cache and result folders changed
+  (same LR 3e-3, folds procedure, floor, soft vote and statistics). 5 × 5-fold, 65 subjects.
+- **Result.** GAT 0.732 acc / 0.717 recall / 0.752 spec / **AUC 0.846 [0.760, 0.917]**; floor 0.729 / 0.811;
+  soft vote 0.760 / 0.854. The pre-registered criterion (CI excludes 0.5) passes: **detection
+  replicates**. Lower than eyes closed (0.909), as predicted. Holm (3 comparisons): network vs floor
+  0.94, soft vote vs floor 0.17.
+- **Reading.** A second condition of the same people, not an independent cohort. BrainLat stays the
+  independent test (future work).
+
 | dataset | what | access | catch |
 |---|---|---|---|
 | **ds006036** (OpenNeuro) | the **same 88 people**, eyes-open photic stimulation, same 19 channels, preprocessed | open, CC0 | not an independent cohort. Keep each person on one side of every split *across both datasets*. Good for testing whether results hold in a second recording condition |
@@ -235,6 +263,25 @@ No new dataset is needed. ds004504 already has 23 FTD subjects (sub-066…088), 
 - **GATv2 already exists.** `DenseGATv2Layer` in `_archive/notebooks/MF_AGAT_ds004504_with_OP.ipynb` was tested, and switching GATv2 → GATv1 *raised* AUC from 0.886 to 0.916. That is inside the noise band at one repeat. Plan: a clean twin `GATv2_ds004504.ipynb` that differs from the GAT notebook **only** in the attention score, with its own LR check, and 3 repeats for both.
 - **What our graphs are today.** E1 and E2 are already computed per window, but they measure **similarity of PSD across frequency bins**, not synchrony of the signals over time, and they are frozen inputs. "Dynamic" can mean (a) **time-resolved connectivity**: Pearson and MI on band-filtered time signals over short sub-windows, which gives a sequence of graphs per window and needs a cache rebuild; or (b) **adaptive adjacency**: the model learns a per-sample correction to the Pearson and MI priors.
 - **Decided (2026-10-19): (b), learned adaptive adjacency.** The cached Pearson and MI graphs stay as priors. GATv2 attention plus a learned edge gate `g_ij = σ(MLP[x_i, x_j, E_ij])` reshape them for each sample. No new preprocessing is needed. To attribute any gain, compare three runs: GAT → GATv2 → GATv2 + adaptive gate.
+- ✅ **Done 2026-11-15**, as planned in `docs/PREREG_2026-11-14.md`:
+  - **Models.** `GATv2_ds004504.ipynb`: `e_ij = a·LeakyReLU(W_s x_i + W_d x_j) + log E_ij`, 28,866 parameters.
+    `GATv2gate_ds004504.ipynb`: adds `log σ(MLP[x_i, x_j, E_ij])` (hidden 8, one gate per layer and band), 31,676.
+    The GAT has 22,566.
+  - **LR on validation subjects only** (`lr_check.py`, repeat 1, mean best validation subject AUC):
+    GATv2 1e-3 0.933 vs 3e-3 0.927, so 1e-3; gate 1e-3 0.907 vs 3e-3 0.927, so 3e-3.
+  - **Result, 5 × 5-fold, 65 subjects:**
+
+| model | acc | recall | spec | AUC [95 % CI] | ΔAUC | p (Holm) |
+|---|---|---|---|---|---|---|
+| GAT | 0.840 | 0.850 | 0.828 | 0.909 [0.842, 0.965] | | |
+| GATv2 (vs GAT) | 0.840 | 0.861 | 0.814 | 0.921 [0.856, 0.973] | +0.012 [−0.013, +0.039] | 0.71 (family of 7) |
+| GATv2 + gate (vs GATv2) | 0.815 | 0.839 | 0.786 | 0.907 [0.842, 0.958] | −0.014 [−0.035, +0.005] | 0.94 (family of 8) |
+
+  - **Reading.** No significant difference, as expected in the plan. The earlier 1-repeat ablation
+    (GATv1 ≥ GATv2) and this one disagree in sign, which is what noise at this n looks like.
+  - **Diagnostic.** 16 / 25 (GATv2) and 17 / 25 (gate) folds keep epoch 15, the first allowed,
+    the same pattern as the GAT (17 / 25). A shorter warm-up or lower LR may suit all three; testing it
+    now would be tuning after seeing test results, so it is future work.
 
 ### R5 · AD vs FTD: feature engineering (2026-11-09 to 11-10)
 **Question:** can engineered spectral, nonlinear and connectivity features
@@ -321,6 +368,21 @@ AUC of its averaged probabilities is 0.904. The fix: p is a two-sided percentile
 bootstrap on the reported quantity, so p < 0.05 exactly when the CI excludes 0.
 It is applied to all four notebooks; their statistics cells were re-run on the
 saved predictions, and the ensemble files reproduced byte for byte.
+
+**Training noise (2026-11-15).** `GAT_ds004504.ipynb` was re-run unchanged (same
+torch 2.14.0, seeds and folds; the GATv2 folders moved aside so Cell 14 kept its
+6 comparisons). It is not bit-identical: training losses differ at ~1e-8 from
+epoch 1 (CPU reduction order), and r1 f1 ran 52 epochs instead of 39.
+- Pooled AUC 0.923 [0.861, 0.972] vs 0.909; acc 0.852 vs 0.840. Per repeat:
+  0.949 / 0.951 / 0.891 / 0.906 / 0.919 vs 0.927 / 0.926 / 0.880 / 0.898 / 0.914
+  (10 repeats: 0.916 ± 0.023).
+- GAT − GCN +0.064 [+0.024, +0.112], **Holm 0.006** (reported run: +0.050, Holm 0.10).
+  No-graph +0.042 (Holm 0.072), LR +0.051 (0.23), RF +0.074 (0.22), soft vote − LR +0.049 (0.060).
+- The committed `results_gat/` stays the reference (GATv2, the gate and every table compare
+  against it); the re-run is in `results_gat/rerun_2026-11-15/`. Choosing the better run would be
+  cherry-picking. The GCN, no-graph and RF runs carry the same kind of noise and were not re-run.
+- Reading: the bootstrap CIs cover patient sampling, not retraining. Model gaps of 0.01–0.015 AUC
+  are inside retraining noise; the GCN lead is borderline, not absent.
 
 ### Rules that apply to all of the above
 - Split by subject, never by window.

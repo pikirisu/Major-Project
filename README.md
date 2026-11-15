@@ -13,7 +13,10 @@ graph attention (**MFE-FCGAT**). We then:
 2. show that this protocol lets the model recognise *people* rather than disease,
 3. report what the model achieves on patients it has never seen (84.0 % accuracy, 0.909 AUC), and
 4. test whether engineered EEG features, and a pre-registered test of a published
-   aperiodic (1/f) marker, can separate AD from frontotemporal dementia (FTD).
+   aperiodic (1/f) marker, can separate AD from frontotemporal dementia (FTD), and
+5. answer the last review: two pre-registered graph variants (GATv2 and a learned,
+   adaptive graph), and the same pipeline on a second recording of the same people
+   (eyes open, flashing light).
 
 **[Conclusion](#conclusion)**: what holds up, and what does not.
 
@@ -46,7 +49,8 @@ probabilities. The weights are equal and nothing is tuned.
 ±0.06 wide, wider than most gaps between these models. Each comparison is
 tested on the same bootstrap resamples as its CI, then Holm-corrected over the
 six comparisons. MFE-FCGAT has the best accuracy and leads every baseline, but
-**no lead is statistically significant**:
+in this run **no lead is statistically significant** (see *Training noise* below
+for the GCN):
 
 | MFE-FCGAT vs | ΔAUC [95 % CI] | p (Holm) |
 |---|---|---|
@@ -57,6 +61,76 @@ six comparisons. MFE-FCGAT has the best accuracy and leads every baseline, but
 
 The last row matters for interpretation: the electrode graphs add at most a
 few AUC points that this sample cannot confirm.
+
+**Training noise.** CPU training is not bit-reproducible: floating-point sums
+can run in a different order, and the losses drift apart from the first epoch.
+Re-running `GAT_ds004504.ipynb` unchanged (same seeds and folds, 2026-11-15)
+scored **AUC 0.923** [0.861, 0.972] instead of 0.909. Its per-repeat AUCs were
+0.89–0.95, against 0.88–0.93 in the first run. In that re-run the lead over
+MFE-FCGCN (+0.064 [+0.024, +0.112]) reached p (Holm) 0.006, while every other
+comparison stayed non-significant. So the GCN lead is **borderline rather than
+absent**: it is positive in both runs, and significant after correction in one.
+Gaps of 0.01–0.015 AUC between models are within the noise of retraining a
+single model. The tables report the first run, which every other notebook was
+tested against; the re-run is saved in `results_gat/rerun_2026-11-15/`.
+
+### Graph variants: GATv2 and a learned adaptive graph
+
+The review asked for GATv2 and for "dynamic" Pearson / MI graphs. Both were
+planned before any run ([`docs/PREREG_2026-11-14.md`](docs/PREREG_2026-11-14.md))
+as twins of the GAT notebook: the same cache, folds, CNN, MLP, training loop and
+statistics, with only the graph layer changed.
+- **GATv2** [9] scores an edge as `e_ij = a·LeakyReLU(W_s x_i + W_d x_j) + log E_ij`.
+  The non-linearity sits before `a`, so the order in which an electrode ranks its
+  neighbours can depend on the electrode asking ("dynamic" attention). In the GAT
+  that ranking is the same for every electrode.
+- **GATv2 + learned gate** multiplies each prior edge by `σ(MLP[x_i, x_j, E_ij])`,
+  recomputed for every window: the measured Pearson / MI graph becomes a starting
+  point that the model reshapes per sample (an adaptive graph).
+
+Each model's learning rate was chosen on validation patients only (repeat 1,
+1e-3 vs 3e-3, saved in `lr_check.json`): 1e-3 for GATv2, 3e-3 for the gate.
+
+| 65 patients, 5 repeats | accuracy | recall | specificity | AUC [95 % CI] | ΔAUC vs the row above | p (Holm) |
+|---|---|---|---|---|---|---|
+| **MFE-FCGAT (ours)** | 0.840 | 0.850 | 0.828 | 0.909 [0.842, 0.965] | | |
+| MFE-FCGATv2 | 0.840 | 0.861 | 0.814 | 0.921 [0.856, 0.973] | +0.012 [−0.013, +0.039] | 0.71 |
+| MFE-FCGATv2 + learned gate | 0.815 | 0.839 | 0.786 | 0.907 [0.842, 0.958] | −0.014 [−0.035, +0.005] | 0.94 |
+
+**No significant difference, as pre-registered.** Each p is Holm-corrected within
+its own notebook's family (7 and 8 comparisons). GATv2's +0.012 is a fifth of
+the ±0.06 uncertainty on a single AUC, and the gate gives it back. Both AUCs lie
+between the GAT's own two runs (0.909 and 0.923): retraining the same model moves
+it as much. With 65 patients, the fixed Pearson / MI graphs are as good as
+anything learned on top of them. As in the GAT, most
+folds of both variants keep the first epoch allowed after warm-up (16 and 17 of
+25). Changing the warm-up or learning rate now would mean choosing settings after
+seeing test results, so it is left as future work.
+
+### A second recording of the same people: ds006036 (eyes open, flashing light)
+
+[ds006036](https://openneuro.org/datasets/ds006036) [10] recorded **the same 88
+people** right after the eyes-closed session, with eyes open under photic
+stimulation (5–30 Hz). It is a second recording condition, **not an independent
+cohort**. `build_cache_ds006036.ipynb` runs the unchanged feature code: it first
+rebuilds ds004504's patient 1 and matches the existing cache exactly.
+`GAT_ds006036.ipynb` is the GAT notebook pointed at that cache. Recordings are
+shorter here: 3,816 AD and healthy windows instead of 5,758.
+
+| AD vs healthy, 65 patients, 5 repeats | accuracy | recall | specificity | AUC [95 % CI] |
+|---|---|---|---|---|
+| **MFE-FCGAT** | 0.732 | 0.717 | 0.752 | 0.846 [0.760, 0.917] |
+| band-power logistic regression | 0.729 | 0.650 | 0.828 | 0.811 [0.705, 0.905] |
+| MFE-FCGAT + band-power soft vote | 0.760 | 0.728 | 0.800 | 0.854 [0.763, 0.930] |
+| *eyes closed (ds004504), for reference* | *0.840* | *0.850* | *0.828* | *0.909* |
+
+**Detection replicates.** The pre-registered criterion was an AUC whose 95 % CI
+excludes 0.5. Performance is lower than eyes closed, as predicted: eyes-open
+alpha is suppressed and the flicker adds its own spectral peaks. As on ds004504,
+no difference from the band-power floor is significant (Holm p 0.94 for the
+network, 0.17 for the soft vote). The same people were recorded, so this shows
+the result does not depend on one recording; it says nothing about new people
+or other devices.
 
 ### Case A: the paper's protocol (window split)
 
@@ -187,8 +261,13 @@ In order of confidence:
    accuracy, 85.0 % recall and 0.909 AUC.**
    - These figures cover 65 patients, averaged over 5 repeats.
    - This matches the best published patient-independent result (84.6 % / 0.883).
-   - It is the best model tested here. Its lead over band power (+0.037 AUC) and
-     over the paper's GCN (+0.050) is not statistically significant with 65 patients.
+   - It is the best model tested here. Its lead over band power (+0.037 AUC) is
+     not statistically significant with 65 patients. Its lead over the paper's GCN
+     (+0.050) is borderline: p (Holm) 0.10, and 0.006 in an unchanged re-run.
+   - Neither GATv2 nor a learned adaptive graph improves it (ΔAUC +0.012 and
+     −0.014, both non-significant, as pre-registered).
+   - Detection replicates on a second recording of the same people, eyes open
+     under flashing light: AUC 0.846 [0.760, 0.917], lower as predicted.
 3. **Three classes (AD / FTD / healthy): 60 % macro recall,** in line with the
    strict literature (61 %).
    - Detecting dementia works (AUC 0.87–0.89).
@@ -204,7 +283,8 @@ In order of confidence:
 
 **What would change these conclusions:**
 - more FTD patients: about 47 for 80 % power at AUC 0.65;
-- an independent cohort, such as BrainLat (163 bvFTD);
+- an independent cohort, such as BrainLat (163 bvFTD). ds006036 re-records the
+  same people, so it does not count as one;
 - for the subtype question, a second modality, as in clinical practice: plasma
   p-tau217 separates AD from FTLD with AUC ≈ 0.93 [8].
 
@@ -264,6 +344,8 @@ pip install -r requirements.txt
 
 # dataset, about 5.4 GB, into ./data (CC0 license)
 openneuro-py download --dataset ds004504 --target-dir data
+# only for rows 12-13 below: the eyes-open recording, about 2.1 GB (CC0)
+openneuro-py download --dataset ds006036 --target-dir data_ds006036
 ```
 
 Then open the notebooks from the repo root and run each top to bottom. **Cell 2
@@ -280,13 +362,21 @@ is the only cell you normally edit**, and every notebook is self-contained.
 | 7 | `GAT_multiclass_ds004504.ipynb` (3-class) | `results_gat_multiclass/` | ~25 min |
 | 8 | `python leak_check.py` (needs 1, 5 and 6) | prints the checks above | ~1 min |
 | 9 | `experiments_ad_vs_ftd/features_ad_ftd.ipynb`, then `ADvsFTD_ds004504.ipynb`, then `ADvsFTD_aperiodic.ipynb` | `experiments_ad_vs_ftd/features/`, `results/`, `results/aperiodic/` | ~30 s, ~5 min, ~2.5 min |
+| 10 | `GATv2_ds004504.ipynb` (GATv2 twin) | `results_gatv2/` | ~75 min |
+| 11 | `GATv2gate_ds004504.ipynb` (GATv2 + learned gate) | `results_gatv2gate/` | ~2.5 h |
+| 12 | `build_cache_ds006036.ipynb` (eyes-open features) | `subject_cache_ds006036/`: 88 `.npz` files, 151 MB | ~10 min |
+| 13 | `GAT_ds006036.ipynb` (the GAT on ds006036) | `results_gat_ds006036/` | ~40 min |
 
 The GAT goes after the other Case B models because its statistics cell compares
-it with every result folder already present on the same folds.
+it with every result folder already present on the same folds. GATv2 goes after
+the GAT and the gate after GATv2 for the same reason; re-running the GAT after
+them would add their two comparisons to its Holm family. Their learning rates
+were chosen beforehand by `python lr_check.py . <notebook>` (about 1 h each),
+which scores validation patients only.
 
-Seeds are fixed (`SEED = 42`). Small floating-point differences between
-machines and library versions can still move individual windows across the
-0.5 threshold.
+Seeds are fixed (`SEED = 42`), but CPU training is not bit-reproducible, even
+on the same machine. An unchanged re-run of the GAT moved its AUC from 0.909 to
+0.923 (see *Training noise* above), so expect differences of that size.
 
 ## Repository layout
 
@@ -298,10 +388,16 @@ GAT_nograph_ds004504.ipynb      control: MFE-FCGAT with every graph replaced by 
 RF_ds004504.ipynb               random forest on band power
 GAT_window_ds004504.ipynb       MFE-FCGAT, Case A (paper's window split)
 GAT_multiclass_ds004504.ipynb   MFE-FCGAT, AD / FTD / HC
+GATv2_ds004504.ipynb            twin with GATv2 attention (review remark)
+GATv2gate_ds004504.ipynb        GATv2 plus a learned per-window edge gate (adaptive graph)
+build_cache_ds006036.ipynb      the same feature code on ds006036 (eyes open, photic)
+GAT_ds006036.ipynb              the GAT notebook, unchanged, on the ds006036 cache
 leak_check.py                   why Case A scores ~95 %
+lr_check.py                     learning-rate choice for the GATv2 twins, on validation patients
 results_*/                      saved summaries, per-fold CSVs, figures, out-of-fold probabilities, statistics
 experiments_ad_vs_ftd/          AD vs FTD feature-engineering study (own README)
 docs/PROJECT_NOTES.md           full lab notebook: every run, ablation and review decision
+docs/PREREG_2026-11-14.md       plan for the GATv2 and ds006036 runs, written before them
 ```
 
 ## References
@@ -315,4 +411,7 @@ docs/PROJECT_NOTES.md           full lab notebook: every run, ablation and revie
 7. Wang et al. (2023). The effect of aperiodic components in distinguishing Alzheimer's disease from frontotemporal dementia. *GeroScience* 46:751–768. [doi:10.1007/s11357-023-01041-8](https://doi.org/10.1007/s11357-023-01041-8)
 8. Thijssen et al. (2021). Plasma phosphorylated tau 217 and phosphorylated tau 181 as biomarkers in Alzheimer's disease and frontotemporal lobar degeneration: a retrospective diagnostic performance study. *Lancet Neurology* 20(9):739–752. [doi:10.1016/S1474-4422(21)00214-3](https://doi.org/10.1016/S1474-4422(21)00214-3)
 
-Code: MIT license. Dataset: CC0, by its authors [2].
+9. Brody, Alon & Yahav (2022). How Attentive are Graph Attention Networks? *ICLR*. [arXiv:2105.14491](https://arxiv.org/abs/2105.14491)
+10. Ntetska et al. (2025). A complementary dataset of open-eyes EEG recordings in a photo-stimulation setting from: Alzheimer's disease, frontotemporal dementia and healthy subjects. *Data* 10(5):64. [doi:10.3390/data10050064](https://doi.org/10.3390/data10050064)
+
+Code: MIT license. Datasets: CC0, by their authors [2, 10].
