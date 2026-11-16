@@ -14,3 +14,4 @@ tqdm==4.70.0
 ipykernel==7.3.0
 openneuro-py==2026.7.1 # downloads the dataset (see README)
 fooof==1.1.1           # aperiodic fits (experiments_ad_vs_ftd/ADvsFTD_aperiodic.ipynb)
+pyriemann==0.12        # tangent-space features (experiments_ad_vs_ftd/ADvsFTD_riemann.ipynb)

@@ -1,0 +1,74 @@
+{
+ "task": "AD vs FTD, 36 vs 23, stage 2 of the two-stage plan",
+ "protocol": "2026-11-16 16:04, before any matrix was computed",
+ "folds": "5 x 5-fold, the 3-class notebook's folds",
+ "selected": {
+  "auc": 0.5758,
+  "ci": [
+   0.457,
+   0.687
+  ],
+  "bal_acc": 0.5606,
+  "recall_AD": 0.6778,
+  "recall_FTD": 0.4435,
+  "picks": {
+   "C3 lagged cross-correlation": 13,
+   "C2 Riemannian covariance": 5,
+   "C5 soft vote": 3,
+   "C4 parameterised spectrum": 3,
+   "C1 band power": 1
+  },
+  "p_vs_band_power": 0.414,
+  "p_permutation_repeat1": 0.33663366336633666,
+  "p_beyond_mmse_age_sex": 0.9593
+ },
+ "candidates": {
+  "C1 band power": {
+   "auc": 0.5239,
+   "ci": [
+    0.4046,
+    0.6343
+   ],
+   "p_holm_vs_band_power": null
+  },
+  "C2 Riemannian covariance": {
+   "auc": 0.5488,
+   "ci": [
+    0.4179,
+    0.6742
+   ],
+   "p_holm_vs_band_power": 1.0
+  },
+  "C3 lagged cross-correlation": {
+   "auc": 0.628,
+   "ci": [
+    0.5019,
+    0.7481
+   ],
+   "p_holm_vs_band_power": 0.556
+  },
+  "C4 parameterised spectrum": {
+   "auc": 0.5415,
+   "ci": [
+    0.4029,
+    0.6766
+   ],
+   "p_holm_vs_band_power": 1.0
+  },
+  "C5 soft vote": {
+   "auc": 0.5915,
+   "ci": [
+    0.4594,
+    0.715
+   ],
+   "p_holm_vs_band_power": 0.945
+  }
+ },
+ "non_eeg_auc": {
+  "MMSE (lower = AD)": 0.8062,
+  "age": 0.5743,
+  "sex (female = AD)": 0.6377,
+  "ICA rank deficit": 0.558
+ },
+ "target": "AD vs FTD AUC >= 0.70; best honest published 0.651 (Mlinaric et al. 2026)"
+}

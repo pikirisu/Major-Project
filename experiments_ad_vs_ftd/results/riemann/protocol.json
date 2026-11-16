@@ -1,0 +1,20 @@
+{
+ "written": "2026-11-16 16:04, before any matrix was computed",
+ "question": "Stage 2 of the two-stage plan: AD (36) vs FTD (23), trained on dementia patients only. q_AD = P(AD | dementia) is predicted for every test patient, healthy controls included, so that a stage-1 dementia-vs-HC model can be combined with it",
+ "data": "first 75 join-free 4 s epochs per subject (300 s), as features_ad_ftd.ipynb; common average reference for C2 and C3",
+ "candidates": {
+  "C1 band power": "the cache's 95 band powers (features/eeg_features.csv, bp_*) -> standardise -> L2 logistic regression",
+  "C2 Riemannian covariance": "per band (delta 0.5-4, theta 4-8, alpha 8-13, beta 13-30 Hz, zero-phase FIR): covariance of the 300 s + 0.01 x mean variance x I; tangent space at the training patients' Riemannian mean; 4 x 190 values -> standardise -> L2 logistic regression",
+  "C3 lagged cross-correlation": "per band: normalised cross-correlation per epoch, averaged over the 75 epochs at each lag up to +-96 ms (125 Hz); per channel pair the value at the lag with the largest |r|, sign kept (Mlinaric et al. 2026, Sci Rep 16:4903); Fisher z of the 171 pairs, 4 x 171 values -> standardise -> L2 logistic regression. Vectorised, not Riemannian: the cleaned data are rank-deficient",
+  "C4 parameterised spectrum": "aperiodic exponent and offset (Experiment 8, 2 s windows), posterior alpha centre of gravity, log theta/alpha in 5 regions; 8 values -> standardise -> L2 logistic regression",
+  "C5 soft vote": "mean of the C2, C3 and C4 probabilities, each with its own tuned C"
+ },
+ "tuning": "C in [0.001, 0.01, 0.1, 1] by 5-fold inner CV AUC on the outer training dementia patients; balanced class weights",
+ "selection": "per outer fold, the candidate with the highest nested inner-CV AUC (its tuning included) is the selected pipeline; its outer prediction is the headline. Every candidate's outer result is reported too",
+ "folds": "outer = GAT_multiclass_ds004504.ipynb make_splits: StratifiedGroupKFold over the cache's windows grouped by subject, seed 42 + 1000 r, 5 repeats",
+ "metrics": "AD vs FTD on the 59 dementia patients: AUC of q_AD, balanced accuracy at 0.5, recall AD and FTD; pooled per repeat, mean over repeats; 95 % CI from 2000 stratified subject bootstraps of the repeat mean",
+ "tests": "paired bootstrap of AUC vs C1; Holm over C2-C5; the selected pipeline vs C1 reported separately; chance level from 100 label shuffles of the whole nested pipeline on repeat 1",
+ "confounds": "likelihood-ratio test of each score added to an unpenalised logistic model of MMSE + age + sex; AUC of sex, age, MMSE and ICA rank deficit alone",
+ "target": "AD vs FTD AUC >= 0.70 (best honest published: 0.651, Mlinaric et al. 2026, LOSO)",
+ "decision": "the result is reported whatever it is"
+}

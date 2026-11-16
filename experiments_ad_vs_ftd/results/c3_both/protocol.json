@@ -1,0 +1,14 @@
+{
+ "written": "2026-11-16 18:00, before the average was computed",
+ "question": "Does averaging each patient's two C3 scores (ds004504 eyes closed, 300 s; ds006036 eyes open with photic stimulation, 44 s) separate AD (36) from FTD (23) better than either recording alone?",
+ "score": "the plain mean of the two out-of-fold C3 probabilities q_AD (Experiment 9's C3 and Experiment 10's primary run, same folds and seeds); no other combination is tried",
+ "already_seen": "both inputs: ds004504 C3 0.628 (picked after the fact in Experiment 9) and ds006036 C3 0.641 (Experiment 10). The combined AUC inherits the ds004504 half's selection optimism",
+ "primary": "AUC of the averaged score, AD vs FTD on the 59 patients, mean over 5 repeats, 95 % CI from 2000 stratified subject bootstraps; one-sided permutation p from 1000 shuffles of the diagnoses run through both pipelines and averaged",
+ "secondary": {
+  "gain": "paired bootstrap of the AUC difference vs each recording alone",
+  "severity": "likelihood-ratio test of the averaged score added to MMSE + age + sex",
+  "three_class": "two-stage 3-class model: stage 1 = P(dementia) from the GAT + band-power soft vote (results_gat_multiclass/ensemble_oof_prob.npy, repeats 1-3, identical folds); P(HC) = 1 - p_d, P(AD) = p_d q, P(FTD) = p_d (1 - q); accuracy, macro-F1, macro recall, recall per class"
+ },
+ "target": "AD vs FTD AUC >= 0.70",
+ "decision": "reported whatever it is. The averaged score replaces ds006036 C3 as stage 2 only if its lower 95 % bound of the gain over ds006036 alone is above 0"
+}

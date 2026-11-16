@@ -2,7 +2,38 @@
 
 # AD vs HC detection on ds004504: project map
 
-*Last reviewed 2026-11-15. Start here before opening any notebook.*
+*Last reviewed 2026-11-16. Start here before opening any notebook.*
+
+## 0a. Added on 2026-11-16: the scoreboard against honest published results
+
+Plan: `docs/PREREG_2026-11-16.md`. Experiments 9–11 have their own protocols in
+`experiments_ad_vs_ftd/results/*/protocol.json`. The verdict is "level" when the
+published value lies inside our 95 % CI.
+
+| question | result | where |
+|---|---|---|
+| AD vs FTD stage 2, nested choice of 5 candidates (Exp 9) | **fails**: 0.576, permutation p 0.34; best candidate C3 (lagged cross-correlation) 0.628, picked post hoc | `experiments_ad_vs_ftd/results/riemann/` |
+| C3 confirmed on ds006036, pre-registered (Exp 10) | **0.641** [0.515, 0.753], p 0.045 (narrow); the 44 s ds004504 control is 0.523; adds nothing beyond MMSE + age + sex | `experiments_ad_vs_ftd/results/c3_ds006036/` |
+| C3 averaged over both recordings (Exp 11) | 0.658 [0.527, 0.773], p 0.021; gain vs ds006036 +0.017 [−0.052, 0.087], so **not adopted** | `experiments_ad_vs_ftd/results/c3_both/` |
+| 3-class GAT with coupling graphs: Pearson / PLV / AEC-c / Granger | macro recall 0.550 / 0.562 / 0.555 / 0.564 vs 0.583; **no difference** (Holm p ≥ 0.75) | `results_gat_multiclass_*/`, `results_final/b_tests.csv` |
+| dementia vs HC, dedicated GAT + band power | **82.6 % acc** [75.0, 89.8], AUC 0.898; level with Stefanou 2025 (80.7 %) | `results_gat_dementia/`, `results_final/dementia.csv` |
+| final 3-class (two-stage, fixed in advance) | 60.6 % acc, macro-F1 0.589, macro recall 0.597, FTD recall 0.44; equal to today's soft vote (p 0.90) | `results_final/` |
+| bottleneck | with a perfect AD-vs-FTD step, 3-class accuracy would be 87.5 % | Section H of the assessment doc |
+| combined AD-vs-FTD score (GAT + C3 + aperiodic), pre-registered addendum | 0.641 vs C3 0.644: **no gain**, not adopted | `results_final/combine/` |
+| ensemble of the five 3-class GATs | macro recall 0.595 vs 0.583 (p 0.64); with band power 0.600 (= today) | `results_final/combine/` |
+
+**Defensible claims.**
+- Level with the best honest result on AD vs HC, dementia vs HC, AD vs FTD, and 3-class F1 / recall.
+- Behind on 3-class accuracy (review average ≈ 70 %, not checked study by study).
+
+**Not defensible.**
+- "Coupling graphs help".
+- "The two-stage model is better".
+- "C3 measures disease type rather than severity".
+- "The two-recording average" as a headline number (it was not adopted).
+
+The GAT's E1 and E2 are computed between electrodes' **power spectra**, so they
+measure spectral similarity, not functional connectivity in time.
 
 ## 0. Status on 2026-11-15: the numbers to quote
 

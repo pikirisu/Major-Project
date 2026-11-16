@@ -23,6 +23,14 @@
 !/GATv2gate_ds004504.ipynb
 !/build_cache_ds006036.ipynb
 !/GAT_ds006036.ipynb
+!/build_fc_graphs.ipynb
+!/GAT_multiclass_pearson_ds004504.ipynb
+!/GAT_multiclass_plv_ds004504.ipynb
+!/GAT_multiclass_aec_ds004504.ipynb
+!/GAT_multiclass_granger_ds004504.ipynb
+!/GAT_dementia_ds004504.ipynb
+!/Final_scoreboard_ds004504.ipynb
+!/Combine_ds004504.ipynb
 
 # saved results (small: JSON, CSV, PNG, out-of-fold probabilities)
 !/results_gat/
@@ -34,6 +42,12 @@
 !/results_gatv2/
 !/results_gatv2gate/
 !/results_gat_ds006036/
+!/results_gat_multiclass_pearson/
+!/results_gat_multiclass_plv/
+!/results_gat_multiclass_aec/
+!/results_gat_multiclass_granger/
+!/results_gat_dementia/
+!/results_final/
 
 # AD vs FTD feature study: its notebooks, the 88-row feature table, its results
 !/experiments_ad_vs_ftd/

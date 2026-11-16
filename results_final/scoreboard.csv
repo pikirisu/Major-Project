@@ -1,0 +1,9 @@
+task,metric,ours,lo,hi,bar,source,verdict
+AD vs HC,AUC,0.9091954022988504,0.8417624521072797,0.9647605363984673,0.912,Wang et al. 2026 (LOSO),level
+AD vs HC,accuracy,0.8399999999999999,0.76,0.9138461538461538,0.877,Wang et al. 2026 (LOSO),level
+dementia vs HC,accuracy,0.8257575757575758,0.75,0.8977272727272726,0.807,Stefanou et al. 2025 (AHEPA review),level
+AD vs FTD,AUC,0.6408,0.5152,0.7527,0.651,"Mlinaric et al. 2026 (LOSO, nested)",level
+3-class,accuracy,0.6060606060606061,0.5151515151515151,0.693181818181818,0.7,"AHEPA review, average of subject-independent studies",behind
+3-class,accuracy,0.6060606060606061,0.5151515151515151,0.693181818181818,0.76,"AHEPA review, best quoted (Chen 2023, not checked)",behind
+3-class,macro-F1,0.5893517404233926,0.49658811000577446,0.6728318321839034,0.595,"AHEPA review, average F1",level
+3-class,macro recall,0.5968219593906751,0.5046801830566199,0.6821289586688137,0.611,strict GitHub benchmark,level

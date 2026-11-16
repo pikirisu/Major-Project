@@ -1,0 +1,52 @@
+{
+ "combined_auc": 0.640901771336554,
+ "combined_ci": [
+  0.5140700483091787,
+  0.7717491948470209
+ ],
+ "gain_vs_c3": {
+  "lo": -0.1187600644122383,
+  "hi": 0.11553945249597414,
+  "p": 0.974,
+  "diff": -0.0028180354267309804
+ },
+ "adopted_as_stage_2": false,
+ "graph_ensemble_tests": [
+  {
+   "metric": "macro_recall",
+   "comparison": "ensemble of five GATs - GAT, PSD graphs (today)",
+   "diff": 0.0116,
+   "lo": -0.0315,
+   "hi": 0.0571,
+   "p": 0.643,
+   "p_holm": 1.0
+  },
+  {
+   "metric": "macro_recall",
+   "comparison": "ensemble of five GATs + band power - soft vote, PSD graphs (today)",
+   "diff": 0.0001,
+   "lo": -0.0252,
+   "hi": 0.0251,
+   "p": 0.935,
+   "p_holm": 1.0
+  },
+  {
+   "metric": "auc_AD_FTD",
+   "comparison": "ensemble of five GATs - GAT, PSD graphs (today)",
+   "diff": 0.0024,
+   "lo": -0.0725,
+   "hi": 0.0757,
+   "p": 0.962,
+   "p_holm": 1.0
+  },
+  {
+   "metric": "auc_AD_FTD",
+   "comparison": "ensemble of five GATs + band power - soft vote, PSD graphs (today)",
+   "diff": -0.0032,
+   "lo": -0.0274,
+   "hi": 0.0229,
+   "p": 0.776,
+   "p_holm": 1.0
+  }
+ ]
+}

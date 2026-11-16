@@ -285,6 +285,81 @@ before splitting, so it was never tested honestly. We tested their claims once:
   not an independent replication, and it is not a usable marker. Details:
   [`experiments_ad_vs_ftd/`](experiments_ad_vs_ftd/).
 
+**Experiments 9–11: one AD-vs-FTD measure that holds up on a second recording.**
+- **Experiment 9.** Five pre-registered candidates were tried: band power,
+  Riemannian covariance, lagged cross-correlation (C3, the measure of Mlinarič
+  et al. [4]), a parameterised spectrum and a soft vote. A nested selection
+  among them fails (AUC 0.576, permutation p 0.34). C3 alone scores 0.628, but
+  it was picked after the results were seen.
+- **Experiment 10.** C3 alone, unchanged, on the eyes-open recording of the
+  same patients (ds006036): **AUC 0.641 [0.515, 0.753], permutation p 0.045**.
+  This passes the pre-registered rule, narrowly.
+- **Experiment 11.** Averaging both recordings gives 0.658 [0.527, 0.773]. The
+  gain over ds006036 alone is within noise, so by the pre-registered rule it is
+  not adopted.
+- **Severity.** None of these scores adds to MMSE, age and sex.
+
+### Coupling graphs instead of spectral-similarity graphs (2026-11-16)
+
+The GAT's two graphs (E1, E2) are |Pearson| and MI computed between electrodes'
+**power spectra**. They measure how alike two electrodes' spectra are, not how
+the signals couple in time. Four pre-registered twins of the 3-class GAT
+replace them with one time-domain coupling graph per patient and band.
+DT-GCN [13] used the first three; its fourth, copula, cannot be rebuilt
+because its released script fails before computing it. Plan:
+[`docs/PREREG_2026-11-16.md`](docs/PREREG_2026-11-16.md).
+
+| 3-class, 88 patients, 3 × 5-fold | macro recall [95 % CI] | accuracy | AD vs FTD AUC | vs today's GAT, p (Holm) |
+|---|---|---|---|---|
+| today's GAT (spectral-similarity graphs) | 0.583 [0.509, 0.656] | 62.1 % | 0.595 | |
+| Pearson coupling | 0.550 [0.474, 0.625] | 57.2 % | 0.562 | 0.75 |
+| phase-locking value | 0.562 [0.490, 0.635] | 59.1 % | 0.541 | 1.0 |
+| orthogonalised envelope correlation (AEC-c) | 0.555 [0.483, 0.627] | 58.7 % | 0.543 | 1.0 |
+| Granger causality (directed) | 0.564 [0.488, 0.634] | 59.8 % | 0.591 | 1.0 |
+
+**No coupling graph helps.** Every twin scores slightly below today's GAT, and
+none of the differences is significant. Soft-voted with band power, all of them
+land at 0.59–0.60 macro recall, the same as today. The graph type is not what
+limits the 3-class result.
+
+### Final scoreboard (2026-11-16)
+
+Each task against the best honestly evaluated published result on this dataset.
+"Level" means the published value lies inside our 95 % CI. The rule and the
+final 3-class model (a two-stage model: a dementia-vs-HC soft vote, then C3)
+were fixed before these runs
+([`Final_scoreboard_ds004504.ipynb`](Final_scoreboard_ds004504.ipynb)).
+
+| task | ours [95 % CI] | best honest published | verdict |
+|---|---|---|---|
+| AD vs HC | AUC 0.909 [0.842, 0.965]; accuracy 84.0 % [76.0, 91.4] | Wang et al. 2026 [14]: AUC 0.912, 87.7 % | level |
+| dementia vs HC | accuracy 82.6 % [75.0, 89.8], AUC 0.898 (new dedicated model + band power) | Stefanou et al. 2025 via [11]: 80.7 % | level |
+| AD vs FTD | AUC 0.641 [0.515, 0.753] (C3, second recording) | Mlinarič et al. 2026 [4]: AUC 0.651 | level |
+| 3-class | macro-F1 0.589 [0.497, 0.673]; macro recall 0.597 [0.505, 0.682] | review average F1 59.5 % [11]; strict benchmark macro recall 0.611 [3] | level |
+| 3-class | accuracy 60.6 % [51.5, 69.3] | review average ≈ 70 % [11] | behind |
+
+Notes:
+- **Both recordings.** The AD-vs-FTD and 3-class rows use the eyes-open
+  recording of each patient for the AD-vs-FTD step.
+- **The two-stage model.** It raises FTD recall from 0.33 to 0.44 at the cost
+  of AD recall. Its overall scores do not differ from today's soft vote
+  (macro recall −0.003, p 0.90).
+- **3-class accuracy.** The review's best quoted figure (76 %, Chen et al.
+  2023) is EEG-only. That paper's headline 80 % adds MMSE, and its split
+  cannot be checked.
+- **Why 3-class is limited.** With a perfect AD-vs-FTD step, today's model
+  would reach 87.5 % 3-class accuracy. All the remaining error is in telling
+  the two dementias apart.
+- **Two last combinations, pre-registered, no training**
+  ([`Combine_ds004504.ipynb`](Combine_ds004504.ipynb)). Neither changes the
+  scoreboard.
+  - Averaging three weak AD-vs-FTD scores that barely agree (the GAT, C3 and
+    the aperiodic exponent) gives AUC 0.641, against 0.644 for C3 alone. Their
+    disagreement was noise, not extra information.
+  - An ensemble of the five 3-class GATs (PSD and the four coupling graphs)
+    reaches macro recall 0.595, against 0.583 (p 0.64). With band power it
+    reaches 0.600, the same as today.
+
 ---
 
 ## Conclusion
@@ -313,18 +388,30 @@ In order of confidence:
      −0.014, both non-significant, as pre-registered).
    - Detection replicates on a second recording of the same people, eyes open
      under flashing light: AUC 0.846 [0.760, 0.917], lower as predicted.
-3. **Three classes (AD / FTD / healthy): 58 % macro recall, 60 % with a
-   band-power soft vote,** close to a strict public benchmark (61 % [3]).
-   - Detecting dementia works (AUC 0.87–0.89).
-   - Naming which dementia does not: FTD recall is 0.22–0.38.
-4. **AD vs FTD: no EEG measure tested here separates the two above chance at
-   n = 59.**
-   - 417 engineered features score AUC 0.41–0.54.
-   - A pre-registered test of a published marker scores AUC 0.62–0.64. It points
-     the right way, but is not significant after correction and is largely tied
-     to disease severity.
-   - This is a power limit, not proof that EEG carries no difference.
-   - Published ~90 % results on this dataset come from window-level splits.
+3. **Against the best honestly evaluated published results on this dataset, we
+   are level on AD vs HC, dementia vs HC, AD vs FTD and 3-class F1 / recall,
+   and behind on 3-class accuracy** (60.6 % vs a review average of about 70 %).
+   See the scoreboard above.
+   - A dedicated dementia-vs-HC model reaches 82.6 % accuracy and AUC 0.898,
+     against the best published 80.7 %.
+4. **Three classes (AD / FTD / healthy): about 60 % macro recall, with every
+   model we tried,** level with a strict public benchmark (61 % [3]).
+   - Detecting dementia works (AUC 0.87–0.90).
+   - Naming which dementia is the whole bottleneck: with a perfect AD-vs-FTD
+     step, 3-class accuracy would be 87.5 %.
+   - Neither four time-domain coupling graphs nor a two-stage design moves the
+     overall score. The two-stage design trades AD recall for FTD recall
+     (0.33 → 0.44).
+5. **AD vs FTD: one EEG measure, lagged cross-correlation, reaches AUC 0.64 on a
+   second recording of the same patients (pre-registered, p 0.045).** This is
+   level with the best honest published result (0.651).
+   - Before that, 417 engineered features scored AUC 0.41–0.54. A published
+     aperiodic marker scored 0.62–0.64 and was not significant after correction.
+   - No AD-vs-FTD score adds to MMSE, age and sex. With 59 patients, chance
+     alone reaches AUC 0.65, so this is a power limit, not proof that EEG
+     carries no difference.
+   - Published 80–90 % results on this dataset come from window-level splits,
+     from epochs or features chosen on the test folds, or from adding MMSE.
 
 **What would change these conclusions:**
 - more FTD patients: about 47 for 80 % power at AUC 0.65;
@@ -345,8 +432,11 @@ eyes closed, 19 electrodes, 500 Hz. Each recording is cut into 20 s windows
 starting every 5 s. For every window and each of five bands (δ θ α β γ) we
 compute:
 - **node features:** the log power spectrum (Welch, 0.2 Hz resolution), normalised per window;
-- **E1:** a Pearson-correlation graph between electrodes;
-- **E2:** a mutual-information graph between electrodes.
+- **E1:** |Pearson correlation| between electrodes' power spectra (how alike their spectra are);
+- **E2:** mutual information between electrodes' power spectra.
+
+Both graphs follow [1]. They measure spectral similarity, not coupling of the
+signals in time; the coupling-graph twins above test the latter.
 
 **Model.** Following [1], with only the graph layer changed:
 
@@ -412,6 +502,12 @@ is the only cell you normally edit**, and every notebook is self-contained.
 | 12 | `build_cache_ds006036.ipynb` (eyes-open features) | `subject_cache_ds006036/`: 88 `.npz` files, 151 MB | ~10 min |
 | 13 | `GAT_ds006036.ipynb` (the GAT on ds006036) | `results_gat_ds006036/` | ~40 min |
 | 14 | `python experiments_released_code/prep.py`, then `run.py`, then `SPLIT=window` `run.py` (the paper's released code) | `cache_released_code/` (local), `results_released_code/` | ~70 min, ~60 min, ~8 min |
+| 15 | `experiments_ad_vs_ftd/ADvsFTD_riemann.ipynb`, then `ADvsFTD_C3_ds006036.ipynb`, then `ADvsFTD_C3_both.ipynb` (Experiments 9–11; need 9 and 12) | `experiments_ad_vs_ftd/results/riemann/`, `c3_ds006036/`, `c3_both/` | ~1 h, ~15 min, ~22 min |
+| 16 | `build_fc_graphs.ipynb` (coupling graphs) | `subject_cache_fc/` | ~3 min |
+| 17 | `GAT_multiclass_{pearson,plv,aec,granger}_ds004504.ipynb` (coupling-graph twins; need 1, 7 and 16) | `results_gat_multiclass_{pearson,plv,aec,granger}/` | ~27 min each |
+| 18 | `GAT_dementia_ds004504.ipynb` (dementia vs HC; needs 1 and 7) | `results_gat_dementia/` | ~35 min |
+| 19 | `Final_scoreboard_ds004504.ipynb` (needs 5, 7, 15, 17 and 18) | `results_final/` | ~1 min |
+| 20 | `Combine_ds004504.ipynb` (needs 19) | `results_final/combine/` | < 1 min |
 
 The GAT goes after the other Case B models because its statistics cell compares
 it with every result folder already present on the same folds. GATv2 goes after
@@ -438,6 +534,11 @@ GATv2_ds004504.ipynb            twin with GATv2 attention (review remark)
 GATv2gate_ds004504.ipynb        GATv2 plus a learned per-window edge gate (adaptive graph)
 build_cache_ds006036.ipynb      the same feature code on ds006036 (eyes open, photic)
 GAT_ds006036.ipynb              the GAT notebook, unchanged, on the ds006036 cache
+build_fc_graphs.ipynb           time-domain coupling graphs per patient and band (subject_cache_fc/)
+GAT_multiclass_*_ds004504.ipynb 3-class twins with Pearson / PLV / AEC-c / Granger graphs
+GAT_dementia_ds004504.ipynb     MFE-FCGAT, dementia (AD + FTD) vs HC, on the 3-class folds
+Final_scoreboard_ds004504.ipynb every task against the best honest published result (results_final/)
+Combine_ds004504.ipynb          a combined AD-vs-FTD score and a five-graph GAT ensemble (no training)
 leak_check.py                   why Case A scores ~95 %
 lr_check.py                     learning-rate choice for the GATv2 twins, on validation patients
 results_*/                      saved summaries, per-fold CSVs, figures, out-of-fold probabilities, statistics
@@ -445,6 +546,7 @@ experiments_ad_vs_ftd/          AD vs FTD feature-engineering study (own README)
 experiments_released_code/      the paper's released code, ported and re-run on our patient splits
 docs/PROJECT_NOTES.md           full lab notebook: every run, ablation and review decision
 docs/PREREG_2026-11-14.md       plan for the GATv2 and ds006036 runs, written before them
+docs/PREREG_2026-11-16.md       plan for the coupling graphs, the dementia model and the scoreboard
 ```
 
 ## References
@@ -452,7 +554,7 @@ docs/PREREG_2026-11-14.md       plan for the GATv2 and ds006036 runs, written be
 1. Liu, An, Yang & Ge (2025). MFE-FCGCN. *Complex & Intelligent Systems* 11:366. [doi:10.1007/s40747-025-01974-x](https://doi.org/10.1007/s40747-025-01974-x)
 2. Miltiadous et al. (2023). A dataset of scalp EEG recordings of Alzheimer's disease, frontotemporal dementia and healthy subjects from routine EEG. *Data* 8(6):95. [doi:10.3390/data8060095](https://doi.org/10.3390/data8060095)
 3. eeg-dementia-graph-transformer: a patient-independent benchmark on ds004504. <https://github.com/happyc0der/eeg-dementia-graph-transformer>
-4. EEG-based classification of AD and FTD using functional connectivity. *Scientific Reports* (2026). <https://pmc.ncbi.nlm.nih.gov/articles/PMC12873302/>
+4. Mlinarič, Van Den Kerchove, Barinaga & Van Hulle (2026). EEG-based classification of Alzheimer's disease and frontotemporal dementia using functional connectivity. *Scientific Reports* 16:4903. [doi:10.1038/s41598-026-35316-9](https://doi.org/10.1038/s41598-026-35316-9)
 5. Veličković et al. (2018). Graph Attention Networks. *ICLR*.
 6. Lal, Chikkankod & Longo (2024). A comparative study on feature extraction techniques for the discrimination of frontotemporal dementia and Alzheimer's disease with electroencephalography in resting-state adults. *Brain Sciences* 14(4):335. [doi:10.3390/brainsci14040335](https://doi.org/10.3390/brainsci14040335)
 7. Wang et al. (2023). The effect of aperiodic components in distinguishing Alzheimer's disease from frontotemporal dementia. *GeroScience* 46:751–768. [doi:10.1007/s11357-023-01041-8](https://doi.org/10.1007/s11357-023-01041-8)
@@ -462,5 +564,7 @@ docs/PREREG_2026-11-14.md       plan for the GATv2 and ds006036 runs, written be
 10. Ntetska et al. (2025). A complementary dataset of open-eyes EEG recordings in a photo-stimulation setting from: Alzheimer's disease, frontotemporal dementia and healthy subjects. *Data* 10(5):64. [doi:10.3390/data10050064](https://doi.org/10.3390/data10050064)
 11. Miltiadous et al. (2026). The AHEPA EEG benchmark: setting the standard for machine learning in dementia diagnosis, a scoping review. *Cognitive Neurodynamics* 20(1):95. [doi:10.1007/s11571-026-10464-w](https://doi.org/10.1007/s11571-026-10464-w)
 12. Prado et al. (2023). The BrainLat project, a multimodal neuroimaging dataset of neurodegeneration from underrepresented backgrounds. *Scientific Data*. [doi:10.1038/s41597-023-02806-8](https://doi.org/10.1038/s41597-023-02806-8)
+13. Liu & Meng (2026). EEG-based classification of Alzheimer's disease and frontotemporal dementia via a dynamic threshold graph convolutional network. *Information* 17(7):703. [doi:10.3390/info17070703](https://doi.org/10.3390/info17070703)
+14. Wang, Madarasingha, Mahmud, Krishna & Takechi (2026). Leakage-safe empirical benchmarking of EEG-based machine learning pipelines for dementia classification. arXiv preprint. [arXiv:2609.22092](https://arxiv.org/abs/2609.22092)
 
 Code: MIT license. Datasets: CC0, by their authors [2, 10].

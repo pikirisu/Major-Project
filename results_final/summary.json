@@ -1,0 +1,182 @@
+{
+ "stage2": "C3, ds006036 (Experiment 10)",
+ "scoreboard": [
+  {
+   "task": "AD vs HC",
+   "metric": "AUC",
+   "ours": 0.9092,
+   "lo": 0.8418,
+   "hi": 0.9648,
+   "bar": 0.912,
+   "source": "Wang et al. 2026 (LOSO)",
+   "verdict": "level"
+  },
+  {
+   "task": "AD vs HC",
+   "metric": "accuracy",
+   "ours": 0.84,
+   "lo": 0.76,
+   "hi": 0.9138,
+   "bar": 0.877,
+   "source": "Wang et al. 2026 (LOSO)",
+   "verdict": "level"
+  },
+  {
+   "task": "dementia vs HC",
+   "metric": "accuracy",
+   "ours": 0.8258,
+   "lo": 0.75,
+   "hi": 0.8977,
+   "bar": 0.807,
+   "source": "Stefanou et al. 2025 (AHEPA review)",
+   "verdict": "level"
+  },
+  {
+   "task": "AD vs FTD",
+   "metric": "AUC",
+   "ours": 0.6408,
+   "lo": 0.5152,
+   "hi": 0.7527,
+   "bar": 0.651,
+   "source": "Mlinaric et al. 2026 (LOSO, nested)",
+   "verdict": "level"
+  },
+  {
+   "task": "3-class",
+   "metric": "accuracy",
+   "ours": 0.6061,
+   "lo": 0.5152,
+   "hi": 0.6932,
+   "bar": 0.7,
+   "source": "AHEPA review, average of subject-independent studies",
+   "verdict": "behind"
+  },
+  {
+   "task": "3-class",
+   "metric": "accuracy",
+   "ours": 0.6061,
+   "lo": 0.5152,
+   "hi": 0.6932,
+   "bar": 0.76,
+   "source": "AHEPA review, best quoted (Chen 2023, not checked)",
+   "verdict": "behind"
+  },
+  {
+   "task": "3-class",
+   "metric": "macro-F1",
+   "ours": 0.5894,
+   "lo": 0.4966,
+   "hi": 0.6728,
+   "bar": 0.595,
+   "source": "AHEPA review, average F1",
+   "verdict": "level"
+  },
+  {
+   "task": "3-class",
+   "metric": "macro recall",
+   "ours": 0.5968,
+   "lo": 0.5047,
+   "hi": 0.6821,
+   "bar": 0.611,
+   "source": "strict GitHub benchmark",
+   "verdict": "level"
+  }
+ ],
+ "b_tests": [
+  {
+   "metric": "macro_recall",
+   "twin": "GAT, pearson graphs",
+   "diff": -0.0331,
+   "lo": -0.0839,
+   "hi": 0.0171,
+   "p": 0.187,
+   "p_holm": 0.748
+  },
+  {
+   "metric": "macro_recall",
+   "twin": "GAT, plv graphs",
+   "diff": -0.0207,
+   "lo": -0.0781,
+   "hi": 0.0354,
+   "p": 0.426,
+   "p_holm": 1.0
+  },
+  {
+   "metric": "macro_recall",
+   "twin": "GAT, aec graphs",
+   "diff": -0.0283,
+   "lo": -0.0871,
+   "hi": 0.0278,
+   "p": 0.341,
+   "p_holm": 1.0
+  },
+  {
+   "metric": "macro_recall",
+   "twin": "GAT, granger graphs",
+   "diff": -0.0185,
+   "lo": -0.0722,
+   "hi": 0.0312,
+   "p": 0.475,
+   "p_holm": 1.0
+  },
+  {
+   "metric": "auc_AD_FTD",
+   "twin": "GAT, pearson graphs",
+   "diff": -0.0334,
+   "lo": -0.1248,
+   "hi": 0.06,
+   "p": 0.471,
+   "p_holm": 1.0
+  },
+  {
+   "metric": "auc_AD_FTD",
+   "twin": "GAT, plv graphs",
+   "diff": -0.0535,
+   "lo": -0.1627,
+   "hi": 0.0568,
+   "p": 0.326,
+   "p_holm": 1.0
+  },
+  {
+   "metric": "auc_AD_FTD",
+   "twin": "GAT, aec graphs",
+   "diff": -0.0515,
+   "lo": -0.1474,
+   "hi": 0.0475,
+   "p": 0.278,
+   "p_holm": 1.0
+  },
+  {
+   "metric": "auc_AD_FTD",
+   "twin": "GAT, granger graphs",
+   "diff": -0.004,
+   "lo": -0.0934,
+   "hi": 0.0882,
+   "p": 0.894,
+   "p_holm": 1.0
+  }
+ ],
+ "final_tests": [
+  {
+   "metric": "macro_recall",
+   "diff": -0.0032,
+   "lo": -0.0945,
+   "hi": 0.0854,
+   "p": 0.901
+  },
+  {
+   "metric": "acc",
+   "diff": -0.0189,
+   "lo": -0.1023,
+   "hi": 0.0644,
+   "p": 0.631
+  },
+  {
+   "metric": "macro_f1",
+   "diff": -0.003,
+   "lo": -0.102,
+   "hi": 0.0933,
+   "p": 0.899
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "task": "AD vs FTD, 36 vs 23: C3 averaged over both recordings of each patient",
+ "protocol": "2026-11-16 18:00, before the average was computed",
+ "primary": {
+  "auc": 0.6582,
+  "ci": [
+   0.5268,
+   0.7732
+  ],
+  "p_permutation": 0.021,
+  "n_perm": 1000,
+  "adopted_as_stage_2": false
+ },
+ "gain": {
+  "ds004504 eyes closed, 300 s": {
+   "d_auc": 0.0302,
+   "lo": -0.0478,
+   "hi": 0.101,
+   "p": 0.45
+  },
+  "ds006036 eyes open, 44 s (Experiment 10)": {
+   "d_auc": 0.0174,
+   "lo": -0.0517,
+   "hi": 0.087,
+   "p": 0.594
+  }
+ },
+ "p_beyond_mmse_age_sex": 0.1924,
+ "three_class": {
+  "none (today's soft vote)": {
+   "acc": 0.625,
+   "macro_f1": 0.5923,
+   "macro_recall": 0.6,
+   "recall_HC": 0.7816,
+   "recall_AD": 0.6852,
+   "recall_FTD": 0.3333
+  },
+  "ds004504 eyes closed, 300 s": {
+   "acc": 0.6477,
+   "macro_f1": 0.6331,
+   "macro_recall": 0.6353,
+   "recall_HC": 0.7701,
+   "recall_AD": 0.6574,
+   "recall_FTD": 0.4783
+  },
+  "ds006036 eyes open, 44 s (Experiment 10)": {
+   "acc": 0.6212,
+   "macro_f1": 0.6107,
+   "macro_recall": 0.6137,
+   "recall_HC": 0.7701,
+   "recall_AD": 0.5926,
+   "recall_FTD": 0.4783
+  },
+  "both recordings, averaged (primary)": {
+   "acc": 0.6591,
+   "macro_f1": 0.6449,
+   "macro_recall": 0.6453,
+   "recall_HC": 0.7816,
+   "recall_AD": 0.6759,
+   "recall_FTD": 0.4783
+  }
+ }
+}

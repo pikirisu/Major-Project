@@ -1,0 +1,50 @@
+{
+ "task": "AD vs FTD, 36 vs 23: confirm C3 (picked post hoc in Experiment 9) on ds006036",
+ "protocol": "2026-11-16 17:29, before any matrix was computed",
+ "data": "11 x 4 s per subject",
+ "primary": {
+  "auc": 0.6408,
+  "ci": [
+   0.5152,
+   0.7527
+  ],
+  "bal_acc": 0.5973,
+  "recall_AD": 0.6556,
+  "recall_FTD": 0.5391,
+  "p_permutation": 0.045,
+  "n_perm": 1000,
+  "confirmed": true
+ },
+ "runs": {
+  "ds006036, 44 s (primary)": {
+   "auc": 0.6408,
+   "ci": [
+    0.5152,
+    0.7527
+   ],
+   "p_beyond_mmse_age_sex": 0.1819
+  },
+  "ds004504, same 44 s (control)": {
+   "auc": 0.5229,
+   "ci": [
+    0.4084,
+    0.6372
+   ],
+   "p_beyond_mmse_age_sex": 0.72
+  },
+  "ds004504, 300 s (Experiment 9, post hoc)": {
+   "auc": 0.628,
+   "ci": [
+    0.5019,
+    0.7481
+   ],
+   "p_beyond_mmse_age_sex": 0.4976
+  }
+ },
+ "agreement_spearman": [
+  0.3992,
+  0.0017
+ ],
+ "rank_deficit_auc": 0.5537,
+ "comparators": "Experiment 9 C3 0.628 (post hoc); Mlinaric et al. 2026 0.651"
+}

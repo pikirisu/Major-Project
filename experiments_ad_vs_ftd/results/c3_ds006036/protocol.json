@@ -1,0 +1,17 @@
+{
+ "written": "2026-11-16 17:29, before any matrix was computed",
+ "question": "Does C3 (lagged cross-correlation), the best of Experiment 9's five candidates and picked after its results were seen, separate AD (36) from FTD (23) on ds006036, a second recording of the same patients (eyes open, photic stimulation)? One pipeline, nothing selected",
+ "data": "ds006036 derivatives (ASR + ICA, A1-A2 reference). Per subject, the first 11 4 s epochs that contain no ASR join, packed into the join-free stretches from the start of the recording: 44 s, the most every one of the 59 patients has. Photic stimulation is left in, as recorded. Common average reference",
+ "pipeline": "C3 of Experiment 9 unchanged: per band (delta 0.5-4, theta 4-8, alpha 8-13, beta 13-30 Hz, zero-phase FIR on the continuous signal), normalised cross-correlation per epoch at 125 Hz, averaged over epochs at each lag up to +-96 ms, the value at the lag with the largest |r| per pair, Fisher z; 4 x 171 values -> standardise -> L2 logistic regression, balanced class weights, C in [0.001, 0.01, 0.1, 1] by 5-fold inner CV AUC on the outer training patients",
+ "identity_checks": "(1) this notebook's matrix code rebuilds Experiment 9's ds004504 sub-001 cross-correlation (300 s) exactly; (2) its cross-validation code reproduces Experiment 9's C3 scores exactly",
+ "folds": "Experiment 9's subject-to-fold assignment (the 3-class notebook's folds), 5 repeats, the same seeds; read from results/riemann/stage2_oof.npz",
+ "primary": "AUC of q_AD, AD vs FTD on the 59 patients, mean over the 5 repeats. C3 is confirmed if the one-sided permutation p < 0.05, from 1000 shuffles of the patients' diagnoses through the whole pipeline (all 5 repeats)",
+ "secondary": {
+  "control": "the same pipeline on ds004504 with the same 44 s (same epoch rule): separates 'less data' from 'another recording condition'",
+  "severity": "likelihood-ratio test of each score added to an unpenalised logistic model of MMSE + age + sex; Spearman r with MMSE",
+  "agreement": "Spearman r between each patient's out-of-fold C3 score on ds006036 and on ds004504 (Experiment 9, 300 s)"
+ },
+ "metrics": "AUC = P(AD scores higher); balanced accuracy at 0.5, recall AD and FTD; pooled per repeat, mean over repeats; 95 % CI from 2000 stratified subject bootstraps of the repeat mean",
+ "limits": "same patients, not an independent cohort; 44 s instead of 300 s; eyes open with flicker instead of eyes-closed rest. A pass supports C3 across two recordings of these 59 patients only. A fail with the control passing points to the recording condition; both failing cannot tell less data from no signal",
+ "decision": "reported whatever it is. C3 becomes the stage-2 model of the two-stage plan only if the primary test passes"
+}

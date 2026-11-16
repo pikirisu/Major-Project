@@ -1,0 +1,5 @@
+metric,comparison,diff,lo,hi,p,p_holm
+macro_recall,"ensemble of five GATs - GAT, PSD graphs (today)",0.011642326984655837,-0.03152763895829863,0.05706012734373552,0.643,1.0
+macro_recall,"ensemble of five GATs + band power - soft vote, PSD graphs (today)",0.00014807411109263313,-0.025181853517685652,0.02514194291743001,0.935,1.0
+auc_AD_FTD,"ensemble of five GATs - GAT, PSD graphs (today)",0.0024154589371980784,-0.07247383252818024,0.07568438003220612,0.962,1.0
+auc_AD_FTD,"ensemble of five GATs + band power - soft vote, PSD graphs (today)",-0.0032206119162641045,-0.02737520128824478,0.022946859903381526,0.776,1.0
