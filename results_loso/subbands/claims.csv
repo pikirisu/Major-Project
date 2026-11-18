@@ -1,0 +1,4 @@
+model,A_separates_AD_from_FTD,B_better_than_5_bands,C_fewer_features_cost_nothing
+8 fixed bands x 2 regions (primary),False,False,False
+8 alpha-anchored bands x 2 regions + IAF,False,False,False
+8 learned bands x 2 regions,False,False,False

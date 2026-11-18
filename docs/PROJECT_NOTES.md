@@ -21,9 +21,12 @@ published value lies inside our 95 % CI.
 | bottleneck | with a perfect AD-vs-FTD step, 3-class accuracy would be 87.5 % | Section H of the assessment doc |
 | combined AD-vs-FTD score (GAT + C3 + aperiodic), pre-registered addendum | 0.641 vs C3 0.644: **no gain**, not adopted | `results_final/combine/` |
 | ensemble of the five 3-class GATs | macro recall 0.595 vs 0.583 (p 0.64); with band power 0.600 (= today) | `results_final/combine/` |
+| leave-one-subject-out (2026-11-17) | GAT AD vs HC **0.915**, 84.6 % (55/65); band power 0.897; soft vote 0.925; C3 AD vs FTD falls to **0.574**, p 0.207 | `results_loso/`, `results_loso/gat/` |
+| finer frequency bands, 16 features (2026-11-18) | AD vs FTD **0.389** (8 fixed bands), p 0.86, no better than 5 bands (0.399); all three pre-registered claims failed | `results_loso/subbands/` |
 
 **Defensible claims.**
-- Level with the best honest result on AD vs HC, dementia vs HC, AD vs FTD, and 3-class F1 / recall.
+- Level with the best honest result on AD vs HC, dementia vs HC, and 3-class F1 / recall.
+- AD vs FTD: level with Mlinarič et al. (0.651), behind the unreproduced preprint of Wang et al. 2026 (0.823). C3 falls to 0.574 (p 0.21) under LOSO.
 - Behind on 3-class accuracy (review average ≈ 70 %, not checked study by study).
 
 **Not defensible.**

@@ -1,0 +1,5 @@
+effect,metric,diff,lo,hi,p
+"prior-shift effect (balanced vs unweighted, both LOSO)",auc,0.002873563218390829,0.0,0.011494252873563204,0.5207396301849075
+"prior-shift effect (balanced vs unweighted, both LOSO)",acc,0.0,0.0,0.0,1.0
+"split effect (LOSO vs 5 x 5, both balanced)",auc,0.023754789272030674,0.0051724137931035115,0.04367816091954024,0.009995002498750625
+"split effect (LOSO vs 5 x 5, both balanced)",acc,1.1102230246251565e-16,-0.040000000000000036,0.039999999999999925,1.0

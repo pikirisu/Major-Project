@@ -1,0 +1,30 @@
+{
+ "written": "2026-11-17 14:56, before any model was fitted",
+ "prereg": "docs/PREREG_2026-11-17.md, Parts 1 and 2 (Part 3, the GAT, is GAT_loso_ds004504.ipynb)",
+ "status": "the 5 x 5 numbers stay primary; LOSO is a second row labelled 'LOSO (protocol-matched)', reported whatever it shows; the better of the two is never chosen",
+ "loso": "each patient of the task is the test set once; the model is fitted on the task's other patients",
+ "metrics": "patient AUC (Mann-Whitney); accuracy, recall and specificity at 0.5; 95 % CI from 2000 bootstrap resamples of patients, each class separately, seed 42; nothing tuned on test patients",
+ "verdict": "level if the published value lies inside our 95 % CI, ahead if below it, behind if above it",
+ "part1_ad_vs_hc": {
+  "data": "subject_cache, 65 patients, 95 band-power numbers per 20 s window; a patient's score is the mean of their window probabilities (Cell 5 of GAT_ds004504.ipynb)",
+  "primary": "StandardScaler -> L2 logistic regression, C 0.1, class_weight balanced, max_iter 5000, fitted on all windows of the other 64 patients",
+  "identity_check": "Cell 5's unweighted model on the 5 x 5 folds reproduces results_gat/statistics.json 'LR floor' AUC and accuracy",
+  "secondary": {
+   "a": "the unweighted model under LOSO (primary - a = the prior-shift effect)",
+   "b": "the balanced model on the 5 x 5 folds (primary - b = the effect of the split)",
+   "tests": "paired patient bootstrap, 95 % CI, descriptive, no Holm"
+  },
+  "comparators": "Wang et al. 2026 AUC 0.912 / accuracy 87.7 %; benchmark [3] 0.883 / 84.6 % (context; the scoreboard row is the GAT, Part 3)"
+ },
+ "part2_ad_vs_ftd": {
+  "data": "experiments_ad_vs_ftd/features/c3_ds006036_matrices.npz (Experiment 10), unchanged: ds006036, 44 s per patient, 36 AD vs 23 FTD",
+  "pipeline": "Experiment 10's run_fold unchanged; outer: leave one of the 59 patients out; C in [0.001, 0.01, 0.1, 1] by 5-fold inner stratified CV AUC on the other 58 (nested LOSO); inner seed 42 + fold number (1-59)",
+  "identity_check": "run_fold on Experiment 10's folds reproduces Experiment 10's ds006036 scores exactly",
+  "primary": "AUC of q_AD over the 59 patients with its CI; verdict against Mlinaric et al. 2026 (0.651)",
+  "secondary": {
+   "a": "chance under LOSO: 1000 shuffles of the 59 diagnoses through the whole LOSO pipeline; one-sided p, median and 95 % range of the shuffled AUCs",
+   "b": "C3 on ds004504, 300 s (Experiment 9's matrices), same LOSO; the recording Mlinaric et al. used, but C3 was picked on it, so post hoc and no verdict"
+  }
+ },
+ "expectation": "LOSO trains on more patients (64 vs 52 for the regression, ~51 vs ~42 for the GAT): a small rise of about +0.01-0.02 AUC, verdicts unchanged; a lower number is reported the same way"
+}

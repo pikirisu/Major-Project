@@ -1,0 +1,31 @@
+{
+ "written": "2026-11-18 14:36, before any sub-band was compared with a diagnosis",
+ "status": "private; not for the README, the deck or the report; reported whatever it shows",
+ "question": "Do finer frequency bands, with far fewer features, separate AD (36) from FTD (23)?",
+ "data": "ds004504 eyes closed, derivatives; every patient's first 75 clean 4 s epochs (300 s, no ASR join)",
+ "features": "Hann-windowed spectrum per 4 s epoch (0.25 Hz bins, 0.5-45 Hz), divided by that epoch's total power, averaged over epochs and over the channels of each region (frontal Fp1 Fp2 F3 F4 F7 F8 Fz; posterior P3 P4 Pz O1 O2); a band's feature is log10 of its summed relative power",
+ "division_of_frequencies": {
+  "primary": "8 fixed bands 1-2, 2-4, 4-6, 6-8, 8-10, 10-13, 13-20, 20-30 Hz x 2 regions = 16 features",
+  "rival_alpha_anchored": "edges 1, I-6, I-4, I-2, I, I+2, I+4, 20, 30 Hz, I = the patient's alpha centre of gravity (spec_iaf_cog, 6-13 Hz, rounded to 0.25 Hz); I is also a feature (17)",
+  "rival_learned": "8 contiguous bands per region with edges on the grid 1, 2, ..., 13, 15, 17, 20, 25, 30 Hz, maximising the sum of squared two-sample t statistics between the training classes (dynamic programming); learned inside every training set, including the inner folds (16). The grid widens above 13 Hz because a 1 Hz grid piled edges into 22-29 Hz on shuffled diagnoses; this was fixed before any real diagnosis was used",
+  "baseline": "the 5 classic bands 0.5-4, 4-8, 8-13, 13-30, 30-45 Hz x 2 regions = 10 features",
+  "reference": "the 95 existing bp_ band powers on the same 300 s"
+ },
+ "division_of_patients": {
+  "primary": "nested leave-one-subject-out: each patient is scored by a model fitted on the task's other patients; C from [0.001, 0.01, 0.1, 1] by 5-fold inner stratified CV AUC, inner seed 42 + fold number",
+  "stability": "5 x 5-fold on the saved folds of Experiments 9 and 10, inner seed 42 + 100 x repeat + fold"
+ },
+ "model": "StandardScaler, then L2 logistic regression with balanced class weights (Experiment 10's pipeline)",
+ "tasks": {
+  "test": "AD vs FTD (positive class AD)",
+  "controls": "AD vs HC and dementia vs HC, LOSO only, to see what fewer features cost"
+ },
+ "statistics": "patient AUC; accuracy at 0.5; 95 % CI from 2000 bootstrap resamples per class, seed 42; one-sided permutation p from 1000 shuffles of the 59 diagnoses through the whole LOSO pipeline; Holm over the primary and its two rivals",
+ "claims": {
+  "A_separates_AD_from_FTD": "Holm p < 0.05 under LOSO, and the lower 95 % bound of the same model's 5 x 5 AUC is above 0.5",
+  "B_better_than_5_bands": "the 95 % CI of the LOSO AUC gain over the 5-band baseline is above 0",
+  "C_fewer_features_cost_nothing": "AD vs HC and dementia vs HC: the lower 95 % bound of the LOSO AUC difference (16 features minus 95) is above -0.05"
+ },
+ "already_seen": "results for the 5 classic bands, the alpha centre of gravity and lagged cross-correlation (C3). No sub-band has been compared with a diagnosis",
+ "limits": "same patients as every earlier AD-vs-FTD experiment; 23 FTD patients give about 49 % power at AUC 0.65, so a null result cannot exclude a small effect; a positive result needs an independent cohort"
+}

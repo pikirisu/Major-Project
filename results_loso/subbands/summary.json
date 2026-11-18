@@ -1,0 +1,57 @@
+{
+ "protocol": "2026-11-18 14:36, before any sub-band was compared with a diagnosis",
+ "n_perm": 1000,
+ "ad_vs_ftd": {
+  "8 fixed bands x 2 regions (primary)": {
+   "auc_loso": 0.3889,
+   "null_median": 0.4976,
+   "null_lo": 0.2849,
+   "null_hi": 0.6763,
+   "p": 0.8581,
+   "auc_5x5": 0.4123,
+   "auc_5x5_lo": 0.2961,
+   "p_holm": 1.0
+  },
+  "8 alpha-anchored bands x 2 regions + IAF": {
+   "auc_loso": 0.4191,
+   "null_median": 0.4988,
+   "null_lo": 0.2717,
+   "null_hi": 0.6787,
+   "p": 0.7772,
+   "auc_5x5": 0.4836,
+   "auc_5x5_lo": 0.3633,
+   "p_holm": 1.0
+  },
+  "8 learned bands x 2 regions": {
+   "auc_loso": 0.4565,
+   "null_median": 0.4928,
+   "null_lo": 0.2765,
+   "null_hi": 0.6788,
+   "p": 0.6583,
+   "auc_5x5": 0.4771,
+   "auc_5x5_lo": 0.3521,
+   "p_holm": 1.0
+  }
+ },
+ "claims": {
+  "8 fixed bands x 2 regions (primary)": {
+   "A_separates_AD_from_FTD": false,
+   "B_better_than_5_bands": false,
+   "C_fewer_features_cost_nothing": false
+  },
+  "8 alpha-anchored bands x 2 regions + IAF": {
+   "A_separates_AD_from_FTD": false,
+   "B_better_than_5_bands": false,
+   "C_fewer_features_cost_nothing": false
+  },
+  "8 learned bands x 2 regions": {
+   "A_separates_AD_from_FTD": false,
+   "B_better_than_5_bands": false,
+   "C_fewer_features_cost_nothing": false
+  }
+ },
+ "primary_beyond_mmse_age_sex": {
+  "chi2": 0.024,
+  "p": 0.8764
+ }
+}

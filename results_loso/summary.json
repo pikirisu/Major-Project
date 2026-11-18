@@ -1,0 +1,129 @@
+{
+ "protocol": "2026-11-17 14:56, before any model was fitted",
+ "ad_vs_hc_bandpower": {
+  "auc": 0.8966,
+  "auc_ci": [
+   0.8103,
+   0.9588
+  ],
+  "acc": 0.7692,
+  "acc_ci": [
+   0.6615,
+   0.8615
+  ],
+  "recall": 0.8056,
+  "specificity": 0.7241,
+  "five_by_five_unweighted": {
+   "auc": 0.8724,
+   "acc": 0.7692
+  },
+  "effects": [
+   {
+    "effect": "prior-shift effect (balanced vs unweighted, both LOSO)",
+    "metric": "auc",
+    "diff": 0.0029,
+    "lo": 0.0,
+    "hi": 0.0115,
+    "p": 0.5207
+   },
+   {
+    "effect": "prior-shift effect (balanced vs unweighted, both LOSO)",
+    "metric": "acc",
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "p": 1.0
+   },
+   {
+    "effect": "split effect (LOSO vs 5 x 5, both balanced)",
+    "metric": "auc",
+    "diff": 0.0238,
+    "lo": 0.0052,
+    "hi": 0.0437,
+    "p": 0.01
+   },
+   {
+    "effect": "split effect (LOSO vs 5 x 5, both balanced)",
+    "metric": "acc",
+    "diff": 0.0,
+    "lo": -0.04,
+    "hi": 0.04,
+    "p": 1.0
+   }
+  ],
+  "verdicts": [
+   {
+    "comparator": "Wang et al. 2026 (LOSO)",
+    "metric": "auc",
+    "published": 0.912,
+    "ours": 0.8966,
+    "lo": 0.8103,
+    "hi": 0.9588,
+    "verdict": "level"
+   },
+   {
+    "comparator": "Wang et al. 2026 (LOSO)",
+    "metric": "acc",
+    "published": 0.877,
+    "ours": 0.7692,
+    "lo": 0.6615,
+    "hi": 0.8615,
+    "verdict": "behind"
+   },
+   {
+    "comparator": "benchmark [3] (LOSO)",
+    "metric": "auc",
+    "published": 0.883,
+    "ours": 0.8966,
+    "lo": 0.8103,
+    "hi": 0.9588,
+    "verdict": "level"
+   },
+   {
+    "comparator": "benchmark [3] (LOSO)",
+    "metric": "acc",
+    "published": 0.846,
+    "ours": 0.7692,
+    "lo": 0.6615,
+    "hi": 0.8615,
+    "verdict": "level"
+   }
+  ]
+ },
+ "ad_vs_ftd_c3": {
+  "auc": 0.5737,
+  "auc_ci": [
+   0.4118,
+   0.7186
+  ],
+  "bal_acc": 0.5725,
+  "recall_AD": 0.6667,
+  "recall_FTD": 0.4783,
+  "p_permutation": 0.2068,
+  "n_perm": 1000,
+  "null_median": 0.4879,
+  "null_95": [
+   0.285,
+   0.6861
+  ],
+  "ds004504_300s_post_hoc": {
+   "auc": 0.6775,
+   "auc_ci": [
+    0.5242,
+    0.8092
+   ]
+  },
+  "five_by_five": 0.6408,
+  "verdicts": [
+   {
+    "comparator": "Mlinaric et al. 2026 (nested LOSO)",
+    "metric": "auc",
+    "published": 0.651,
+    "ours": 0.5737,
+    "lo": 0.4118,
+    "hi": 0.7186,
+    "verdict": "level"
+   }
+  ]
+ }
+}

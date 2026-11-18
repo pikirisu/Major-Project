@@ -31,6 +31,9 @@
 !/GAT_dementia_ds004504.ipynb
 !/Final_scoreboard_ds004504.ipynb
 !/Combine_ds004504.ipynb
+!/LOSO_ds004504.ipynb
+!/GAT_loso_ds004504.ipynb
+!/LOSO_subbands_ds004504.ipynb
 
 # saved results (small: JSON, CSV, PNG, out-of-fold probabilities)
 !/results_gat/
@@ -48,6 +51,7 @@
 !/results_gat_multiclass_granger/
 !/results_gat_dementia/
 !/results_final/
+!/results_loso/
 
 # AD vs FTD feature study: its notebooks, the 88-row feature table, its results
 !/experiments_ad_vs_ftd/

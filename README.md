@@ -335,10 +335,15 @@ were fixed before these runs
 | AD vs HC | AUC 0.909 [0.842, 0.965]; accuracy 84.0 % [76.0, 91.4] | Wang et al. 2026 [14]: AUC 0.912, 87.7 % | level |
 | dementia vs HC | accuracy 82.6 % [75.0, 89.8], AUC 0.898 (new dedicated model + band power) | Stefanou et al. 2025 via [11]: 80.7 % | level |
 | AD vs FTD | AUC 0.641 [0.515, 0.753] (C3, second recording) | Mlinarič et al. 2026 [4]: AUC 0.651 | level |
+| AD vs FTD | the same | Wang et al. 2026 [14], preprint: AUC 0.823, not independently reproduced | behind |
 | 3-class | macro-F1 0.589 [0.497, 0.673]; macro recall 0.597 [0.505, 0.682] | review average F1 59.5 % [11]; strict benchmark macro recall 0.611 [3] | level |
 | 3-class | accuracy 60.6 % [51.5, 69.3] | review average ≈ 70 % [11] | behind |
 
 Notes:
+- **The second AD-vs-FTD bar.** `results_final/scoreboard.csv` was built against
+  [4] only. The preprint [14] reports AUC 0.823 under leave-one-subject-out. Its
+  evaluation loop shows no test leak, but it uses whole recordings of unequal
+  length, and its public code cannot be run as published.
 - **Both recordings.** The AD-vs-FTD and 3-class rows use the eyes-open
   recording of each patient for the AD-vs-FTD step.
 - **The two-stage model.** It raises FTD recall from 0.33 to 0.44 at the cost
@@ -359,6 +364,43 @@ Notes:
   - An ensemble of the five 3-class GATs (PSD and the four coupling graphs)
     reaches macro recall 0.595, against 0.583 (p 0.64). With band power it
     reaches 0.600, the same as today.
+
+### Two later checks (2026-11-17 and 2026-11-18)
+
+**Leave-one-subject-out (LOSO)**
+([`LOSO_ds004504.ipynb`](LOSO_ds004504.ipynb),
+[`GAT_loso_ds004504.ipynb`](GAT_loso_ds004504.ipynb),
+[`docs/PREREG_2026-11-17.md`](docs/PREREG_2026-11-17.md)). Each patient is tested
+once by a model fitted on the others.
+
+| task and model | 5 × 5-fold | LOSO [95 % CI] |
+|---|---|---|
+| AD vs HC, MFE-FCGAT | AUC 0.909, accuracy 84.0 % | AUC 0.915 [0.837, 0.978], accuracy 84.6 % (55/65) |
+| AD vs HC, band power (balanced weights) | AUC 0.873, accuracy 76.9 % | AUC 0.897 [0.810, 0.959], accuracy 76.9 % |
+| AD vs HC, soft vote | AUC 0.916, accuracy 83.4 % | AUC 0.925 [0.858, 0.974], accuracy 81.5 % |
+| AD vs FTD, C3 on the second recording | AUC 0.641, p 0.045 | AUC 0.574 [0.412, 0.719], p 0.207 |
+
+AD-vs-HC detection holds under LOSO. The C3 result does not, so the AD-vs-FTD
+signal depends on how the folds are drawn.
+
+**Finer frequency bands, fewer features**
+([`LOSO_subbands_ds004504.ipynb`](LOSO_subbands_ds004504.ipynb),
+`results_loso/subbands/`). Eight bands over frontal and posterior electrodes
+replace 95 band powers with 16 features. The bands were fixed, placed around each
+patient's alpha frequency, or learned from training patients only.
+
+| model | features | AD vs FTD, LOSO AUC | AD vs FTD, 5 × 5 AUC | AD vs HC, LOSO AUC | dementia vs HC, LOSO AUC |
+|---|---|---|---|---|---|
+| 95 band powers per patient | 95 | 0.588 | 0.524 | 0.796 | 0.832 |
+| 5 bands × 2 regions | 10 | 0.399 | 0.407 | 0.750 | 0.784 |
+| 8 fixed bands × 2 regions (primary) | 16 | 0.389 | 0.412 | 0.827 | 0.805 |
+| 8 alpha-anchored bands + alpha frequency | 17 | 0.419 | 0.484 | 0.799 | 0.791 |
+| 8 learned bands × 2 regions | 16 | 0.457 | 0.477 | 0.865 | 0.814 |
+
+All three pre-registered claims failed. No 8-band model separates AD from FTD
+(Holm p 1.0, 1000 label shuffles), and none beats 5 bands on that task. AUCs below
+0.5 lie inside the shuffled range (0.285–0.676). Recording length alone scores
+0.652.
 
 ---
 
@@ -389,8 +431,9 @@ In order of confidence:
    - Detection replicates on a second recording of the same people, eyes open
      under flashing light: AUC 0.846 [0.760, 0.917], lower as predicted.
 3. **Against the best honestly evaluated published results on this dataset, we
-   are level on AD vs HC, dementia vs HC, AD vs FTD and 3-class F1 / recall,
-   and behind on 3-class accuracy** (60.6 % vs a review average of about 70 %).
+   are level on AD vs HC, dementia vs HC and 3-class F1 / recall, and behind on
+   3-class accuracy** (60.6 % vs a review average of about 70 %). On AD vs FTD we
+   are level with Mlinarič et al. [4] and behind the preprint of Wang et al. [14].
    See the scoreboard above.
    - A dedicated dementia-vs-HC model reaches 82.6 % accuracy and AUC 0.898,
      against the best published 80.7 %.
@@ -404,9 +447,13 @@ In order of confidence:
      (0.33 → 0.44).
 5. **AD vs FTD: one EEG measure, lagged cross-correlation, reaches AUC 0.64 on a
    second recording of the same patients (pre-registered, p 0.045).** This is
-   level with the best honest published result (0.651).
+   level with Mlinarič et al. [4] (0.651) but below the 0.823 reported by the
+   preprint of Wang et al. [14], which has not been independently reproduced.
+   - Under leave-one-subject-out the same measure falls to AUC 0.574 (p 0.21), so
+     this result is fragile.
    - Before that, 417 engineered features scored AUC 0.41–0.54. A published
      aperiodic marker scored 0.62–0.64 and was not significant after correction.
+     Finer frequency bands (8 bands, 2 regions) scored 0.39–0.46.
    - No AD-vs-FTD score adds to MMSE, age and sex. With 59 patients, chance
      alone reaches AUC 0.65, so this is a power limit, not proof that EEG
      carries no difference.
@@ -539,6 +586,9 @@ GAT_multiclass_*_ds004504.ipynb 3-class twins with Pearson / PLV / AEC-c / Grang
 GAT_dementia_ds004504.ipynb     MFE-FCGAT, dementia (AD + FTD) vs HC, on the 3-class folds
 Final_scoreboard_ds004504.ipynb every task against the best honest published result (results_final/)
 Combine_ds004504.ipynb          a combined AD-vs-FTD score and a five-graph GAT ensemble (no training)
+LOSO_ds004504.ipynb             leave-one-subject-out rows: band power (AD vs HC) and C3 (AD vs FTD)
+GAT_loso_ds004504.ipynb         MFE-FCGAT, AD vs HC, under leave-one-subject-out
+LOSO_subbands_ds004504.ipynb    finer frequency bands with fewer features, nested LOSO
 leak_check.py                   why Case A scores ~95 %
 lr_check.py                     learning-rate choice for the GATv2 twins, on validation patients
 results_*/                      saved summaries, per-fold CSVs, figures, out-of-fold probabilities, statistics
@@ -547,6 +597,7 @@ experiments_released_code/      the paper's released code, ported and re-run on 
 docs/PROJECT_NOTES.md           full lab notebook: every run, ablation and review decision
 docs/PREREG_2026-11-14.md       plan for the GATv2 and ds006036 runs, written before them
 docs/PREREG_2026-11-16.md       plan for the coupling graphs, the dementia model and the scoreboard
+docs/PREREG_2026-11-17.md       plan for the leave-one-subject-out rows
 ```
 
 ## References
